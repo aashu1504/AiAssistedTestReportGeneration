@@ -205,8 +205,16 @@ def execute_ingestion_step(crew_config: Dict[str, Any], file_path: str) -> Dict[
         return ingestion_result
         
     except Exception as e:
-        logger.error(f"Ingestion step failed: {str(e)}")
-        raise CrewExecutionError(f"Ingestion step failed: {str(e)}")
+        error_msg = str(e)
+        # Check for misleading VertexAI errors that are actually API overload issues
+        if "VertexAIException" in error_msg and "503" in error_msg:
+            logger.error(f"Ingestion step failed due to Google AI Studio API overload (503 Service Unavailable)")
+            logger.error(f"Note: 'VertexAIException' is misleading - we're using Google AI Studio, not Vertex AI")
+            logger.error(f"Original error: {error_msg}")
+            raise CrewExecutionError(f"Ingestion step failed: Google AI Studio API temporarily overloaded (503). Please try again later.")
+        else:
+            logger.error(f"Ingestion step failed: {error_msg}")
+            raise CrewExecutionError(f"Ingestion step failed: {error_msg}")
 
 
 def execute_analysis_step(crew_config: Dict[str, Any], ingestion_result: Dict[str, Any]) -> Dict[str, Any]:
@@ -307,8 +315,16 @@ def execute_analysis_step(crew_config: Dict[str, Any], ingestion_result: Dict[st
         return analysis_result
         
     except Exception as e:
-        logger.error(f"Analysis step failed: {str(e)}")
-        raise CrewExecutionError(f"Analysis step failed: {str(e)}")
+        error_msg = str(e)
+        # Check for misleading VertexAI errors that are actually API overload issues
+        if "VertexAIException" in error_msg and "503" in error_msg:
+            logger.error(f"Analysis step failed due to Google AI Studio API overload (503 Service Unavailable)")
+            logger.error(f"Note: 'VertexAIException' is misleading - we're using Google AI Studio, not Vertex AI")
+            logger.error(f"Original error: {error_msg}")
+            raise CrewExecutionError(f"Analysis step failed: Google AI Studio API temporarily overloaded (503). Please try again later.")
+        else:
+            logger.error(f"Analysis step failed: {error_msg}")
+            raise CrewExecutionError(f"Analysis step failed: {error_msg}")
 
 
 def execute_report_step(crew_config: Dict[str, Any], analysis_result: Dict[str, Any], 
@@ -408,8 +424,16 @@ def execute_report_step(crew_config: Dict[str, Any], analysis_result: Dict[str, 
         return report_result
         
     except Exception as e:
-        logger.error(f"Report step failed: {str(e)}")
-        raise CrewExecutionError(f"Report step failed: {str(e)}")
+        error_msg = str(e)
+        # Check for misleading VertexAI errors that are actually API overload issues
+        if "VertexAIException" in error_msg and "503" in error_msg:
+            logger.error(f"Report step failed due to Google AI Studio API overload (503 Service Unavailable)")
+            logger.error(f"Note: 'VertexAIException' is misleading - we're using Google AI Studio, not Vertex AI")
+            logger.error(f"Original error: {error_msg}")
+            raise CrewExecutionError(f"Report step failed: Google AI Studio API temporarily overloaded (503). Please try again later.")
+        else:
+            logger.error(f"Report step failed: {error_msg}")
+            raise CrewExecutionError(f"Report step failed: {error_msg}")
 
 
 def run_crew(file_path: str, metadata: Dict[str, str]) -> Dict[str, Any]:

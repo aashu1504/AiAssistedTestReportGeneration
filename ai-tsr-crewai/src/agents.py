@@ -62,6 +62,11 @@ def get_gemini_llm():
     
     try:
         logger.info("Using CrewAI LLM with Google AI Studio (not Vertex AI)")
+        
+        # Set environment variable to force Google AI Studio instead of Vertex AI
+        import os
+        os.environ['GOOGLE_API_KEY'] = GEMINI_API_KEY
+        
         # Use the correct model string format for Google AI Studio in LiteLLM
         return LLM(
             model="gemini/gemini-2.5-flash",

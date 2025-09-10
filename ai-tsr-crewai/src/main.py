@@ -70,18 +70,69 @@ def generate_report_id(project: str, release: str) -> str:
 
 
 def attempt_pdf_generation(html_path: str, pdf_path: str) -> bool:
-    """Attempt to generate PDF from HTML using WeasyPrint."""
+    """Attempt to generate PDF from HTML using ReportLab."""
     try:
-        import weasyprint
+        from reportlab.lib.pagesizes import letter, A4
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.lib.units import inch
+        from bs4 import BeautifulSoup
+        import re
         
         print("📄 Generating PDF report...")
-        weasyprint.HTML(filename=html_path).write_pdf(pdf_path)
+        
+        # Read HTML content
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Parse HTML
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Create PDF document
+        doc = SimpleDocTemplate(pdf_path, pagesize=A4, 
+                              rightMargin=72, leftMargin=72, 
+                              topMargin=72, bottomMargin=18)
+        
+        # Get styles
+        styles = getSampleStyleSheet()
+        title_style = ParagraphStyle(
+            'CustomTitle',
+            parent=styles['Heading1'],
+            fontSize=16,
+            spaceAfter=30,
+            alignment=1  # Center alignment
+        )
+        
+        # Build content
+        story = []
+        
+        # Extract title
+        title = soup.find('h1')
+        if title:
+            story.append(Paragraph(title.get_text(), title_style))
+            story.append(Spacer(1, 12))
+        
+        # Extract main content
+        main_content = soup.find('div', class_='container') or soup.find('body')
+        if main_content:
+            # Extract text content and convert to paragraphs
+            for element in main_content.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div']):
+                text = element.get_text().strip()
+                if text:
+                    if element.name in ['h1', 'h2', 'h3']:
+                        story.append(Paragraph(text, styles['Heading2']))
+                    else:
+                        story.append(Paragraph(text, styles['Normal']))
+                    story.append(Spacer(1, 6))
+        
+        # Build PDF
+        doc.build(story)
         print(f"✅ PDF report generated: {pdf_path}")
         return True
         
-    except ImportError:
-        print("⚠️  WeasyPrint not available - skipping PDF generation")
-        print("   Install with: pip install weasyprint")
+    except ImportError as e:
+        print(f"⚠️  Required library not available: {str(e)}")
+        print("   Install with: pip install reportlab beautifulsoup4")
         return False
         
     except Exception as e:
