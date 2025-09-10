@@ -1,0 +1,234 @@
+# Test Summary Report (TSR)
+
+## Report Identifier
+- **Report ID**: {{ report_id or 'TSR-' + project + '-' + release }}
+- **Linked Test Plan**: {{ linked_plan }}
+- **Report Date**: {{ report_date or generated_at }}
+- **Report Version**: {{ report_version or '1.0' }}
+
+## Introduction
+
+### Project Information
+- **Project**: {{ project }}
+- **Release**: {{ release }}
+- **Test Scope**: {{ scope }}
+- **Test Objectives**: {{ objectives }}
+
+### Executive Summary
+This report summarizes the test execution results for {{ project }} release {{ release }}. The testing was conducted covering {{ scope }} with the primary objective of {{ objectives }}.
+
+## Test Summary
+
+| Metric | Count | Percentage |
+|--------|-------|------------|
+| **Total Tests** | {{ total_tests }} | 100% |
+| **Executed** | {{ executed_tests or (total_tests - skipped_tests) }} | {{ "%.1f"|format(((executed_tests or (total_tests - skipped_tests))/total_tests*100) if total_tests > 0 else 0) }}% |
+| **Passed** | {{ passed_tests }} | {{ "%.1f"|format(pass_rate) }}% |
+| **Failed** | {{ failed_tests }} | {{ "%.1f"|format((failed_tests/total_tests*100) if total_tests > 0 else 0) }}% |
+| **Blocked** | {{ blocked_tests or 0 }} | {{ "%.1f"|format((blocked_tests/total_tests*100) if total_tests > 0 else 0) }}% |
+| **Skipped** | {{ skipped_tests }} | {{ "%.1f"|format((skipped_tests/total_tests*100) if total_tests > 0 else 0) }}% |
+| **Pass Rate** | {{ "%.1f"|format(pass_rate) }}% | - |
+
+## Modules Covered
+
+| Module | Tests Executed | Passed | Failed | Pass Rate | Status |
+|--------|----------------|--------|--------|-----------|--------|
+{% for module, stats in modules_covered.items() %}
+| {{ module }} | {{ stats.get('total', 0) }} | {{ stats.get('passed', 0) }} | {{ stats.get('failed', 0) }} | {{ "%.1f"|format(stats.get('pass_rate', 0)) }}% | {{ stats.get('status', 'N/A') }} |
+{% endfor %}
+
+## Test Environment
+
+### Environment Details
+- **Environment Name**: {{ environment }}
+- **Hardware**: {{ hardware_info or 'Standard test hardware' }}
+- **Software**: {{ software_info or 'Test environment software stack' }}
+- **Operating System**: {{ os_version or 'N/A' }}
+- **Browser/Platform**: {{ browser_version or 'N/A' }}
+- **Database**: {{ database_version or 'N/A' }}
+- **Test Data**: {{ test_data_info or 'Standard test data set' }}
+- **Configuration**: {{ configuration or 'Default configuration' }}
+
+### Environment Issues
+{% if environment_issues %}
+{% for issue in environment_issues %}
+- {{ issue }}
+{% endfor %}
+{% else %}
+No environment issues identified.
+{% endif %}
+
+## Charts and Visualizations
+
+### Test Results Distribution
+![Test Results Chart](reports/assets/test_results_chart.png)
+
+### Module-wise Test Results
+![Module Results Chart](reports/assets/module_results_chart.png)
+
+### Defects by Severity
+![Defect Severity Chart](reports/assets/defect_severity_chart.png)
+
+### Test Execution Timeline
+![Execution Timeline](reports/assets/execution_timeline_chart.png)
+
+## Variances/Deviations
+
+{% if variances %}
+### Test Execution Variances
+{% for variance in variances %}
+- **{{ variance.get('type', 'Variance') }}**: {{ variance.get('description', 'N/A') }}
+  - **Impact**: {{ variance.get('impact', 'N/A') }}
+  - **Resolution**: {{ variance.get('resolution', 'N/A') }}
+  - **Date**: {{ variance.get('date', 'N/A') }}
+{% endfor %}
+{% else %}
+No significant variances or deviations from the planned test execution.
+{% endif %}
+
+## Defect Summary
+
+| Severity | Open | Closed | Deferred | Total |
+|----------|------|--------|----------|-------|
+| **Critical** | {{ defects.critical.open or 0 }} | {{ defects.critical.closed or 0 }} | {{ defects.critical.deferred or 0 }} | {{ (defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) }} |
+| **Major** | {{ defects.major.open or 0 }} | {{ defects.major.closed or 0 }} | {{ defects.major.deferred or 0 }} | {{ (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) }} |
+| **Medium** | {{ defects.medium.open or 0 }} | {{ defects.medium.closed or 0 }} | {{ defects.medium.deferred or 0 }} | {{ (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) }} |
+| **Minor** | {{ defects.minor.open or 0 }} | {{ defects.minor.closed or 0 }} | {{ defects.minor.deferred or 0 }} | {{ (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0) }} |
+| **Total** | {{ (defects.critical.open or 0) + (defects.major.open or 0) + (defects.medium.open or 0) + (defects.minor.open or 0) }} | {{ (defects.critical.closed or 0) + (defects.major.closed or 0) + (defects.medium.closed or 0) + (defects.minor.closed or 0) }} | {{ (defects.critical.deferred or 0) + (defects.major.deferred or 0) + (defects.medium.deferred or 0) + (defects.minor.deferred or 0) }} | {{ ((defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) + (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) + (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) + (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0)) }} |
+
+## Key Bugs
+
+{% if key_bugs %}
+| Bug ID | Severity | Priority | Status | Description | Module | Assigned To |
+|--------|----------|----------|--------|-------------|--------|-------------|
+{% for bug in key_bugs %}
+| {{ bug.get('id', 'N/A') }} | {{ bug.get('severity', 'N/A') }} | {{ bug.get('priority', 'N/A') }} | {{ bug.get('status', 'N/A') }} | {{ bug.get('description', 'N/A') }} | {{ bug.get('module', 'N/A') }} | {{ bug.get('assigned_to', 'N/A') }} |
+{% endfor %}
+{% else %}
+No critical or major bugs identified during this test cycle.
+{% endif %}
+
+## Defect Density per Module
+
+| Module | Total Defects | Defect Density | Critical | Major | Medium | Minor |
+|--------|---------------|----------------|----------|-------|--------|-------|
+{% for module, density in defect_density.items() %}
+| {{ module }} | {{ density.get('total', 0) }} | {{ "%.2f"|format(density.get('density', 0)) }} | {{ density.get('critical', 0) }} | {{ density.get('major', 0) }} | {{ density.get('medium', 0) }} | {{ density.get('minor', 0) }} |
+{% endfor %}
+
+## Key Findings
+
+### Stable Areas
+{% if stable_areas %}
+{% for area in stable_areas %}
+- **{{ area.get('module', 'Module') }}**: {{ area.get('description', 'N/A') }}
+  - Pass Rate: {{ "%.1f"|format(area.get('pass_rate', 0)) }}%
+  - Tests: {{ area.get('test_count', 0) }}
+  - Defect Count: {{ area.get('defect_count', 0) }}
+{% endfor %}
+{% else %}
+No specific stable areas identified in this test cycle.
+{% endif %}
+
+### Risky Areas
+{% if risky_areas %}
+{% for area in risky_areas %}
+- **{{ area.get('module', 'Module') }}**: {{ area.get('description', 'N/A') }}
+  - Pass Rate: {{ "%.1f"|format(area.get('pass_rate', 0)) }}%
+  - Tests: {{ area.get('test_count', 0) }}
+  - Risk Level: {{ area.get('risk_level', 'Medium') }}
+  - Defect Count: {{ area.get('defect_count', 0) }}
+{% endfor %}
+{% else %}
+No significant risky areas identified in this test cycle.
+{% endif %}
+
+## Exit Criteria
+
+### Criteria Met
+{% if exit_criteria.met %}
+{% for criteria in exit_criteria.met %}
+- ✅ **{{ criteria.get('name', 'Criteria') }}**: {{ criteria.get('description', 'N/A') }}
+  - **Status**: {{ criteria.get('status', 'Met') }}
+  - **Evidence**: {{ criteria.get('evidence', 'N/A') }}
+{% endfor %}
+{% else %}
+- ✅ All planned test cases executed
+- ✅ Pass rate meets minimum threshold
+- ✅ Critical defects resolved
+{% endif %}
+
+### Criteria Not Met
+{% if exit_criteria.not_met %}
+{% for criteria in exit_criteria.not_met %}
+- ❌ **{{ criteria.get('name', 'Criteria') }}**: {{ criteria.get('description', 'N/A') }}
+  - **Impact**: {{ criteria.get('impact', 'N/A') }}
+  - **Mitigation**: {{ criteria.get('mitigation', 'N/A') }}
+  - **Target Date**: {{ criteria.get('target_date', 'N/A') }}
+{% endfor %}
+{% else %}
+All exit criteria have been met.
+{% endif %}
+
+## Lessons Learned
+
+### What Went Well
+{% if lessons_learned.went_well %}
+{% for lesson in lessons_learned.went_well %}
+- {{ lesson }}
+{% endfor %}
+{% else %}
+- Test execution completed within planned timeframe
+- No major environment issues encountered
+- Good collaboration between teams
+{% endif %}
+
+### Areas for Improvement
+{% if lessons_learned.improvements %}
+{% for lesson in lessons_learned.improvements %}
+- {{ lesson }}
+{% endfor %}
+{% else %}
+- Consider increasing test coverage in critical areas
+- Implement additional automation for regression testing
+- Improve defect tracking and reporting processes
+{% endif %}
+
+### Recommendations for Next Cycle
+{% if lessons_learned.recommendations %}
+{% for lesson in lessons_learned.recommendations %}
+- {{ lesson }}
+{% endfor %}
+{% else %}
+- Review and update test cases based on current findings
+- Enhance test data management processes
+- Implement better risk assessment methodologies
+{% endif %}
+
+## Sign-Off
+
+### Test Team
+- **Test Lead**: {{ sign_off.test_lead or 'TBD' }}
+- **Test Engineer**: {{ sign_off.test_engineer or 'TBD' }}
+- **Date**: {{ sign_off.test_date or generated_at }}
+
+### Development Team
+- **Development Lead**: {{ sign_off.dev_lead or 'TBD' }}
+- **Date**: {{ sign_off.dev_date or 'TBD' }}
+
+### Product Owner
+- **Product Owner**: {{ sign_off.product_owner or 'TBD' }}
+- **Date**: {{ sign_off.product_date or 'TBD' }}
+
+### Quality Assurance
+- **QA Manager**: {{ sign_off.qa_manager or 'TBD' }}
+- **Date**: {{ sign_off.qa_date or 'TBD' }}
+
+### Release Decision
+- **Release Recommendation**: {{ release_recommendation or ('APPROVED' if pass_rate >= 90 else 'CONDITIONAL' if pass_rate >= 75 else 'REJECTED') }}
+- **Comments**: {{ release_comments or 'Based on test execution results and exit criteria evaluation' }}
+
+---
+
+*Report generated on {{ generated_at }}*
+*Report Version: {{ report_version or '1.0' }}*

@@ -1,0 +1,8 @@
+crewai
+pandas
+matplotlib
+jinja2
+lxml
+openpyxl
+python-dotenv
+weasyprint
