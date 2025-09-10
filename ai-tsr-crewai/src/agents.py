@@ -48,9 +48,10 @@ logger.info(f"CREWAI_VERBOSE: {CREWAI_VERBOSE}, CREWAI_DEBUG: {CREWAI_DEBUG}")
 
 def get_gemini_llm():
     """
-    Configure and return Gemini LLM client using CrewAI's native LLM class.
+    Configure and return Gemini LLM client using CrewAI's LLM class with direct Google Gemini.
     
-    This function uses CrewAI's native LLM integration with Google Gemini.
+    This function uses CrewAI's LLM class with the correct Google Gemini model string
+    to avoid LiteLLM wrapper issues and get direct API calls.
     
     Returns:
         Configured CrewAI LLM client for Gemini 2.5 Flash
@@ -60,9 +61,10 @@ def get_gemini_llm():
         return None
     
     try:
-        logger.info("Using CrewAI native Google Gemini client")
+        logger.info("Using CrewAI LLM with Google AI Studio (not Vertex AI)")
+        # Use the correct model string format for Google AI Studio in LiteLLM
         return LLM(
-            model='gemini/gemini-2.5-flash',
+            model="gemini/gemini-2.5-flash",
             api_key=GEMINI_API_KEY,
             temperature=0.1
         )
