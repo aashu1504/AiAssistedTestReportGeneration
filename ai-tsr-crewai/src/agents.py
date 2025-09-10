@@ -9,11 +9,10 @@ from dotenv import load_dotenv
 # Import CrewAI and dependencies with fallback
 CREWAI_AVAILABLE = False
 Agent = None
-ChatGoogleGenerativeAI = None
+LLM = None
 
 try:
-    from crewai import Agent
-    from langchain_google_genai import ChatGoogleGenerativeAI
+    from crewai import Agent, LLM
     CREWAI_AVAILABLE = True
     print("CrewAI dependencies loaded successfully")
 except ImportError as e:
@@ -21,7 +20,7 @@ except ImportError as e:
     print("Using simplified agent implementation...")
     CREWAI_AVAILABLE = False
     Agent = None
-    ChatGoogleGenerativeAI = None
+    LLM = None
 
 # Load environment variables
 load_dotenv()
@@ -49,32 +48,25 @@ logger.info(f"CREWAI_VERBOSE: {CREWAI_VERBOSE}, CREWAI_DEBUG: {CREWAI_DEBUG}")
 
 def get_gemini_llm():
     """
-    Configure and return Gemini LLM client.
+    Configure and return Gemini LLM client using CrewAI's native LLM class.
     
-    This function handles the Gemini SDK integration. If the runtime environment
-    lacks direct Gemini SDK support, it provides a placeholder wrapper that
-    reads GEMINI_API_KEY and returns stubbed responses for POC purposes.
+    This function uses CrewAI's native LLM integration with Google Gemini.
     
     Returns:
-        Configured LLM client for Gemini 2.5 Flash
+        Configured CrewAI LLM client for Gemini 2.5 Flash
     """
     if not GEMINI_API_KEY:
         logger.warning("GEMINI_API_KEY not found in environment variables")
         return None
     
     try:
-        # Try to import and configure the actual Gemini SDK
-        # Note: Replace this with the actual Gemini SDK import when available
-        # from google.generativeai import GenerativeModel
-        # from langchain_google_genai import ChatGoogleGenerativeAI
+        logger.info("Using CrewAI native Google Gemini client")
+        return LLM(
+            model='gemini/gemini-2.5-flash',
+            api_key=GEMINI_API_KEY,
+            temperature=0.1
+        )
         
-        # Placeholder implementation for POC
-        logger.info("Using placeholder Gemini client for POC")
-        return PlaceholderGeminiClient()
-        
-    except ImportError:
-        logger.warning("Gemini SDK not available, using placeholder client")
-        return PlaceholderGeminiClient()
     except Exception as e:
         logger.error(f"Error configuring Gemini client: {str(e)}")
         return PlaceholderGeminiClient()
