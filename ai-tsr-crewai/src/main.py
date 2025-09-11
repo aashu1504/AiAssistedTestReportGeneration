@@ -260,6 +260,12 @@ Examples:
     # Load environment variables
     load_dotenv()
     
+    # Override quality gate from environment variable if set
+    if os.getenv('TSR_QUALITY_GATE'):
+        args.quality_gate = os.getenv('TSR_QUALITY_GATE')
+        logger = logging.getLogger(__name__)
+        logger.info(f"Using quality gate from environment: {args.quality_gate}")
+    
     # Setup logging
     verbose = args.verbose or os.getenv('CREWAI_VERBOSE', 'false').lower() == 'true'
     debug = args.debug or os.getenv('CREWAI_DEBUG', 'false').lower() == 'true'

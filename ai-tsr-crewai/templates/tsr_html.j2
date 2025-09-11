@@ -506,7 +506,14 @@
                 <h2>Executive Summary</h2>
                 <p><strong>Test Execution:</strong> {{ total_tests }} total tests, {{ executed_tests }} executed ({{ pass_rate }}% pass rate)</p>
                 <p><strong>Defects:</strong> {{ (defects.critical.open + defects.major.open + defects.medium.open + defects.minor.open) }} total defects identified ({{ defects.critical.open }} critical, {{ defects.major.open }} major)</p>
-                <p><strong>Status:</strong> {% if pass_rate >= 80 %}✅ Ready for release{% elif pass_rate >= 60 %}⚠️ Needs attention{% else %}❌ Requires immediate action{% endif %}</p>
+                <p><strong>Status:</strong> 
+                {% if quality_gate_evaluation.release_recommendation == 'APPROVED' %}
+                    ✅ Ready for release
+                {% elif quality_gate_evaluation.release_recommendation == 'CONDITIONAL' %}
+                    ⚠️ Conditional release
+                {% else %}
+                    ❌ Requires immediate action
+                {% endif %}</p>
             </div>
             
         <!-- Key Metrics -->
@@ -699,8 +706,9 @@
                         {% if skipped_tests > 0 %}
                         <p><strong>Skipped Tests:</strong> {{ skipped_tests }} tests were skipped</p>
                         {% endif %}
-                        {% if pass_rate < 75 %}
-                        <p><strong>Quality Concern:</strong> Pass rate below recommended threshold (75%)</p>
+                        {% set conditional_threshold = quality_gate_evaluation.release_thresholds.conditional.min_pass_rate %}
+                        {% if pass_rate < conditional_threshold %}
+                        <p><strong>Quality Concern:</strong> Pass rate below conditional threshold ({{ conditional_threshold }}%)</p>
                         {% endif %}
                         {% if (defects.critical.open or 0) > 0 %}
                         <p><strong>Critical Issues:</strong> {{ defects.critical.open }} critical defects require immediate attention</p>
