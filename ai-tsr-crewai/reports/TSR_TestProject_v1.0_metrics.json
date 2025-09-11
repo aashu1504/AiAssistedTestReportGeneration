@@ -2,28 +2,27 @@
   "summary": {
     "total": 16,
     "executed": 16,
-    "passed": 9,
-    "failed": 7,
+    "passed": 10,
+    "failed": 6,
     "blocked": 0,
     "skipped": 0,
-    "pass_pct": 56.25
+    "pass_pct": 62.5
   },
   "fail_by_module": {
     "Profile": 2,
     "Login": 1,
     "Checkout": 1,
     "Orders": 1,
-    "Cart": 1,
-    "Product Page": 1
+    "Cart": 1
   },
   "defects_by_severity": {
-    "Minor": 5,
+    "Minor": 4,
     "Medium": 2,
     "Critical": 0,
     "Major": 0
   },
   "defects_by_priority": {
-    "Low": 5,
+    "Low": 4,
     "Medium": 2,
     "Highest": 0,
     "High": 0
@@ -34,19 +33,67 @@
     "Profile": 3,
     "Orders": 2,
     "Cart": 2,
-    "Product Page": 2
+    "Product Page": 1
   },
   "flaky": [
     "TC010"
   ],
   "key_bugs": [
-    "nan",
-    "BUG-101",
-    "BUG-102",
-    "BUG-103",
-    "BUG-104",
-    "BUG-105",
-    "BUG-106",
-    "BUG-107"
+    {
+      "id": "nan",
+      "module": "Login",
+      "severity": "",
+      "priority": "",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-101",
+      "module": "Login",
+      "severity": "Medium",
+      "priority": "Medium",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-102",
+      "module": "Checkout",
+      "severity": "Medium",
+      "priority": "Medium",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-103",
+      "module": "Profile",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-104",
+      "module": "Orders",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-105",
+      "module": "Cart",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-106",
+      "module": "Profile",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    }
   ]
 }

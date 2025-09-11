@@ -1,0 +1,144 @@
+# Quality Gates Configuration
+# This file defines the quality gate criteria for TSR generation
+# Values can be overridden by environment variables
+
+quality_gates:
+  default:
+    name: "Standard Quality Gate"
+    description: "Standard quality criteria for most projects"
+    # Release recommendation thresholds (what determines APPROVED/CONDITIONAL/REJECTED)
+    release_thresholds:
+      approved:
+        min_pass_rate: 90
+        max_critical_defects: 0
+        max_major_defects: 0
+        min_execution_rate: 95
+        max_blocked_rate: 5
+      conditional:
+        min_pass_rate: 75
+        max_critical_defects: 0
+        max_major_defects: 2
+        min_execution_rate: 90
+        max_blocked_rate: 10
+      # Rejected: Any values below conditional thresholds
+      # (No separate rejection criteria needed)
+    # Additional criteria for reporting and analysis (not used for release decisions)
+    additional_criteria:
+      min_pass_rate: 75
+      max_critical_defects: 0
+      max_major_defects: 2
+      min_execution_rate: 90
+      max_blocked_rate: 10
+
+  strict:
+    name: "Strict Quality Gate"
+    description: "High-quality criteria for critical releases"
+    release_thresholds:
+      approved:
+        min_pass_rate: 98
+        max_critical_defects: 0
+        max_major_defects: 0
+        min_execution_rate: 98
+        max_blocked_rate: 2
+      conditional:
+        min_pass_rate: 95
+        max_critical_defects: 0
+        max_major_defects: 1
+        min_execution_rate: 95
+        max_blocked_rate: 5
+      # Rejected: Any values below conditional thresholds
+      # (No separate rejection criteria needed)
+    additional_criteria:
+      min_pass_rate: 95
+      max_critical_defects: 0
+      max_major_defects: 0
+      min_execution_rate: 95
+      max_blocked_rate: 5
+
+  lenient:
+    name: "Lenient Quality Gate"
+    description: "Relaxed criteria for early releases or prototypes"
+    release_thresholds:
+      approved:
+        min_pass_rate: 80
+        max_critical_defects: 0
+        max_major_defects: 2
+        min_execution_rate: 85
+        max_blocked_rate: 15
+      conditional:
+        min_pass_rate: 50
+        max_critical_defects: 1
+        max_major_defects: 5
+        min_execution_rate: 80
+        max_blocked_rate: 20
+      # Rejected: Any values below conditional thresholds
+      # (No separate rejection criteria needed)
+    additional_criteria:
+      min_pass_rate: 50
+      max_critical_defects: 1
+      max_major_defects: 5
+      min_execution_rate: 80
+      max_blocked_rate: 20
+
+  custom:
+    name: "Custom Quality Gate"
+    description: "User-defined quality criteria"
+    release_thresholds:
+      approved:
+        min_pass_rate: 85
+        max_critical_defects: 0
+        max_major_defects: 1
+        min_execution_rate: 90
+        max_blocked_rate: 10
+      conditional:
+        min_pass_rate: 70
+        max_critical_defects: 0
+        max_major_defects: 2
+        min_execution_rate: 80
+        max_blocked_rate: 15
+      # Rejected: Any values below conditional thresholds
+      # (No separate rejection criteria needed)
+    additional_criteria:
+      min_pass_rate: 70
+      max_critical_defects: 0
+      max_major_defects: 2
+      min_execution_rate: 80
+      max_blocked_rate: 15
+
+# Environment variable mappings
+# These define which environment variables can override config values
+env_mappings:
+  # Global overrides
+  TSR_QUALITY_GATE: "quality_gate_override"
+  
+  # Default gate overrides - Release Thresholds
+  TSR_DEFAULT_APPROVED_PASS_RATE: "default.release_thresholds.approved.min_pass_rate"
+  TSR_DEFAULT_CONDITIONAL_PASS_RATE: "default.release_thresholds.conditional.min_pass_rate"
+  TSR_DEFAULT_APPROVED_CRITICAL_DEFECTS: "default.release_thresholds.approved.max_critical_defects"
+  TSR_DEFAULT_CONDITIONAL_CRITICAL_DEFECTS: "default.release_thresholds.conditional.max_critical_defects"
+  TSR_DEFAULT_APPROVED_MAJOR_DEFECTS: "default.release_thresholds.approved.max_major_defects"
+  TSR_DEFAULT_CONDITIONAL_MAJOR_DEFECTS: "default.release_thresholds.conditional.max_major_defects"
+  
+  # Strict gate overrides - Release Thresholds
+  TSR_STRICT_APPROVED_PASS_RATE: "strict.release_thresholds.approved.min_pass_rate"
+  TSR_STRICT_CONDITIONAL_PASS_RATE: "strict.release_thresholds.conditional.min_pass_rate"
+  TSR_STRICT_APPROVED_CRITICAL_DEFECTS: "strict.release_thresholds.approved.max_critical_defects"
+  TSR_STRICT_CONDITIONAL_CRITICAL_DEFECTS: "strict.release_thresholds.conditional.max_critical_defects"
+  TSR_STRICT_APPROVED_MAJOR_DEFECTS: "strict.release_thresholds.approved.max_major_defects"
+  TSR_STRICT_CONDITIONAL_MAJOR_DEFECTS: "strict.release_thresholds.conditional.max_major_defects"
+  
+  # Lenient gate overrides - Release Thresholds
+  TSR_LENIENT_APPROVED_PASS_RATE: "lenient.release_thresholds.approved.min_pass_rate"
+  TSR_LENIENT_CONDITIONAL_PASS_RATE: "lenient.release_thresholds.conditional.min_pass_rate"
+  TSR_LENIENT_APPROVED_CRITICAL_DEFECTS: "lenient.release_thresholds.approved.max_critical_defects"
+  TSR_LENIENT_CONDITIONAL_CRITICAL_DEFECTS: "lenient.release_thresholds.conditional.max_critical_defects"
+  TSR_LENIENT_APPROVED_MAJOR_DEFECTS: "lenient.release_thresholds.approved.max_major_defects"
+  TSR_LENIENT_CONDITIONAL_MAJOR_DEFECTS: "lenient.release_thresholds.conditional.max_major_defects"
+  
+  # Custom gate overrides - Release Thresholds
+  TSR_CUSTOM_APPROVED_PASS_RATE: "custom.release_thresholds.approved.min_pass_rate"
+  TSR_CUSTOM_CONDITIONAL_PASS_RATE: "custom.release_thresholds.conditional.min_pass_rate"
+  TSR_CUSTOM_APPROVED_CRITICAL_DEFECTS: "custom.release_thresholds.approved.max_critical_defects"
+  TSR_CUSTOM_CONDITIONAL_CRITICAL_DEFECTS: "custom.release_thresholds.conditional.max_critical_defects"
+  TSR_CUSTOM_APPROVED_MAJOR_DEFECTS: "custom.release_thresholds.approved.max_major_defects"
+  TSR_CUSTOM_CONDITIONAL_MAJOR_DEFECTS: "custom.release_thresholds.conditional.max_major_defects"

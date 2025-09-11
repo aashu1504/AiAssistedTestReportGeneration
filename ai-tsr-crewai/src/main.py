@@ -26,6 +26,7 @@ from .tools import (
     render_report
 )
 from .crew import build_crew, run_crew
+from .quality_gates import QualityGateEvaluator
 
 
 def setup_logging(verbose: bool = False, debug: bool = False) -> None:
@@ -198,32 +199,26 @@ Examples:
     )
     parser.add_argument(
         '--project',
-        required=True,
         help='Project name (e.g., "MyApplication")'
     )
     parser.add_argument(
         '--release',
-        required=True,
         help='Release version (e.g., "R1.0.0", "v2.1.3")'
     )
     parser.add_argument(
         '--environment',
-        required=True,
         help='Test environment (e.g., "QA Windows/Chrome", "Production")'
     )
     parser.add_argument(
         '--scope',
-        required=True,
         help='Test scope (e.g., "Login, Checkout, Orders", "API Testing")'
     )
     parser.add_argument(
         '--objectives',
-        required=True,
         help='Test objectives (e.g., "Functional Regression", "Performance")'
     )
     parser.add_argument(
         '--linked_plan',
-        required=True,
         help='Linked test plan ID (e.g., "TP-001", "TEST-123")'
     )
     
@@ -232,6 +227,17 @@ Examples:
         '--outdir',
         default='reports',
         help='Output directory for reports [default: reports/]'
+    )
+    parser.add_argument(
+        '--quality-gate',
+        default='default',
+        choices=['default', 'strict', 'lenient', 'custom'],
+        help='Quality gate to use for release recommendation [default: default]'
+    )
+    parser.add_argument(
+        '--list-quality-gates',
+        action='store_true',
+        help='List available quality gates and exit'
     )
     parser.add_argument(
         '--verbose',
@@ -260,6 +266,46 @@ Examples:
     setup_logging(verbose, debug)
     
     logger = logging.getLogger(__name__)
+    
+    # Handle quality gates listing
+    if args.list_quality_gates:
+        evaluator = QualityGateEvaluator()
+        gates = evaluator.get_available_quality_gates()
+        print("\n📋 Available Quality Gates:")
+        print("=" * 50)
+        for gate_id, gate_name in gates.items():
+            gate_info = evaluator.config_manager.get_quality_gate_info(gate_id)
+            release_thresholds = gate_info.get('release_thresholds', {})
+            additional_criteria = gate_info.get('additional_criteria', {})
+            description = gate_info.get('description', 'No description available')
+            print(f"\n🔹 {gate_id.upper()}: {gate_name}")
+            print(f"   Description: {description}")
+            print(f"   Release Thresholds:")
+            print(f"     ✅ APPROVED:")
+            approved = release_thresholds.get('approved', {})
+            for key, value in approved.items():
+                print(f"       • {key.replace('_', ' ').title()}: {value}")
+            print(f"     ⚠️  CONDITIONAL:")
+            conditional = release_thresholds.get('conditional', {})
+            for key, value in conditional.items():
+                print(f"       • {key.replace('_', ' ').title()}: {value}")
+            print(f"     ❌ REJECTED:")
+            print(f"       • Any values below conditional thresholds")
+            print(f"   Additional Criteria (for reporting):")
+            for key, value in additional_criteria.items():
+                print(f"     • {key.replace('_', ' ').title()}: {value}")
+        print("\n" + "=" * 50)
+        print("Usage: --quality-gate <gate_id>")
+        return 0
+    
+    # Validate required arguments for TSR generation
+    required_args = ['project', 'release', 'environment', 'scope', 'objectives', 'linked_plan']
+    missing_args = [arg for arg in required_args if not getattr(args, arg)]
+    if missing_args:
+        print(f"❌ Error: Missing required arguments: {', '.join(f'--{arg}' for arg in missing_args)}")
+        print("Use --list-quality-gates to see available quality gates")
+        return 1
+    
     logger.info("Starting TSR generation process...")
     
     try:
@@ -370,11 +416,8 @@ Examples:
                 'minor': {'open': metrics.get('defects_by_severity', {}).get('Minor', 0), 'closed': 0, 'deferred': 0}
             },
             
-            # Key bugs
-            'key_bugs': [
-                {'id': bug_id, 'severity': 'Medium', 'priority': 'Medium', 'description': f'Bug {bug_id}'}
-                for bug_id in metrics.get('key_bugs', [])
-            ],
+            # Key bugs (now includes module information)
+            'key_bugs': metrics.get('key_bugs', []),
             
             # Defect density (convert simple counts to complex objects for template)
             'defect_density': {
@@ -417,7 +460,7 @@ Examples:
                 'qa_lead': 'TBD',
                 'qa_date': 'TBD'
             },
-            'release_recommendation': 'APPROVED' if summary.get('pass_pct', 0) >= 90 else 'CONDITIONAL' if summary.get('pass_pct', 0) >= 75 else 'REJECTED',
+            'release_recommendation': 'APPROVED',  # Will be calculated below
             'release_comments': 'Based on test execution results and exit criteria evaluation',
             
             # Additional template fields
@@ -429,6 +472,24 @@ Examples:
             },
             'flaky_tests': metrics.get('flaky', [])
         }
+        
+        # Evaluate release recommendation using quality gates
+        evaluator = QualityGateEvaluator()
+        pass_rate = summary.get('pass_pct', 0)
+        critical_defects = metrics.get('defects_by_severity', {}).get('Critical', 0)
+        major_defects = metrics.get('defects_by_severity', {}).get('Major', 0)
+        
+        recommendation, evaluation_details = evaluator.evaluate_release_recommendation(
+            pass_rate=pass_rate,
+            critical_defects=critical_defects,
+            major_defects=major_defects,
+            quality_gate=args.quality_gate
+        )
+        
+        # Update context with quality gate evaluation
+        context['release_recommendation'] = recommendation
+        context['quality_gate_evaluation'] = evaluation_details
+        context['quality_gate_used'] = args.quality_gate
         
         # Step 6: Render templates
         print("\n📄 Step 6: Rendering report templates...")

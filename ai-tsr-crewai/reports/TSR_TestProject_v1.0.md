@@ -1,9 +1,9 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_TestProject_v1.0_20250911_235000
+- **Report ID**: TSR_TestProject_v1.0_20250912_021530
 - **Linked Test Plan**: TP-001
-- **Report Date**: 2025-09-11 23:50:00
+- **Report Date**: 2025-09-12 02:15:30
 - **Report Version**: 1.0
 
 ## Introduction
@@ -23,11 +23,11 @@ This report summarizes the test execution results for TestProject release v1.0. 
 |--------|-------|------------|
 | **Total Tests** | 16 | 100% |
 | **Executed** | 16 | 100.0% |
-| **Passed** | 9 | 56.2% |
-| **Failed** | 7 | 43.8% |
+| **Passed** | 10 | 62.5% |
+| **Failed** | 6 | 37.5% |
 | **Blocked** | 0 | 0.0% |
 | **Skipped** | 0 | 0.0% |
-| **Pass Rate** | 56.2% | - |
+| **Pass Rate** | 62.5% | - |
 
 ## Modules Covered
 
@@ -42,7 +42,7 @@ This report summarizes the test execution results for TestProject release v1.0. 
 
 | Orders | 2 | 1 | 1 | 0.0% | N/A |
 
-| Product Page | 2 | 1 | 1 | 0.0% | N/A |
+| Product Page | 2 | 2 | 0 | 0.0% | N/A |
 
 | Profile | 4 | 2 | 2 | 0.0% | N/A |
 
@@ -91,8 +91,8 @@ No significant variances or deviations from the planned test execution.
 | **Critical** | 0 | 0 | 0 | 0 |
 | **Major** | 0 | 0 | 0 | 0 |
 | **Medium** | 2 | 0 | 0 | 2 |
-| **Minor** | 5 | 0 | 0 | 5 |
-| **Total** | 7 | 0 | 0 | 7 |
+| **Minor** | 4 | 0 | 0 | 4 |
+| **Total** | 6 | 0 | 0 | 6 |
 
 ## Key Bugs
 
@@ -100,21 +100,19 @@ No significant variances or deviations from the planned test execution.
 | Bug ID | Severity | Priority | Status | Description | Module | Assigned To |
 |--------|----------|----------|--------|-------------|--------|-------------|
 
-| nan | Medium | Medium | N/A | Bug nan | N/A | N/A |
+| nan |  |  | Open | N/A | Login |  |
 
-| BUG-101 | Medium | Medium | N/A | Bug BUG-101 | N/A | N/A |
+| BUG-101 | Medium | Medium | Open | N/A | Login |  |
 
-| BUG-102 | Medium | Medium | N/A | Bug BUG-102 | N/A | N/A |
+| BUG-102 | Medium | Medium | Open | N/A | Checkout |  |
 
-| BUG-103 | Medium | Medium | N/A | Bug BUG-103 | N/A | N/A |
+| BUG-103 | Minor | Low | Open | N/A | Profile |  |
 
-| BUG-104 | Medium | Medium | N/A | Bug BUG-104 | N/A | N/A |
+| BUG-104 | Minor | Low | Open | N/A | Orders |  |
 
-| BUG-105 | Medium | Medium | N/A | Bug BUG-105 | N/A | N/A |
+| BUG-105 | Minor | Low | Open | N/A | Cart |  |
 
-| BUG-106 | Medium | Medium | N/A | Bug BUG-106 | N/A | N/A |
-
-| BUG-107 | Medium | Medium | N/A | Bug BUG-107 | N/A | N/A |
+| BUG-106 | Minor | Low | Open | N/A | Profile |  |
 
 
 
@@ -133,7 +131,7 @@ No significant variances or deviations from the planned test execution.
 
 | Cart | 2 | 1.00 | 0 | 0 | 2 | 0 |
 
-| Product Page | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| Product Page | 1 | 0.50 | 0 | 0 | 1 | 0 |
 
 
 ## Key Findings
@@ -192,7 +190,7 @@ All exit criteria have been met.
 ### Test Team
 - **Test Lead**: TBD
 - **Test Engineer**: TBD
-- **Date**: 2025-09-11
+- **Date**: 2025-09-12
 
 ### Development Team
 - **Development Lead**: TBD
@@ -212,5 +210,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-11 23:50:00*
+*Report generated on 2025-09-12 02:15:30*
 *Report Version: 1.0*

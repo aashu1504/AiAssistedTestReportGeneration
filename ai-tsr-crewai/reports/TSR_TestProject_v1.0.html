@@ -212,6 +212,98 @@
             transform: scale(1.02);
         }
         
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 2% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #e74c3c;
+            background-color: #f8f9fa;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .chart-card img {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
         /* Tables */
         .table-container {
             background: white;
@@ -404,7 +496,7 @@
             <div class="meta">
                 <span>Environment: Test</span>
                 <span>Plan: TP-001</span>
-                <span>Generated: 2025-09-11 23:50:00</span>
+                <span>Generated: 2025-09-12 02:15:30</span>
             </div>
         </div>
         
@@ -412,9 +504,9 @@
             <!-- Executive Summary -->
             <div class="exec-summary">
                 <h2>Executive Summary</h2>
-                <p><strong>Test Execution:</strong> 16 total tests, 16 executed (56.25% pass rate)</p>
-                <p><strong>Defects:</strong> 7 total defects identified (0 critical, 0 major)</p>
-                <p><strong>Status:</strong> ❌ Requires immediate action</p>
+                <p><strong>Test Execution:</strong> 16 total tests, 16 executed (62.5% pass rate)</p>
+                <p><strong>Defects:</strong> 6 total defects identified (0 critical, 0 major)</p>
+                <p><strong>Status:</strong> ⚠️ Needs attention</p>
             </div>
             
         <!-- Key Metrics -->
@@ -429,14 +521,14 @@
                 <div class="metric-percentage">100.0%</div>
             </div>
             <div class="metric-card passed">
-                <div class="metric-value">9</div>
+                <div class="metric-value">10</div>
                 <div class="metric-label">Passed</div>
-                <div class="metric-percentage">56.25%</div>
+                <div class="metric-percentage">62.5%</div>
             </div>
             <div class="metric-card failed">
-                <div class="metric-value">7</div>
+                <div class="metric-value">6</div>
                 <div class="metric-label">Failed</div>
-                <div class="metric-percentage">43.8%</div>
+                <div class="metric-percentage">37.5%</div>
             </div>
             <div class="metric-card blocked">
                 <div class="metric-value">0</div>
@@ -454,19 +546,19 @@
                 <div class="charts-grid">
                     <div class="chart-card">
                         <h3>Test Results</h3>
-                        <img src="assets/pass_fail.png" alt="Test Results Chart" />
+                        <img src="assets/pass_fail.png" alt="Test Results Chart" onclick="openModal('Test Results Summary', 'assets/pass_fail.png')" />
                     </div>
                     <div class="chart-card">
                         <h3>Failures by Module</h3>
-                        <img src="assets/fail_by_module.png" alt="Module Results Chart" />
+                        <img src="assets/fail_by_module.png" alt="Module Results Chart" onclick="openModal('Test Failures by Module', 'assets/fail_by_module.png')" />
                     </div>
                     <div class="chart-card">
                         <h3>Defects by Severity</h3>
-                        <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" />
+                        <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" />
                     </div>
                     <div class="chart-card">
                         <h3>Defects by Priority</h3>
-                        <img src="assets/defects_by_priority.png" alt="Defects by Priority Chart" />
+                        <img src="assets/defects_by_priority.png" alt="Defects by Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" />
                     </div>
                 </div>
             </div>
@@ -521,9 +613,9 @@
                         <tr>
                             <td><strong>Product Page</strong></td>
                             <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td><span class="status-badge status-passed">2</span></td>
+                            <td><span class="status-badge status-failed">0</span></td>
+                            <td>100.0%</td>
                         </tr>
                         
                         <tr>
@@ -613,13 +705,13 @@
                         <tr>
                             <td><strong>Product Page</strong></td>
                             <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td><span class="status-badge status-passed">2</span></td>
+                            <td><span class="status-badge status-failed">0</span></td>
+                            <td>100.0%</td>
                             <td>
                                 
                                 
-                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                    <span class="status-badge status-passed">Excellent</span>
                                 
                             </td>
                         </tr>
@@ -693,7 +785,7 @@
                     <div style="margin: 1rem 0; padding: 1rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
                         <h4>Test Execution Summary</h4>
                         <p><strong>Execution Rate:</strong> 100.0% (16/16 tests)</p>
-                        <p><strong>Pass Rate:</strong> 56.25% (9/16 executed tests)</p>
+                        <p><strong>Pass Rate:</strong> 62.5% (10/16 executed tests)</p>
                         
                         
                         
@@ -743,17 +835,17 @@
                         </tr>
                         <tr>
                             <td><span class="status-badge status-minor"><strong>Minor</strong></span></td>
-                            <td>5</td>
+                            <td>4</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>5</td>
+                            <td>4</td>
                         </tr>
                         <tr style="font-weight: bold; background-color: #f8f9fa;">
                             <td><strong>Total</strong></td>
-                            <td>7</td>
+                            <td>6</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>7</td>
+                            <td>6</td>
                         </tr>
                     </tbody>
                 </table>
@@ -785,8 +877,8 @@
                             <td>Medium</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-101</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Login</td>
+                            <td></td>
                         </tr>
                         
                         
@@ -797,68 +889,56 @@
                             <td>Medium</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-102</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Checkout</td>
+                            <td></td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-103</strong></td>
-                            <td><span class="status-badge status-failed">Medium</span></td>
-                            <td>Medium</td>
+                            <td><span class="status-badge status-failed">Minor</span></td>
+                            <td>Low</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-103</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Profile</td>
+                            <td></td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-104</strong></td>
-                            <td><span class="status-badge status-failed">Medium</span></td>
-                            <td>Medium</td>
+                            <td><span class="status-badge status-failed">Minor</span></td>
+                            <td>Low</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-104</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Orders</td>
+                            <td></td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-105</strong></td>
-                            <td><span class="status-badge status-failed">Medium</span></td>
-                            <td>Medium</td>
+                            <td><span class="status-badge status-failed">Minor</span></td>
+                            <td>Low</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-105</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Cart</td>
+                            <td></td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-106</strong></td>
-                            <td><span class="status-badge status-failed">Medium</span></td>
-                            <td>Medium</td>
+                            <td><span class="status-badge status-failed">Minor</span></td>
+                            <td>Low</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-106</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
-                        </tr>
-                        
-                        
-                        
-                        <tr>
-                            <td><strong>BUG-107</strong></td>
-                            <td><span class="status-badge status-failed">Medium</span></td>
-                            <td>Medium</td>
-                            <td><span class="status-badge status-blocked">Open</span></td>
-                            <td>Bug BUG-107</td>
-                            <td>N/A</td>
-                            <td>N/A</td>
+                            <td>Profile</td>
+                            <td></td>
                         </tr>
                         
                         
@@ -891,14 +971,12 @@
                         
                         
                         
+                        <li><strong>Product Page module</strong> shows excellent stability with 100.0% pass rate</li>
                         
                         
                         
                         
-                        <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
-                        <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
-                        <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
-                        <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
+                        
                         
                     </ul>
                     
@@ -909,7 +987,7 @@
                     
                     <ul>
                         
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of 56.25% is below recommended threshold (75%)</li>
+                        <li><strong>Overall Quality Risk:</strong> Pass rate of 62.5% is below recommended threshold (75%)</li>
                         
                         
                         
@@ -933,8 +1011,6 @@
                         
                         
                         
-                        
-                        <li><strong>Product Page module</strong> needs attention with 50.0% pass rate</li>
                         
                         
                         
@@ -971,7 +1047,7 @@
                     <div style="margin: 1rem 0;">
                         
                         
-                        <p>❌ Pass rate below minimum threshold (56.25% < 75%)</p>
+                        <p>❌ Pass rate below minimum threshold (62.5% < 75%)</p>
                         
                         
                         
@@ -1040,7 +1116,7 @@
                             <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: TBD</td>
                         </tr>
                         <tr>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-11</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-12</td>
                             <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
                             <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
                             <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
@@ -1072,8 +1148,48 @@
         
         <!-- Footer -->
         <div class="footer">
-            <p>Generated on 2025-09-11 23:50:00 | Test Summary Report for TestProject v1.0</p>
+            <p>Generated on 2025-09-12 02:15:30 | Test Summary Report for TestProject v1.0</p>
         </div>
     </div>
+    
+    <!-- Modal for chart images -->
+    <div id="chartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Chart Title</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <img id="modalImage" class="modal-image" src="" alt="Chart Image">
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, imageSrc) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('chartModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+        
+        function closeModal() {
+            document.getElementById('chartModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('chartModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>

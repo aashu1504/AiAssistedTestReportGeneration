@@ -386,11 +386,30 @@ def compute_metrics(df: pd.DataFrame) -> Dict[str, Any]:
         metrics['flaky'] = flaky_tests
         logger.debug(f"Found {len(flaky_tests)} flaky tests")
     
-    # Extract unique bug IDs
-    if 'BugID' in df.columns:
-        key_bugs = df[df['BugID'].notna() & (df['BugID'] != '')]['BugID'].unique().tolist()
+    # Extract unique bug IDs with module information
+    if 'BugID' in df.columns and 'Module' in df.columns:
+        bug_df = df[df['BugID'].notna() & (df['BugID'] != '') & 
+                   df['Module'].notna() & (df['Module'] != '')]
+        key_bugs = []
+        for _, row in bug_df.iterrows():
+            bug_info = {
+                'id': row['BugID'],
+                'module': row['Module'],
+                'severity': row.get('Severity', 'Medium') if pd.notna(row.get('Severity')) else 'Medium',
+                'priority': row.get('Priority', 'Medium') if pd.notna(row.get('Priority')) else 'Medium',
+                'status': 'Open',
+                'assigned_to': row.get('Tester', 'N/A') if pd.notna(row.get('Tester')) else 'N/A'
+            }
+            # Only add if not already present (avoid duplicates)
+            if not any(bug['id'] == bug_info['id'] for bug in key_bugs):
+                key_bugs.append(bug_info)
         metrics['key_bugs'] = key_bugs
-        logger.debug(f"Found {len(key_bugs)} unique bug IDs")
+        logger.debug(f"Found {len(key_bugs)} unique bug IDs with module info")
+    elif 'BugID' in df.columns:
+        # Fallback to simple bug IDs if no module info
+        key_bugs = df[df['BugID'].notna() & (df['BugID'] != '')]['BugID'].unique().tolist()
+        metrics['key_bugs'] = [{'id': bug_id, 'module': 'N/A', 'severity': 'Medium', 'priority': 'Medium', 'status': 'Open', 'assigned_to': 'N/A'} for bug_id in key_bugs]
+        logger.debug(f"Found {len(key_bugs)} unique bug IDs (no module info)")
     
     logger.info("Metrics computation completed")
     return metrics
