@@ -5,6 +5,7 @@ import logging
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import numpy as np
 from typing import Dict, List, Tuple, Any, Optional
 from pathlib import Path
 import json
@@ -414,112 +415,218 @@ def save_charts(metrics: Dict[str, Any], out_dir: str) -> Dict[str, str]:
     chart_files = {}
     
     try:
-        # Set up matplotlib style
-        plt.style.use('default')
-        plt.rcParams['figure.figsize'] = (10, 6)
-        plt.rcParams['font.size'] = 10
+        # Set up matplotlib style with modern, professional look
+        plt.style.use('seaborn-v0_8-whitegrid')
+        plt.rcParams['figure.figsize'] = (12, 8)
+        plt.rcParams['font.size'] = 12
+        plt.rcParams['axes.labelsize'] = 13
+        plt.rcParams['axes.titlesize'] = 16
+        plt.rcParams['xtick.labelsize'] = 11
+        plt.rcParams['ytick.labelsize'] = 11
+        plt.rcParams['legend.fontsize'] = 11
+        plt.rcParams['figure.facecolor'] = 'white'
+        plt.rcParams['axes.facecolor'] = 'white'
+        plt.rcParams['axes.edgecolor'] = '#E0E0E0'
+        plt.rcParams['axes.linewidth'] = 1.2
+        plt.rcParams['grid.alpha'] = 0.3
         
         # 1. Pass/Fail Bar Chart
         if 'summary' in metrics:
             summary = metrics['summary']
-            fig, ax = plt.subplots(figsize=(10, 6))
+            fig, ax = plt.subplots(figsize=(12, 8))
             
             categories = ['Passed', 'Failed', 'Blocked', 'Skipped']
             values = [summary['passed'], summary['failed'], 
                      summary['blocked'], summary['skipped']]
-            colors = ['#27ae60', '#e74c3c', '#9b59b6', '#f39c12']
             
-            bars = ax.bar(categories, values, color=colors)
-            ax.set_title('Test Results Summary', fontsize=14, fontweight='bold')
-            ax.set_ylabel('Number of Tests')
+            # Modern, professional color palette
+            colors = ['#2ECC71', '#E74C3C', '#9B59B6', '#F39C12']
             
-            # Add value labels on bars
+            # Create bars with better styling
+            bars = ax.bar(categories, values, color=colors, alpha=0.8, 
+                         edgecolor='white', linewidth=2, width=0.6)
+            
+            # Customize the chart
+            ax.set_title('Test Results Summary', fontsize=18, fontweight='bold', 
+                        color='#2C3E50', pad=20)
+            ax.set_ylabel('Number of Tests', fontsize=14, fontweight='bold', color='#34495E')
+            ax.set_xlabel('Test Status', fontsize=14, fontweight='bold', color='#34495E')
+            
+            # Style the axes
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['left'].set_color('#BDC3C7')
+            ax.spines['bottom'].set_color('#BDC3C7')
+            ax.tick_params(colors='#34495E', labelsize=12)
+            
+            # Add value labels on bars with better positioning
             for bar, value in zip(bars, values):
                 if value > 0:
-                    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
-                           str(value), ha='center', va='bottom')
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2, height + 0.05,
+                           f'{int(value)}', ha='center', va='bottom', 
+                           fontweight='bold', fontsize=13, color='#2C3E50')
+            
+            # Add percentage labels
+            total = sum(values)
+            if total > 0:
+                for bar, value in zip(bars, values):
+                    if value > 0:
+                        height = bar.get_height()
+                        percentage = (value / total) * 100
+                        ax.text(bar.get_x() + bar.get_width()/2, height/2,
+                               f'{percentage:.1f}%', ha='center', va='center', 
+                               fontweight='bold', fontsize=11, color='white')
             
             plt.tight_layout()
             chart_path = os.path.join(out_dir, 'pass_fail.png')
-            plt.savefig(chart_path, dpi=300, bbox_inches='tight')
+            plt.savefig(chart_path, dpi=300, bbox_inches='tight', facecolor='white')
             plt.close()
             chart_files['pass_fail'] = 'assets/pass_fail.png'
             logger.info("Generated pass/fail chart")
         
         # 2. Failures by Module
         if 'fail_by_module' in metrics and metrics['fail_by_module']:
-            fig, ax = plt.subplots(figsize=(12, 6))
+            fig, ax = plt.subplots(figsize=(14, 8))
             
             modules = list(metrics['fail_by_module'].keys())
             failures = list(metrics['fail_by_module'].values())
             
-            bars = ax.bar(modules, failures, color='#e74c3c')
-            ax.set_title('Test Failures by Module', fontsize=14, fontweight='bold')
-            ax.set_ylabel('Number of Failures')
-            ax.set_xlabel('Module')
+            # Create gradient colors for modules
+            colors = plt.cm.Reds(np.linspace(0.4, 0.9, len(modules)))
+            
+            bars = ax.bar(modules, failures, color=colors, alpha=0.8, 
+                         edgecolor='white', linewidth=2, width=0.6)
+            
+            ax.set_title('Test Failures by Module', fontsize=18, fontweight='bold', 
+                        color='#2C3E50', pad=20)
+            ax.set_ylabel('Number of Failures', fontsize=14, fontweight='bold', color='#34495E')
+            ax.set_xlabel('Module', fontsize=14, fontweight='bold', color='#34495E')
+            
+            # Style the axes
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['left'].set_color('#BDC3C7')
+            ax.spines['bottom'].set_color('#BDC3C7')
+            ax.tick_params(colors='#34495E', labelsize=12)
             
             # Rotate x-axis labels if needed
-            if len(modules) > 5:
+            if len(modules) > 4:
                 plt.xticks(rotation=45, ha='right')
             
             # Add value labels on bars
             for bar, value in zip(bars, failures):
-                ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
-                       str(value), ha='center', va='bottom')
+                if value > 0:
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2, height + 0.05,
+                           f'{int(value)}', ha='center', va='bottom', 
+                           fontweight='bold', fontsize=13, color='#2C3E50')
             
             plt.tight_layout()
             chart_path = os.path.join(out_dir, 'fail_by_module.png')
-            plt.savefig(chart_path, dpi=300, bbox_inches='tight')
+            plt.savefig(chart_path, dpi=300, bbox_inches='tight', facecolor='white')
             plt.close()
             chart_files['fail_by_module'] = 'assets/fail_by_module.png'
             logger.info("Generated failures by module chart")
         
         # 3. Defects by Severity
         if 'defects_by_severity' in metrics and any(metrics['defects_by_severity'].values()):
-            fig, ax = plt.subplots(figsize=(10, 6))
+            fig, ax = plt.subplots(figsize=(12, 8))
             
             severities = ['Critical', 'Major', 'Medium', 'Minor']
             counts = [metrics['defects_by_severity'].get(s, 0) for s in severities]
-            colors = ['#e74c3c', '#f39c12', '#f1c40f', '#95a5a6']
             
-            bars = ax.bar(severities, counts, color=colors)
-            ax.set_title('Defects by Severity', fontsize=14, fontweight='bold')
-            ax.set_ylabel('Number of Defects')
+            # Professional severity color palette
+            colors = ['#E74C3C', '#F39C12', '#F1C40F', '#95A5A6']
+            
+            bars = ax.bar(severities, counts, color=colors, alpha=0.8, 
+                         edgecolor='white', linewidth=2, width=0.6)
+            
+            ax.set_title('Defects by Severity', fontsize=18, fontweight='bold', 
+                        color='#2C3E50', pad=20)
+            ax.set_ylabel('Number of Defects', fontsize=14, fontweight='bold', color='#34495E')
+            ax.set_xlabel('Severity Level', fontsize=14, fontweight='bold', color='#34495E')
+            
+            # Style the axes
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['left'].set_color('#BDC3C7')
+            ax.spines['bottom'].set_color('#BDC3C7')
+            ax.tick_params(colors='#34495E', labelsize=12)
             
             # Add value labels on bars
             for bar, value in zip(bars, counts):
                 if value > 0:
-                    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
-                           str(value), ha='center', va='bottom')
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2, height + 0.05,
+                           f'{int(value)}', ha='center', va='bottom', 
+                           fontweight='bold', fontsize=13, color='#2C3E50')
+            
+            # Add percentage labels
+            total = sum(counts)
+            if total > 0:
+                for bar, value in zip(bars, counts):
+                    if value > 0:
+                        height = bar.get_height()
+                        percentage = (value / total) * 100
+                        ax.text(bar.get_x() + bar.get_width()/2, height/2,
+                               f'{percentage:.1f}%', ha='center', va='center', 
+                               fontweight='bold', fontsize=11, color='white')
             
             plt.tight_layout()
             chart_path = os.path.join(out_dir, 'defects_by_severity.png')
-            plt.savefig(chart_path, dpi=300, bbox_inches='tight')
+            plt.savefig(chart_path, dpi=300, bbox_inches='tight', facecolor='white')
             plt.close()
             chart_files['defects_by_severity'] = 'assets/defects_by_severity.png'
             logger.info("Generated defects by severity chart")
         
         # 4. Defects by Priority
         if 'defects_by_priority' in metrics and any(metrics['defects_by_priority'].values()):
-            fig, ax = plt.subplots(figsize=(10, 6))
+            fig, ax = plt.subplots(figsize=(12, 8))
             
             priorities = ['Highest', 'High', 'Medium', 'Low']
             counts = [metrics['defects_by_priority'].get(p, 0) for p in priorities]
-            colors = ['#8e44ad', '#9b59b6', '#3498db', '#85c1e9']
             
-            bars = ax.bar(priorities, counts, color=colors)
-            ax.set_title('Defects by Priority', fontsize=14, fontweight='bold')
-            ax.set_ylabel('Number of Defects')
+            # Professional priority color palette
+            colors = ['#8E44AD', '#9B59B6', '#3498DB', '#85C1E9']
+            
+            bars = ax.bar(priorities, counts, color=colors, alpha=0.8, 
+                         edgecolor='white', linewidth=2, width=0.6)
+            
+            ax.set_title('Defects by Priority', fontsize=18, fontweight='bold', 
+                        color='#2C3E50', pad=20)
+            ax.set_ylabel('Number of Defects', fontsize=14, fontweight='bold', color='#34495E')
+            ax.set_xlabel('Priority Level', fontsize=14, fontweight='bold', color='#34495E')
+            
+            # Style the axes
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['left'].set_color('#BDC3C7')
+            ax.spines['bottom'].set_color('#BDC3C7')
+            ax.tick_params(colors='#34495E', labelsize=12)
             
             # Add value labels on bars
             for bar, value in zip(bars, counts):
                 if value > 0:
-                    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
-                           str(value), ha='center', va='bottom')
+                    height = bar.get_height()
+                    ax.text(bar.get_x() + bar.get_width()/2, height + 0.05,
+                           f'{int(value)}', ha='center', va='bottom', 
+                           fontweight='bold', fontsize=13, color='#2C3E50')
+            
+            # Add percentage labels
+            total = sum(counts)
+            if total > 0:
+                for bar, value in zip(bars, counts):
+                    if value > 0:
+                        height = bar.get_height()
+                        percentage = (value / total) * 100
+                        ax.text(bar.get_x() + bar.get_width()/2, height/2,
+                               f'{percentage:.1f}%', ha='center', va='center', 
+                               fontweight='bold', fontsize=11, color='white')
             
             plt.tight_layout()
             chart_path = os.path.join(out_dir, 'defects_by_priority.png')
-            plt.savefig(chart_path, dpi=300, bbox_inches='tight')
+            plt.savefig(chart_path, dpi=300, bbox_inches='tight', facecolor='white')
             plt.close()
             chart_files['defects_by_priority'] = 'assets/defects_by_priority.png'
             logger.info("Generated defects by priority chart")

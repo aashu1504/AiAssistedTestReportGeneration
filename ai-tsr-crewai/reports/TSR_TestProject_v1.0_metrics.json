@@ -1,36 +1,40 @@
 {
   "summary": {
-    "total": 8,
-    "executed": 8,
-    "passed": 4,
-    "failed": 4,
+    "total": 16,
+    "executed": 16,
+    "passed": 9,
+    "failed": 7,
     "blocked": 0,
     "skipped": 0,
-    "pass_pct": 50.0
+    "pass_pct": 56.25
   },
   "fail_by_module": {
+    "Profile": 2,
     "Login": 1,
     "Checkout": 1,
-    "Profile": 1,
-    "Orders": 1
+    "Orders": 1,
+    "Cart": 1,
+    "Product Page": 1
   },
   "defects_by_severity": {
-    "Major": 1,
-    "Medium": 1,
-    "Critical": 1,
-    "Minor": 1
+    "Minor": 5,
+    "Medium": 2,
+    "Critical": 0,
+    "Major": 0
   },
   "defects_by_priority": {
-    "High": 1,
-    "Medium": 1,
-    "Highest": 1,
-    "Low": 1
+    "Low": 5,
+    "Medium": 2,
+    "Highest": 0,
+    "High": 0
   },
   "density": {
     "Login": 2,
     "Checkout": 2,
-    "Profile": 2,
-    "Orders": 2
+    "Profile": 3,
+    "Orders": 2,
+    "Cart": 2,
+    "Product Page": 2
   },
   "flaky": [
     "TC010"
@@ -40,6 +44,9 @@
     "BUG-101",
     "BUG-102",
     "BUG-103",
-    "BUG-104"
+    "BUG-104",
+    "BUG-105",
+    "BUG-106",
+    "BUG-107"
   ]
 }

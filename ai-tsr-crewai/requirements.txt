@@ -1,6 +1,7 @@
 crewai
 pandas
 matplotlib
+numpy
 jinja2
 lxml
 openpyxl

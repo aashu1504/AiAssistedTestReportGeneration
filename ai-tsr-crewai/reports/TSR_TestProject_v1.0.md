@@ -1,9 +1,9 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_TestProject_v1.0_20250911_230714
+- **Report ID**: TSR_TestProject_v1.0_20250911_235000
 - **Linked Test Plan**: TP-001
-- **Report Date**: 2025-09-11 23:07:14
+- **Report Date**: 2025-09-11 23:50:00
 - **Report Version**: 1.0
 
 ## Introduction
@@ -21,26 +21,30 @@ This report summarizes the test execution results for TestProject release v1.0. 
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
-| **Total Tests** | 8 | 100% |
-| **Executed** | 8 | 100.0% |
-| **Passed** | 4 | 50.0% |
-| **Failed** | 4 | 50.0% |
+| **Total Tests** | 16 | 100% |
+| **Executed** | 16 | 100.0% |
+| **Passed** | 9 | 56.2% |
+| **Failed** | 7 | 43.8% |
 | **Blocked** | 0 | 0.0% |
 | **Skipped** | 0 | 0.0% |
-| **Pass Rate** | 50.0% | - |
+| **Pass Rate** | 56.2% | - |
 
 ## Modules Covered
 
 | Module | Tests Executed | Passed | Failed | Pass Rate | Status |
 |--------|----------------|--------|--------|-----------|--------|
 
+| Cart | 2 | 1 | 1 | 0.0% | N/A |
+
 | Checkout | 2 | 1 | 1 | 0.0% | N/A |
 
-| Login | 2 | 1 | 1 | 0.0% | N/A |
+| Login | 4 | 3 | 1 | 0.0% | N/A |
 
 | Orders | 2 | 1 | 1 | 0.0% | N/A |
 
-| Profile | 2 | 1 | 1 | 0.0% | N/A |
+| Product Page | 2 | 1 | 1 | 0.0% | N/A |
+
+| Profile | 4 | 2 | 2 | 0.0% | N/A |
 
 
 ## Test Environment
@@ -84,11 +88,11 @@ No significant variances or deviations from the planned test execution.
 
 | Severity | Open | Closed | Deferred | Total |
 |----------|------|--------|----------|-------|
-| **Critical** | 1 | 0 | 0 | 1 |
-| **Major** | 1 | 0 | 0 | 1 |
-| **Medium** | 1 | 0 | 0 | 1 |
-| **Minor** | 1 | 0 | 0 | 1 |
-| **Total** | 4 | 0 | 0 | 4 |
+| **Critical** | 0 | 0 | 0 | 0 |
+| **Major** | 0 | 0 | 0 | 0 |
+| **Medium** | 2 | 0 | 0 | 2 |
+| **Minor** | 5 | 0 | 0 | 5 |
+| **Total** | 7 | 0 | 0 | 7 |
 
 ## Key Bugs
 
@@ -106,6 +110,12 @@ No significant variances or deviations from the planned test execution.
 
 | BUG-104 | Medium | Medium | N/A | Bug BUG-104 | N/A | N/A |
 
+| BUG-105 | Medium | Medium | N/A | Bug BUG-105 | N/A | N/A |
+
+| BUG-106 | Medium | Medium | N/A | Bug BUG-106 | N/A | N/A |
+
+| BUG-107 | Medium | Medium | N/A | Bug BUG-107 | N/A | N/A |
+
 
 
 ## Defect Density per Module
@@ -113,13 +123,17 @@ No significant variances or deviations from the planned test execution.
 | Module | Total Defects | Defect Density | Critical | Major | Medium | Minor |
 |--------|---------------|----------------|----------|-------|--------|-------|
 
-| Login | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| Login | 2 | 0.50 | 0 | 0 | 2 | 0 |
 
 | Checkout | 2 | 1.00 | 0 | 0 | 2 | 0 |
 
-| Profile | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| Profile | 3 | 0.75 | 0 | 0 | 3 | 0 |
 
 | Orders | 2 | 1.00 | 0 | 0 | 2 | 0 |
+
+| Cart | 2 | 1.00 | 0 | 0 | 2 | 0 |
+
+| Product Page | 2 | 1.00 | 0 | 0 | 2 | 0 |
 
 
 ## Key Findings
@@ -198,5 +212,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-11 23:07:14*
+*Report generated on 2025-09-11 23:50:00*
 *Report Version: 1.0*

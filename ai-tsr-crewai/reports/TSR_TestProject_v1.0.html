@@ -142,34 +142,74 @@
         /* Charts Section */
         .charts-section {
             margin: 2rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .charts-section h2 {
+            color: #2C3E50;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
             margin: 1.5rem 0;
         }
         
         .chart-card {
             background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
+            border: none;
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
         }
         
         .chart-card h3 {
-            color: #374151;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            color: #2C3E50;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .chart-card img {
             max-width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .chart-card:hover img {
+            transform: scale(1.02);
         }
         
         /* Tables */
@@ -364,7 +404,7 @@
             <div class="meta">
                 <span>Environment: Test</span>
                 <span>Plan: TP-001</span>
-                <span>Generated: 2025-09-11 23:07:14</span>
+                <span>Generated: 2025-09-11 23:50:00</span>
             </div>
         </div>
         
@@ -372,31 +412,31 @@
             <!-- Executive Summary -->
             <div class="exec-summary">
                 <h2>Executive Summary</h2>
-                <p><strong>Test Execution:</strong> 8 total tests, 8 executed (50.0% pass rate)</p>
-                <p><strong>Defects:</strong> 4 total defects identified (1 critical, 1 major)</p>
+                <p><strong>Test Execution:</strong> 16 total tests, 16 executed (56.25% pass rate)</p>
+                <p><strong>Defects:</strong> 7 total defects identified (0 critical, 0 major)</p>
                 <p><strong>Status:</strong> ❌ Requires immediate action</p>
             </div>
             
         <!-- Key Metrics -->
         <div class="metrics-grid">
             <div class="metric-card total">
-                <div class="metric-value">8</div>
+                <div class="metric-value">16</div>
                 <div class="metric-label">Total Tests</div>
             </div>
             <div class="metric-card executed">
-                <div class="metric-value">8</div>
+                <div class="metric-value">16</div>
                 <div class="metric-label">Executed</div>
                 <div class="metric-percentage">100.0%</div>
             </div>
             <div class="metric-card passed">
-                <div class="metric-value">4</div>
+                <div class="metric-value">9</div>
                 <div class="metric-label">Passed</div>
-                <div class="metric-percentage">50.0%</div>
+                <div class="metric-percentage">56.25%</div>
             </div>
             <div class="metric-card failed">
-                <div class="metric-value">4</div>
+                <div class="metric-value">7</div>
                 <div class="metric-label">Failed</div>
-                <div class="metric-percentage">50.0%</div>
+                <div class="metric-percentage">43.8%</div>
             </div>
             <div class="metric-card blocked">
                 <div class="metric-value">0</div>
@@ -447,6 +487,14 @@
                     <tbody>
                         
                         <tr>
+                            <td><strong>Cart</strong></td>
+                            <td>2</td>
+                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>50.0%</td>
+                        </tr>
+                        
+                        <tr>
                             <td><strong>Checkout</strong></td>
                             <td>2</td>
                             <td><span class="status-badge status-passed">1</span></td>
@@ -456,10 +504,10 @@
                         
                         <tr>
                             <td><strong>Login</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td>4</td>
+                            <td><span class="status-badge status-passed">3</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>75.0%</td>
                         </tr>
                         
                         <tr>
@@ -471,10 +519,18 @@
                         </tr>
                         
                         <tr>
-                            <td><strong>Profile</strong></td>
+                            <td><strong>Product Page</strong></td>
                             <td>2</td>
                             <td><span class="status-badge status-passed">1</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
+                            <td>50.0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Profile</strong></td>
+                            <td>4</td>
+                            <td><span class="status-badge status-passed">2</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
                             <td>50.0%</td>
                         </tr>
                         
@@ -499,6 +555,20 @@
                     <tbody>
                         
                         <tr>
+                            <td><strong>Cart</strong></td>
+                            <td>2</td>
+                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>50.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
                             <td><strong>Checkout</strong></td>
                             <td>2</td>
                             <td><span class="status-badge status-passed">1</span></td>
@@ -514,14 +584,14 @@
                         
                         <tr>
                             <td><strong>Login</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td>4</td>
+                            <td><span class="status-badge status-passed">3</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>75.0%</td>
                             <td>
                                 
                                 
-                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                    <span class="status-badge status-passed">Good</span>
                                 
                             </td>
                         </tr>
@@ -541,10 +611,24 @@
                         </tr>
                         
                         <tr>
-                            <td><strong>Profile</strong></td>
+                            <td><strong>Product Page</strong></td>
                             <td>2</td>
                             <td><span class="status-badge status-passed">1</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
+                            <td>50.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Profile</strong></td>
+                            <td>4</td>
+                            <td><span class="status-badge status-passed">2</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
                             <td>50.0%</td>
                             <td>
                                 
@@ -608,15 +692,13 @@
                     <h3>Execution Analysis</h3>
                     <div style="margin: 1rem 0; padding: 1rem; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
                         <h4>Test Execution Summary</h4>
-                        <p><strong>Execution Rate:</strong> 100.0% (8/8 tests)</p>
-                        <p><strong>Pass Rate:</strong> 50.0% (4/8 executed tests)</p>
+                        <p><strong>Execution Rate:</strong> 100.0% (16/16 tests)</p>
+                        <p><strong>Pass Rate:</strong> 56.25% (9/16 executed tests)</p>
                         
                         
                         
                         <p><strong>Quality Concern:</strong> Pass rate below recommended threshold (75%)</p>
                         
-                        
-                        <p><strong>Critical Issues:</strong> 1 critical defects require immediate attention</p>
                         
                     </div>
                     <p><em>No significant variances or deviations from the planned test execution.</em></p>
@@ -640,38 +722,38 @@
                     <tbody>
                         <tr>
                             <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
-                            <td>1</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-major"><strong>Major</strong></span></td>
-                            <td>1</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-medium"><strong>Medium</strong></span></td>
-                            <td>1</td>
+                            <td>2</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>2</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-minor"><strong>Minor</strong></span></td>
-                            <td>1</td>
+                            <td>5</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>5</td>
                         </tr>
                         <tr style="font-weight: bold; background-color: #f8f9fa;">
                             <td><strong>Total</strong></td>
-                            <td>4</td>
+                            <td>7</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>4</td>
+                            <td>7</td>
                         </tr>
                     </tbody>
                 </table>
@@ -745,6 +827,42 @@
                         
                         
                         
+                        <tr>
+                            <td><strong>BUG-105</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-105</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-106</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-106</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-107</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-107</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        
+                        
+                        
                     </tbody>
                 </table>
             </div>
@@ -756,6 +874,12 @@
                     <h3>Stable Areas</h3>
                     
                     <ul>
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -785,11 +909,14 @@
                     
                     <ul>
                         
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of 50.0% is below recommended threshold (75%)</li>
+                        <li><strong>Overall Quality Risk:</strong> Pass rate of 56.25% is below recommended threshold (75%)</li>
                         
                         
-                        <li><strong>Critical Defects:</strong> 1 critical defects require immediate attention</li>
                         
+                        
+                        
+                        
+                        <li><strong>Cart module</strong> needs attention with 50.0% pass rate</li>
                         
                         
                         
@@ -799,12 +926,15 @@
                         
                         
                         
-                        <li><strong>Login module</strong> needs attention with 50.0% pass rate</li>
-                        
                         
                         
                         
                         <li><strong>Orders module</strong> needs attention with 50.0% pass rate</li>
+                        
+                        
+                        
+                        
+                        <li><strong>Product Page module</strong> needs attention with 50.0% pass rate</li>
                         
                         
                         
@@ -825,12 +955,14 @@
                     <h3>Criteria Met</h3>
                     <div style="margin: 1rem 0;">
                         
-                        <p>✅ All planned test cases executed (8/8)</p>
+                        <p>✅ All planned test cases executed (16/16)</p>
                         
                         
                         
+                        <p>✅ Critical defects resolved (0 open critical defects)</p>
                         
-                        <p>✅ Major defects within acceptable limit (1 <= 2)</p>
+                        
+                        <p>✅ Major defects within acceptable limit (0 <= 2)</p>
                         
                         
                     </div>
@@ -839,10 +971,8 @@
                     <div style="margin: 1rem 0;">
                         
                         
-                        <p>❌ Pass rate below minimum threshold (50.0% < 75%)</p>
+                        <p>❌ Pass rate below minimum threshold (56.25% < 75%)</p>
                         
-                        
-                        <p>❌ Critical defects not resolved (1 open critical defects)</p>
                         
                         
                         
@@ -942,7 +1072,7 @@
         
         <!-- Footer -->
         <div class="footer">
-            <p>Generated on 2025-09-11 23:07:14 | Test Summary Report for TestProject v1.0</p>
+            <p>Generated on 2025-09-11 23:50:00 | Test Summary Report for TestProject v1.0</p>
         </div>
     </div>
 </body>
