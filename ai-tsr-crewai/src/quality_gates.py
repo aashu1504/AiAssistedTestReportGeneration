@@ -79,6 +79,7 @@ class QualityGateEvaluator:
             reason = "; ".join(failed_criteria)
         
         evaluation_details = {
+            "release_recommendation": recommendation,
             "quality_gate_used": quality_gate,
             "gate_name": gate_config.get("name", quality_gate),
             "pass_rate": pass_rate,

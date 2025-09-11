@@ -851,8 +851,9 @@
                     </ul>
                     {% else %}
                     <ul>
-                        {% if pass_rate < 75 %}
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of {{ pass_rate }}% is below recommended threshold (75%)</li>
+                        {% set conditional_threshold = quality_gate_evaluation.release_thresholds.conditional.min_pass_rate %}
+                        {% if pass_rate < conditional_threshold %}
+                        <li><strong>Overall Quality Risk:</strong> Pass rate of {{ pass_rate }}% is below conditional threshold ({{ conditional_threshold }}%)</li>
                         {% endif %}
                         {% if (defects.critical.open or 0) > 0 %}
                         <li><strong>Critical Defects:</strong> {{ defects.critical.open }} critical defects require immediate attention</li>
@@ -882,19 +883,32 @@
                 <div style="padding: 1rem;">
                     <h3>Criteria Met</h3>
                     <div style="margin: 1rem 0;">
+                        {% set approved_threshold = quality_gate_evaluation.release_thresholds.approved.min_pass_rate %}
+                        {% set conditional_threshold = quality_gate_evaluation.release_thresholds.conditional.min_pass_rate %}
+                        {% set approved_critical_limit = quality_gate_evaluation.release_thresholds.approved.max_critical_defects %}
+                        {% set conditional_critical_limit = quality_gate_evaluation.release_thresholds.conditional.max_critical_defects %}
+                        {% set approved_major_limit = quality_gate_evaluation.release_thresholds.approved.max_major_defects %}
+                        {% set conditional_major_limit = quality_gate_evaluation.release_thresholds.conditional.max_major_defects %}
+                        
                         {% if executed_tests > 0 %}
                         <p>✅ All planned test cases executed ({{ executed_tests }}/{{ total_tests }})</p>
                         {% endif %}
-                        {% if pass_rate >= 75 %}
-                        <p>✅ Pass rate meets minimum threshold ({{ pass_rate }}% >= 75%)</p>
+                        {% if pass_rate >= approved_threshold %}
+                        <p>✅ Pass rate meets approved threshold ({{ pass_rate }}% >= {{ approved_threshold }}%)</p>
+                        {% elif pass_rate >= conditional_threshold %}
+                        <p>✅ Pass rate meets conditional threshold ({{ pass_rate }}% >= {{ conditional_threshold }}%)</p>
                         {% endif %}
-                        {% if (defects.critical.open or 0) == 0 %}
-                        <p>✅ Critical defects resolved ({{ defects.critical.open or 0 }} open critical defects)</p>
+                        {% if (defects.critical.open or 0) <= approved_critical_limit %}
+                        <p>✅ Critical defects within approved limit ({{ defects.critical.open or 0 }} <= {{ approved_critical_limit }})</p>
+                        {% elif (defects.critical.open or 0) <= conditional_critical_limit %}
+                        <p>✅ Critical defects within conditional limit ({{ defects.critical.open or 0 }} <= {{ conditional_critical_limit }})</p>
                         {% endif %}
-                        {% if (defects.major.open or 0) <= 2 %}
-                        <p>✅ Major defects within acceptable limit ({{ defects.major.open or 0 }} <= 2)</p>
+                        {% if (defects.major.open or 0) <= approved_major_limit %}
+                        <p>✅ Major defects within approved limit ({{ defects.major.open or 0 }} <= {{ approved_major_limit }})</p>
+                        {% elif (defects.major.open or 0) <= conditional_major_limit %}
+                        <p>✅ Major defects within conditional limit ({{ defects.major.open or 0 }} <= {{ conditional_major_limit }})</p>
                         {% endif %}
-                        {% if executed_tests == 0 and pass_rate < 75 and (defects.critical.open or 0) > 0 and (defects.major.open or 0) > 2 %}
+                        {% if executed_tests == 0 and pass_rate < conditional_threshold and (defects.critical.open or 0) > conditional_critical_limit and (defects.major.open or 0) > conditional_major_limit %}
                         <p>❌ No criteria have been met</p>
                         {% endif %}
                     </div>
@@ -904,16 +918,16 @@
                         {% if executed_tests == 0 %}
                         <p>❌ No test cases have been executed</p>
                         {% endif %}
-                        {% if pass_rate < 75 %}
-                        <p>❌ Pass rate below minimum threshold ({{ pass_rate }}% < 75%)</p>
+                        {% if pass_rate < conditional_threshold %}
+                        <p>❌ Pass rate below conditional threshold ({{ pass_rate }}% < {{ conditional_threshold }}%)</p>
                         {% endif %}
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <p>❌ Critical defects not resolved ({{ defects.critical.open or 0 }} open critical defects)</p>
+                        {% if (defects.critical.open or 0) > conditional_critical_limit %}
+                        <p>❌ Critical defects exceed conditional limit ({{ defects.critical.open or 0 }} > {{ conditional_critical_limit }})</p>
                         {% endif %}
-                        {% if (defects.major.open or 0) > 2 %}
-                        <p>❌ Too many major defects ({{ defects.major.open or 0 }} > 2)</p>
+                        {% if (defects.major.open or 0) > conditional_major_limit %}
+                        <p>❌ Major defects exceed conditional limit ({{ defects.major.open or 0 }} > {{ conditional_major_limit }})</p>
                         {% endif %}
-                        {% if executed_tests > 0 and pass_rate >= 75 and (defects.critical.open or 0) == 0 and (defects.major.open or 0) <= 2 %}
+                        {% if executed_tests > 0 and pass_rate >= conditional_threshold and (defects.critical.open or 0) <= conditional_critical_limit and (defects.major.open or 0) <= conditional_major_limit %}
                         <p>✅ All exit criteria have been met.</p>
                         {% endif %}
                     </div>
@@ -956,14 +970,17 @@
                         <li>{{ item }}</li>
                         {% endfor %}
                         {% if not lessons_learned.negative %}
-                        {% if pass_rate < 75 %}
-                        <li>Pass rate of {{ pass_rate }}% is below recommended threshold (75%) - need to investigate root causes</li>
+                        {% set conditional_threshold = quality_gate_evaluation.release_thresholds.conditional.min_pass_rate %}
+                        {% set conditional_critical_limit = quality_gate_evaluation.release_thresholds.conditional.max_critical_defects %}
+                        {% set conditional_major_limit = quality_gate_evaluation.release_thresholds.conditional.max_major_defects %}
+                        {% if pass_rate < conditional_threshold %}
+                        <li>Pass rate of {{ pass_rate }}% is below conditional threshold ({{ conditional_threshold }}%) - need to investigate root causes</li>
                         {% endif %}
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <li>{{ defects.critical.open }} critical defects require immediate attention and better quality gates</li>
+                        {% if (defects.critical.open or 0) > conditional_critical_limit %}
+                        <li>{{ defects.critical.open }} critical defects exceed conditional limit ({{ conditional_critical_limit }}) and require immediate attention</li>
                         {% endif %}
-                        {% if (defects.major.open or 0) > 2 %}
-                        <li>High number of major defects ({{ defects.major.open }}) indicates need for better testing in development phase</li>
+                        {% if (defects.major.open or 0) > conditional_major_limit %}
+                        <li>High number of major defects ({{ defects.major.open }}) exceeds conditional limit ({{ conditional_major_limit }}) - indicates need for better testing in development phase</li>
                         {% endif %}
                         {% if blocked_tests > 0 %}
                         <li>{{ blocked_tests }} blocked tests indicate environment or dependency issues that need resolution</li>
@@ -973,8 +990,8 @@
                         {% endif %}
                         {% for module, data in modules_covered.items() %}
                         {% set module_pass_rate = (data.passed or 0) / (data.total or 1) * 100 %}
-                        {% if module_pass_rate < 75 %}
-                        <li><strong>{{ module }} module</strong> needs focused attention with only {{ module_pass_rate|round(1) }}% pass rate</li>
+                        {% if module_pass_rate < conditional_threshold %}
+                        <li><strong>{{ module }} module</strong> needs focused attention with only {{ module_pass_rate|round(1) }}% pass rate (below {{ conditional_threshold }}% threshold)</li>
                         {% endif %}
                         {% endfor %}
                         {% if executed_tests == 0 %}

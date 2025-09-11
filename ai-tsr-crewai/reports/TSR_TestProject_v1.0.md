@@ -1,9 +1,9 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_TestProject_v1.0_20250912_022758
+- **Report ID**: TSR_TestProject_v1.0_20250912_025648
 - **Linked Test Plan**: TP-001
-- **Report Date**: 2025-09-12 02:27:58
+- **Report Date**: 2025-09-12 02:56:48
 - **Report Version**: 1.0
 
 ## Introduction
@@ -205,10 +205,10 @@ All exit criteria have been met.
 - **Date**: TBD
 
 ### Release Decision
-- **Release Recommendation**: APPROVED
+- **Release Recommendation**: REJECTED
 - **Comments**: Based on test execution results and exit criteria evaluation
 
 ---
 
-*Report generated on 2025-09-12 02:27:58*
+*Report generated on 2025-09-12 02:56:48*
 *Report Version: 1.0*
