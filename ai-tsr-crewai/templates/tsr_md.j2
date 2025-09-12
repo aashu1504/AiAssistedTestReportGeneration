@@ -74,13 +74,12 @@ No environment issues identified.
 
 ## Variances/Deviations
 
-{% if variances %}
+{% if variances and variances|length > 0 %}
 ### Test Execution Variances
 {% for variance in variances %}
-- **{{ variance.get('type', 'Variance') }}**: {{ variance.get('description', 'N/A') }}
+- **{{ variance.get('type', 'Variance') }}** ({{ variance.get('severity', 'Unknown') }}): {{ variance.get('description', 'N/A') }}
   - **Impact**: {{ variance.get('impact', 'N/A') }}
-  - **Resolution**: {{ variance.get('resolution', 'N/A') }}
-  - **Date**: {{ variance.get('date', 'N/A') }}
+  - **Mitigation**: {{ variance.get('mitigation', 'N/A') }}
 {% endfor %}
 {% else %}
 No significant variances or deviations from the planned test execution.

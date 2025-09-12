@@ -13,7 +13,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
 from dotenv import load_dotenv
 
@@ -175,6 +175,162 @@ def generate_dynamic_lessons_learned(metrics: Dict[str, Any], summary: Dict[str,
         'negative': negative,
         'improvements': improvements
     }
+
+
+def generate_dynamic_variances(metrics: Dict[str, Any], summary: Dict[str, Any], modules_covered: Dict[str, Any], args) -> List[Dict[str, Any]]:
+    """
+    Generate dynamic variances and deviations based on actual test execution data.
+    
+    Args:
+        metrics: Test execution metrics
+        summary: Summary statistics
+        modules_covered: Module-level statistics
+        args: Command line arguments
+        
+    Returns:
+        List of variance objects with type, description, impact, and mitigation
+    """
+    variances = []
+    
+    # Extract key metrics
+    pass_rate = summary.get('pass_pct', 0)
+    executed_tests = summary.get('executed', 0)
+    total_tests = summary.get('total', 0)
+    failed_tests = summary.get('failed', 0)
+    blocked_tests = summary.get('blocked', 0)
+    skipped_tests = summary.get('skipped', 0)
+    critical_defects = metrics.get('defects_by_severity', {}).get('Critical', 0)
+    major_defects = metrics.get('defects_by_severity', {}).get('Major', 0)
+    flaky_tests = metrics.get('flaky', [])
+    defect_density = metrics.get('density', {})
+    
+    # Check for execution rate deviations
+    if total_tests > 0:
+        execution_rate = (executed_tests / total_tests * 100)
+        if execution_rate < 90:
+            variances.append({
+                'type': 'Execution Rate Deviation',
+                'description': f'Only {execution_rate:.1f}% of planned tests were executed ({executed_tests}/{total_tests})',
+                'impact': 'Incomplete test coverage may miss critical defects',
+                'mitigation': 'Investigate reasons for skipped tests and reschedule execution',
+                'severity': 'High' if execution_rate < 70 else 'Medium'
+            })
+    
+    # Check for pass rate deviations
+    if executed_tests > 0:
+        if pass_rate < 70:
+            variances.append({
+                'type': 'Pass Rate Deviation',
+                'description': f'Pass rate of {pass_rate:.1f}% is significantly below expected threshold',
+                'impact': 'Quality concerns may indicate widespread issues',
+                'mitigation': 'Conduct root cause analysis and implement quality gates',
+                'severity': 'High' if pass_rate < 50 else 'Medium'
+            })
+        elif pass_rate > 95:
+            variances.append({
+                'type': 'Unexpected High Pass Rate',
+                'description': f'Pass rate of {pass_rate:.1f}% is unusually high',
+                'impact': 'May indicate insufficient test rigor or missing test cases',
+                'mitigation': 'Review test cases for completeness and rigor',
+                'severity': 'Low'
+            })
+    
+    # Check for critical defect deviations
+    if critical_defects > 0:
+        variances.append({
+            'type': 'Critical Defect Deviation',
+            'description': f'{critical_defects} critical defect(s) found - release blocker',
+            'impact': 'Critical functionality is compromised, release should be delayed',
+            'mitigation': 'Immediate defect resolution and re-testing required',
+            'severity': 'Critical'
+        })
+    
+    # Check for major defect deviations
+    if major_defects > 2:
+        variances.append({
+            'type': 'Major Defect Deviation',
+            'description': f'{major_defects} major defect(s) exceed acceptable threshold',
+            'impact': 'Significant functionality issues may impact user experience',
+            'mitigation': 'Prioritize major defect resolution before release',
+            'severity': 'High'
+        })
+    
+    # Check for blocked test deviations
+    if blocked_tests > 0:
+        blocked_percentage = (blocked_tests / executed_tests * 100) if executed_tests > 0 else 0
+        if blocked_percentage > 10:
+            variances.append({
+                'type': 'Blocked Test Deviation',
+                'description': f'{blocked_tests} tests blocked ({blocked_percentage:.1f}% of executed tests)',
+                'impact': 'Environment or dependency issues preventing test execution',
+                'mitigation': 'Resolve environment issues and re-execute blocked tests',
+                'severity': 'Medium'
+            })
+    
+    # Check for flaky test deviations
+    if len(flaky_tests) > 0:
+        variances.append({
+            'type': 'Flaky Test Deviation',
+            'description': f'{len(flaky_tests)} flaky test(s) identified: {", ".join(flaky_tests[:3])}{"..." if len(flaky_tests) > 3 else ""}',
+            'impact': 'Unreliable test results may mask real issues',
+            'mitigation': 'Investigate and fix flaky tests to improve reliability',
+            'severity': 'Medium'
+        })
+    
+    # Check for module-specific deviations
+    high_defect_modules = []
+    low_pass_rate_modules = []
+    
+    for module, data in modules_covered.items():
+        module_total = data.get('total', 0)
+        module_passed = data.get('passed', 0)
+        
+        if module_total > 0:
+            module_pass_rate = (module_passed / module_total * 100)
+            
+            # Check defect density
+            module_defects_data = defect_density.get(module, {})
+            module_defects = module_defects_data.get('total', 0) if isinstance(module_defects_data, dict) else module_defects_data
+            if module_defects > 0:
+                defect_density_ratio = module_defects / module_total
+                if defect_density_ratio > 0.5:  # More than 50% of tests have defects
+                    high_defect_modules.append(module)
+            
+            # Check pass rate
+            if module_pass_rate < 50:
+                low_pass_rate_modules.append(module)
+    
+    if high_defect_modules:
+        variances.append({
+            'type': 'Module Defect Density Deviation',
+            'description': f'High defect density in modules: {", ".join(high_defect_modules)}',
+            'impact': 'Specific modules show excessive defect rates',
+            'mitigation': 'Focus additional testing and development effort on high-defect modules',
+            'severity': 'High'
+        })
+    
+    if low_pass_rate_modules:
+        variances.append({
+            'type': 'Module Pass Rate Deviation',
+            'description': f'Low pass rates in modules: {", ".join(low_pass_rate_modules)}',
+            'impact': 'Specific modules show poor quality indicators',
+            'mitigation': 'Review and improve test cases for low-performing modules',
+            'severity': 'Medium'
+        })
+    
+    # Check for scope deviations (if scope is specified)
+    if hasattr(args, 'scope') and args.scope:
+        # This is a simple heuristic - in a real implementation, you'd compare against planned scope
+        if executed_tests < 5:  # Very low test count might indicate scope issues
+            variances.append({
+                'type': 'Test Scope Deviation',
+                'description': f'Only {executed_tests} tests executed - may indicate scope reduction',
+                'impact': 'Insufficient test coverage for comprehensive quality assessment',
+                'mitigation': 'Review test plan and ensure adequate scope coverage',
+                'severity': 'Medium'
+            })
+    
+    return variances
 
 
 def setup_logging(verbose: bool = False, debug: bool = False) -> None:
@@ -632,6 +788,9 @@ Examples:
         
         # Generate dynamic lessons learned
         context['lessons_learned'] = generate_dynamic_lessons_learned(metrics, summary, context['modules_covered'])
+        
+        # Generate dynamic variances based on actual data
+        context['variances'] = generate_dynamic_variances(metrics, summary, context['modules_covered'], args)
         
         # Step 6: Render templates
         print("\n📄 Step 6: Rendering report templates...")
