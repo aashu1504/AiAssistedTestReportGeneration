@@ -29,6 +29,154 @@ from .crew import build_crew, run_crew
 from .quality_gates import QualityGateEvaluator
 
 
+def generate_dynamic_lessons_learned(metrics: Dict[str, Any], summary: Dict[str, Any], modules_covered: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Generate dynamic lessons learned based on actual test execution data.
+    
+    Args:
+        metrics: Test execution metrics
+        summary: Summary statistics
+        modules_covered: Module-level statistics
+        
+    Returns:
+        Dictionary with positive, negative, and improvement lessons
+    """
+    positive = []
+    negative = []
+    improvements = []
+    
+    # Extract key metrics
+    pass_rate = summary.get('pass_pct', 0)
+    executed_tests = summary.get('executed', 0)
+    total_tests = summary.get('total', 0)
+    failed_tests = summary.get('failed', 0)
+    blocked_tests = summary.get('blocked', 0)
+    critical_defects = metrics.get('defects_by_severity', {}).get('Critical', 0)
+    major_defects = metrics.get('defects_by_severity', {}).get('Major', 0)
+    flaky_tests = metrics.get('flaky', [])
+    defect_density = metrics.get('density', {})
+    
+    # Positive lessons based on actual performance
+    if executed_tests > 0:
+        execution_rate = (executed_tests / total_tests * 100) if total_tests > 0 else 0
+        if execution_rate >= 95:
+            positive.append(f"Excellent test execution rate of {execution_rate:.1f}% ({executed_tests}/{total_tests} tests)")
+        elif execution_rate >= 85:
+            positive.append(f"Good test execution rate of {execution_rate:.1f}% ({executed_tests}/{total_tests} tests)")
+    
+    if pass_rate >= 90:
+        positive.append(f"Outstanding pass rate of {pass_rate:.1f}% indicates high quality")
+    elif pass_rate >= 80:
+        positive.append(f"Good pass rate of {pass_rate:.1f}% shows solid quality")
+    elif pass_rate >= 70:
+        positive.append(f"Acceptable pass rate of {pass_rate:.1f}% with room for improvement")
+    
+    if critical_defects == 0:
+        positive.append("No critical defects identified - core functionality is stable")
+    
+    if blocked_tests == 0:
+        positive.append("No blocked tests - test environment was stable")
+    elif blocked_tests <= 2:
+        positive.append(f"Minimal blocked tests ({blocked_tests}) - good environment stability")
+    
+    if not flaky_tests:
+        positive.append("No flaky tests identified - test reliability is good")
+    
+    # Negative lessons based on actual issues
+    if pass_rate < 70:
+        negative.append(f"Low pass rate of {pass_rate:.1f}% indicates quality concerns")
+    
+    if critical_defects > 0:
+        negative.append(f"{critical_defects} critical defect(s) require immediate attention")
+    
+    if major_defects > 2:
+        negative.append(f"High number of major defects ({major_defects}) indicates quality issues")
+    
+    if blocked_tests > 5:
+        negative.append(f"High number of blocked tests ({blocked_tests}) indicates environment issues")
+    
+    if len(flaky_tests) > 0:
+        negative.append(f"{len(flaky_tests)} flaky test(s) identified: {', '.join(flaky_tests[:3])}{'...' if len(flaky_tests) > 3 else ''}")
+    
+    # Module-specific analysis
+    high_defect_modules = []
+    low_pass_rate_modules = []
+    
+    for module, data in modules_covered.items():
+        module_total = data.get('total', 0)
+        module_passed = data.get('passed', 0)
+        module_failed = data.get('failed', 0)
+        
+        if module_total > 0:
+            module_pass_rate = (module_passed / module_total * 100)
+            
+            # Check defect density
+            module_defects_data = defect_density.get(module, {})
+            module_defects = module_defects_data.get('total', 0) if isinstance(module_defects_data, dict) else module_defects_data
+            if module_defects > 0:
+                defect_density_ratio = module_defects / module_total
+                if defect_density_ratio > 0.3:  # More than 30% of tests have defects
+                    high_defect_modules.append(f"{module} ({module_defects} defects)")
+            
+            # Check pass rate
+            if module_pass_rate < 60:
+                low_pass_rate_modules.append(f"{module} ({module_pass_rate:.1f}%)")
+    
+    if high_defect_modules:
+        negative.append(f"High defect density in modules: {', '.join(high_defect_modules)}")
+    
+    if low_pass_rate_modules:
+        negative.append(f"Low pass rates in modules: {', '.join(low_pass_rate_modules)}")
+    
+    # Improvement recommendations based on actual data
+    if pass_rate < 80:
+        improvements.append("Implement stricter quality gates and code review processes")
+        improvements.append("Focus on root cause analysis for failing test cases")
+    
+    if critical_defects > 0:
+        improvements.append("Establish critical defect resolution process with immediate escalation")
+        improvements.append("Implement automated testing for critical paths to prevent regression")
+    
+    if major_defects > 2:
+        improvements.append("Increase test coverage for major functionality areas")
+        improvements.append("Implement continuous integration with automated testing")
+    
+    if len(flaky_tests) > 0:
+        improvements.append("Investigate and fix flaky tests to improve reliability")
+        improvements.append("Implement better test data management and environment stability")
+    
+    if blocked_tests > 2:
+        improvements.append("Improve test environment stability and setup processes")
+        improvements.append("Implement better test data management and cleanup")
+    
+    if high_defect_modules:
+        improvements.append("Prioritize high-defect modules for additional testing and development focus")
+    
+    if low_pass_rate_modules:
+        improvements.append("Review and improve test cases for low-performing modules")
+    
+    # General improvements
+    improvements.append("Establish regular test execution schedules and monitoring")
+    improvements.append("Implement comprehensive test data management processes")
+    improvements.append("Create robust defect tracking and resolution workflows")
+    
+    # Fallback if no specific lessons
+    if not positive and executed_tests > 0:
+        positive.append("Test execution completed successfully")
+    
+    if not negative and executed_tests > 0:
+        negative.append("No significant issues identified in this test cycle")
+    
+    if not improvements:
+        improvements.append("Continue current testing practices and monitor for trends")
+    
+    return {
+        'positive': positive,
+        'negative': negative,
+        'improvements': improvements
+    }
+
+
 def setup_logging(verbose: bool = False, debug: bool = False) -> None:
     """Configure logging based on environment variables."""
     level = logging.DEBUG if debug else (logging.INFO if verbose else logging.WARNING)
@@ -425,18 +573,8 @@ Examples:
             # Key bugs (now includes module information)
             'key_bugs': metrics.get('key_bugs', []),
             
-            # Defect density (convert simple counts to complex objects for template)
-            'defect_density': {
-                module: {
-                    'total': count,
-                    'density': count / len(normalized_data[normalized_data['Module'] == module]) if len(normalized_data[normalized_data['Module'] == module]) > 0 else 0,
-                    'critical': 0,  # Would need severity breakdown
-                    'major': 0,
-                    'medium': count,  # Assume all are medium for now
-                    'minor': 0
-                }
-                for module, count in metrics.get('density', {}).items()
-            },
+            # Defect density (use enhanced data from metrics)
+            'defect_density': metrics.get('density', {}),
             
             # Charts
             'charts': chart_files,
@@ -471,11 +609,6 @@ Examples:
             
             # Additional template fields
             'variances': crew_metadata.get('variances', []) if crew_metadata else [],
-            'lessons_learned': {
-                'positive': ['Test execution completed successfully', 'All critical modules tested'],
-                'negative': ['Some test failures identified', 'Defect density needs attention'],
-                'improvements': ['Improve test data quality', 'Enhance test coverage']
-            },
             'flaky_tests': metrics.get('flaky', [])
         }
         
@@ -496,6 +629,9 @@ Examples:
         context['release_recommendation'] = recommendation
         context['quality_gate_evaluation'] = evaluation_details
         context['quality_gate_used'] = args.quality_gate
+        
+        # Generate dynamic lessons learned
+        context['lessons_learned'] = generate_dynamic_lessons_learned(metrics, summary, context['modules_covered'])
         
         # Step 6: Render templates
         print("\n📄 Step 6: Rendering report templates...")

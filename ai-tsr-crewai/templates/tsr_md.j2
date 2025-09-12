@@ -110,11 +110,22 @@ No critical or major bugs identified during this test cycle.
 
 ## Defect Density per Module
 
-| Module | Total Defects | Defect Density | Critical | Major | Medium | Minor |
-|--------|---------------|----------------|----------|-------|--------|-------|
+| Module | Total Tests | Total Defects | Density % | Risk Level | Critical | Major | Medium | Minor |
+|--------|-------------|---------------|-----------|------------|----------|-------|--------|-------|
 {% for module, density in defect_density.items() %}
-| {{ module }} | {{ density.get('total', 0) }} | {{ "%.2f"|format(density.get('density', 0)) }} | {{ density.get('critical', 0) }} | {{ density.get('major', 0) }} | {{ density.get('medium', 0) }} | {{ density.get('minor', 0) }} |
+| {{ module }} | {{ density.get('total_tests', 0) }} | {{ density.get('total', 0) }} | {{ "%.1f"|format(density.get('density_percentage', 0)) }}% | {{ density.get('risk_level', 'Low') }} | {{ density.get('critical', 0) }} | {{ density.get('major', 0) }} | {{ density.get('medium', 0) }} | {{ density.get('minor', 0) }} |
 {% endfor %}
+
+### Defect Density Analysis
+{% if defect_density %}
+{% for module, density in defect_density.items() %}
+- **{{ module }}**: {{ density.get('total', 0) }} defects in {{ density.get('total_tests', 0) }} tests ({{ "%.1f"|format(density.get('density_percentage', 0)) }}% density)
+  - Risk Level: {{ density.get('risk_level', 'Low') }}
+  - Severity Breakdown: {{ density.get('critical', 0) }} Critical, {{ density.get('major', 0) }} Major, {{ density.get('medium', 0) }} Medium, {{ density.get('minor', 0) }} Minor
+{% endfor %}
+{% else %}
+No defect density data available.
+{% endif %}
 
 ## Key Findings
 

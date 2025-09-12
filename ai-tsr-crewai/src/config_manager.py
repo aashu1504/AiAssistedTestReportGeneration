@@ -40,7 +40,11 @@ class ConfigManager:
         config_path = self.config_dir / config_file
         
         if not config_path.exists():
-            logger.error(f"Configuration file not found: {config_path}")
+            # Use warning for optional mapping files, error for required config files
+            if config_file.endswith('_mappings.yaml'):
+                logger.warning(f"Optional configuration file not found: {config_path}")
+            else:
+                logger.error(f"Configuration file not found: {config_path}")
             return {}
         
         # Load base configuration

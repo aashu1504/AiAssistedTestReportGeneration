@@ -392,17 +392,51 @@ def compute_metrics(df: pd.DataFrame) -> Dict[str, Any]:
         metrics['defects_by_severity'] = defects_by_severity
         logger.debug(f"Defects by severity (mapped from priority): {defects_by_severity}")
     
-    # Defect density by module
+    # Defect density by module with enhanced analysis
     if 'Module' in df.columns and 'BugID' in df.columns:
-        # Count unique bugs per module
         defect_density = {}
         for module in df['Module'].unique():
             if pd.notna(module) and module != '':
-                module_bugs = df[(df['Module'] == module) & 
-                               (df['BugID'].notna()) & (df['BugID'] != '')]['BugID'].nunique()
-                defect_density[module] = module_bugs
+                module_data = df[df['Module'] == module]
+                module_total_tests = len(module_data)
+                module_bugs = module_data[(module_data['BugID'].notna()) & (module_data['BugID'] != '')]['BugID'].nunique()
+                
+                # Calculate defect density ratio (defects per test)
+                density_ratio = module_bugs / module_total_tests if module_total_tests > 0 else 0
+                
+                # Get severity breakdown for this module
+                module_defects = module_data[(module_data['BugID'].notna()) & (module_data['BugID'] != '')]
+                severity_breakdown = {}
+                if 'Severity' in module_defects.columns:
+                    severity_counts = module_defects['Severity'].value_counts().to_dict()
+                    for severity in ['Critical', 'Major', 'Medium', 'Minor']:
+                        severity_breakdown[severity.lower()] = severity_counts.get(severity, 0)
+                else:
+                    # If no severity, use priority mapping
+                    if 'Priority' in module_defects.columns:
+                        priority_counts = module_defects['Priority'].value_counts().to_dict()
+                        severity_breakdown = {
+                            'critical': priority_counts.get('Highest', 0),
+                            'major': priority_counts.get('High', 0),
+                            'medium': priority_counts.get('Medium', 0),
+                            'minor': priority_counts.get('Low', 0)
+                        }
+                    else:
+                        severity_breakdown = {'critical': 0, 'major': 0, 'medium': module_bugs, 'minor': 0}
+                
+                defect_density[module] = {
+                    'total': module_bugs,
+                    'density': round(density_ratio, 3),
+                    'density_percentage': round(density_ratio * 100, 1),
+                    'total_tests': module_total_tests,
+                    'critical': severity_breakdown.get('critical', 0),
+                    'major': severity_breakdown.get('major', 0),
+                    'medium': severity_breakdown.get('medium', 0),
+                    'minor': severity_breakdown.get('minor', 0),
+                    'risk_level': 'High' if density_ratio > 0.3 else 'Medium' if density_ratio > 0.1 else 'Low'
+                }
         metrics['density'] = defect_density
-        logger.debug(f"Defect density by module: {defect_density}")
+        logger.debug(f"Enhanced defect density by module: {defect_density}")
     
     # Identify flaky tests (tests with both pass and fail results)
     if 'TestCaseID' in df.columns and 'Result' in df.columns:

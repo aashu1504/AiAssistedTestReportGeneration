@@ -27,11 +27,61 @@
     "Low": 1
   },
   "density": {
-    "Authentication": 3,
-    "User Management": 2,
-    "Search": 2,
-    "Reports": 2,
-    "Notifications": 1
+    "Authentication": {
+      "total": 3,
+      "density": 1.0,
+      "density_percentage": 100.0,
+      "total_tests": 3,
+      "critical": 1,
+      "major": 1,
+      "medium": 0,
+      "minor": 0,
+      "risk_level": "High"
+    },
+    "User Management": {
+      "total": 2,
+      "density": 1.0,
+      "density_percentage": 100.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 1,
+      "minor": 0,
+      "risk_level": "High"
+    },
+    "Search": {
+      "total": 2,
+      "density": 1.0,
+      "density_percentage": 100.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 1,
+      "medium": 0,
+      "minor": 0,
+      "risk_level": "High"
+    },
+    "Reports": {
+      "total": 2,
+      "density": 1.0,
+      "density_percentage": 100.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 0,
+      "minor": 1,
+      "risk_level": "High"
+    },
+    "Notifications": {
+      "total": 1,
+      "density": 1.0,
+      "density_percentage": 100.0,
+      "total_tests": 1,
+      "critical": 0,
+      "major": 0,
+      "medium": 0,
+      "minor": 0,
+      "risk_level": "High"
+    }
   },
   "flaky": [],
   "key_bugs": [

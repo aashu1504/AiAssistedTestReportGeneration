@@ -1,21 +1,21 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_Priority Mapping Test_v1.0_20250913_024141
-- **Linked Test Plan**: TP-PRIORITY-001
-- **Report Date**: 2025-09-13 02:41:41
+- **Report ID**: TSR_Dynamic Lessons Test_v1.0_20250913_031221
+- **Linked Test Plan**: TP-DYNAMIC-001
+- **Report Date**: 2025-09-13 03:12:21
 - **Report Version**: 1.0
 
 ## Introduction
 
 ### Project Information
-- **Project**: Priority Mapping Test
+- **Project**: Dynamic Lessons Test
 - **Release**: v1.0
-- **Test Scope**: Priority-to-Severity Mapping Validation
-- **Test Objectives**: Test priority-only defect classification
+- **Test Scope**: Test dynamic lessons learned and defect density
+- **Test Objectives**: Verify dynamic generation works
 
 ### Executive Summary
-This report summarizes the test execution results for Priority Mapping Test release v1.0. The testing was conducted covering Priority-to-Severity Mapping Validation with the primary objective of Test priority-only defect classification.
+This report summarizes the test execution results for Dynamic Lessons Test release v1.0. The testing was conducted covering Test dynamic lessons learned and defect density with the primary objective of Verify dynamic generation works.
 
 ## Test Summary
 
@@ -114,18 +114,43 @@ No significant variances or deviations from the planned test execution.
 
 ## Defect Density per Module
 
-| Module | Total Defects | Defect Density | Critical | Major | Medium | Minor |
-|--------|---------------|----------------|----------|-------|--------|-------|
+| Module | Total Tests | Total Defects | Density % | Risk Level | Critical | Major | Medium | Minor |
+|--------|-------------|---------------|-----------|------------|----------|-------|--------|-------|
 
-| Authentication | 3 | 1.00 | 0 | 0 | 3 | 0 |
+| Authentication | 3 | 3 | 100.0% | High | 1 | 1 | 0 | 0 |
 
-| User Management | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| User Management | 2 | 2 | 100.0% | High | 0 | 0 | 1 | 0 |
 
-| Search | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| Search | 2 | 2 | 100.0% | High | 0 | 1 | 0 | 0 |
 
-| Reports | 2 | 1.00 | 0 | 0 | 2 | 0 |
+| Reports | 2 | 2 | 100.0% | High | 0 | 0 | 0 | 1 |
 
-| Notifications | 1 | 1.00 | 0 | 0 | 1 | 0 |
+| Notifications | 1 | 1 | 100.0% | High | 0 | 0 | 0 | 0 |
+
+
+### Defect Density Analysis
+
+
+- **Authentication**: 3 defects in 3 tests (100.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 1 Critical, 1 Major, 0 Medium, 0 Minor
+
+- **User Management**: 2 defects in 2 tests (100.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 0 Major, 1 Medium, 0 Minor
+
+- **Search**: 2 defects in 2 tests (100.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 1 Major, 0 Medium, 0 Minor
+
+- **Reports**: 2 defects in 2 tests (100.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 0 Major, 0 Medium, 1 Minor
+
+- **Notifications**: 1 defects in 1 tests (100.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 0 Major, 0 Medium, 0 Minor
+
 
 
 ## Key Findings
@@ -166,9 +191,23 @@ All exit criteria have been met.
 ### Areas for Improvement
 
 
-- Improve test data quality
+- Implement stricter quality gates and code review processes
 
-- Enhance test coverage
+- Focus on root cause analysis for failing test cases
+
+- Establish critical defect resolution process with immediate escalation
+
+- Implement automated testing for critical paths to prevent regression
+
+- Prioritize high-defect modules for additional testing and development focus
+
+- Review and improve test cases for low-performing modules
+
+- Establish regular test execution schedules and monitoring
+
+- Implement comprehensive test data management processes
+
+- Create robust defect tracking and resolution workflows
 
 
 
@@ -204,5 +243,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-13 02:41:41*
+*Report generated on 2025-09-13 03:12:21*
 *Report Version: 1.0*
