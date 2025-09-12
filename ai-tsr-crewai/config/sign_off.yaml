@@ -1,0 +1,30 @@
+# Sign-Off Configuration
+# This file defines the default sign-off information for TSR reports
+# Values can be overridden by environment variables
+
+sign_off:
+  # Test Team
+  test_lead: "John Smith"
+  test_engineer: "Jane Doe"
+  
+  # Development Team
+  dev_lead: "Mike Johnson"
+  
+  # Product Team
+  product_owner: "Sarah Wilson"
+  
+  # Quality Assurance Team
+  qa_manager: "David Brown"
+  
+  # Default date format (can be overridden)
+  date_format: "%Y-%m-%d"
+
+# Environment variable mappings
+# These define which environment variables can override config values
+env_mappings:
+  TSR_TEST_LEAD: "test_lead"
+  TSR_TEST_ENGINEER: "test_engineer"
+  TSR_DEV_LEAD: "dev_lead"
+  TSR_PRODUCT_OWNER: "product_owner"
+  TSR_QA_MANAGER: "qa_manager"
+  TSR_DATE_FORMAT: "date_format"

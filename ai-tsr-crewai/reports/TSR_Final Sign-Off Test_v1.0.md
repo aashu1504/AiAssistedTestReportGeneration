@@ -1,21 +1,21 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_Dynamic Variances Test_v1.0_20250913_032130
-- **Linked Test Plan**: TP-VARIANCE-001
-- **Report Date**: 2025-09-13 03:21:30
+- **Report ID**: TSR_Final Sign-Off Test_v1.0_20250913_034351
+- **Linked Test Plan**: TP-FINAL-001
+- **Report Date**: 2025-09-13 03:43:51
 - **Report Version**: 1.0
 
 ## Introduction
 
 ### Project Information
-- **Project**: Dynamic Variances Test
+- **Project**: Final Sign-Off Test
 - **Release**: v1.0
-- **Test Scope**: Test dynamic variance detection
-- **Test Objectives**: Verify variance detection works
+- **Test Scope**: Test final sign-off configuration
+- **Test Objectives**: Verify all sign-off names and dates work correctly
 
 ### Executive Summary
-This report summarizes the test execution results for Dynamic Variances Test release v1.0. The testing was conducted covering Test dynamic variance detection with the primary objective of Verify variance detection works.
+This report summarizes the test execution results for Final Sign-Off Test release v1.0. The testing was conducted covering Test final sign-off configuration with the primary objective of Verify all sign-off names and dates work correctly.
 
 ## Test Summary
 
@@ -238,21 +238,21 @@ All exit criteria have been met.
 ## Sign-Off
 
 ### Test Team
-- **Test Lead**: TBD
-- **Test Engineer**: TBD
+- **Test Lead**: John Smith
+- **Test Engineer**: Jane Doe
 - **Date**: 2025-09-13
 
 ### Development Team
-- **Development Lead**: TBD
-- **Date**: TBD
+- **Development Lead**: Mike Johnson
+- **Date**: 2025-09-13
 
 ### Product Owner
-- **Product Owner**: TBD
-- **Date**: TBD
+- **Product Owner**: Sarah Wilson
+- **Date**: 2025-09-13
 
 ### Quality Assurance
-- **QA Manager**: TBD
-- **Date**: TBD
+- **QA Manager**: David Brown
+- **Date**: 2025-09-13
 
 ### Release Decision
 - **Release Recommendation**: REJECTED
@@ -260,5 +260,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-13 03:21:30*
+*Report generated on 2025-09-13 03:43:51*
 *Report Version: 1.0*

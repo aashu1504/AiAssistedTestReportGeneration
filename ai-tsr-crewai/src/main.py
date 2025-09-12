@@ -27,6 +27,7 @@ from .tools import (
 )
 from .crew import build_crew, run_crew
 from .quality_gates import QualityGateEvaluator
+from .config_manager import ConfigManager
 
 
 def generate_dynamic_lessons_learned(metrics: Dict[str, Any], summary: Dict[str, Any], modules_covered: Dict[str, Any]) -> Dict[str, Any]:
@@ -331,6 +332,33 @@ def generate_dynamic_variances(metrics: Dict[str, Any], summary: Dict[str, Any],
             })
     
     return variances
+
+
+def generate_sign_off_info() -> Dict[str, Any]:
+    """
+    Generate sign-off information from configuration with today's date.
+    
+    Returns:
+        Dictionary containing sign-off information with names from config and today's date
+    """
+    config_manager = ConfigManager()
+    sign_off_config = config_manager.load_sign_off_config()
+    
+    # Get today's date in the configured format
+    date_format = sign_off_config.get('date_format', '%Y-%m-%d')
+    today = datetime.now().strftime(date_format)
+    
+    return {
+        'test_lead': sign_off_config.get('test_lead', 'TBD'),
+        'test_engineer': sign_off_config.get('test_engineer', 'TBD'),
+        'test_date': today,
+        'dev_lead': sign_off_config.get('dev_lead', 'TBD'),
+        'dev_date': today,
+        'product_owner': sign_off_config.get('product_owner', 'TBD'),
+        'product_date': today,
+        'qa_manager': sign_off_config.get('qa_manager', 'TBD'),
+        'qa_date': today
+    }
 
 
 def setup_logging(verbose: bool = False, debug: bool = False) -> None:
@@ -749,17 +777,7 @@ Examples:
             'database_version': 'N/A',
             'test_data_info': 'Standard test data set',
             'configuration': 'Default configuration',
-            'sign_off': {
-                'test_lead': 'TBD',
-                'test_engineer': 'TBD',
-                'test_date': datetime.now().strftime("%Y-%m-%d"),
-                'dev_lead': 'TBD',
-                'dev_date': 'TBD',
-                'product_lead': 'TBD',
-                'product_date': 'TBD',
-                'qa_lead': 'TBD',
-                'qa_date': 'TBD'
-            },
+            'sign_off': generate_sign_off_info(),
             'release_recommendation': 'APPROVED',  # Will be calculated below
             'release_comments': 'Based on test execution results and exit criteria evaluation',
             

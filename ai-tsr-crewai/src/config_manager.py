@@ -257,3 +257,25 @@ class ConfigManager:
         except Exception as e:
             logger.error(f"Configuration validation failed: {e}")
             return False
+    
+    def load_sign_off_config(self) -> Dict[str, Any]:
+        """
+        Load sign-off configuration with environment variable overrides.
+        
+        Returns:
+            Sign-off configuration dictionary with overrides applied
+        """
+        config = self.load_config('sign_off.yaml')
+        
+        if not config:
+            # Return default values if config file not found
+            return {
+                'test_lead': 'TBD',
+                'test_engineer': 'TBD',
+                'dev_lead': 'TBD',
+                'product_lead': 'TBD',
+                'qa_lead': 'TBD',
+                'date_format': '%Y-%m-%d'
+            }
+        
+        return config.get('sign_off', {})
