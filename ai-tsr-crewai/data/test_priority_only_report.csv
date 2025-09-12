@@ -1,0 +1,11 @@
+TestCaseID,Description,Module,Result,BugID,Priority,Tester,Duration
+TC001,Login functionality test,Authentication,Pass,,,Tester1,30
+TC002,User registration test,Authentication,Fail,BUG-001,High,Tester1,45
+TC003,Password reset test,Authentication,Fail,BUG-002,Highest,Tester2,25
+TC004,Profile update test,User Management,Pass,,,Tester1,20
+TC005,Profile delete test,User Management,Fail,BUG-003,Medium,Tester2,35
+TC006,Search functionality test,Search,Pass,,,Tester1,15
+TC007,Filter results test,Search,Fail,BUG-004,High,Tester2,40
+TC008,Export data test,Reports,Pass,,,Tester1,50
+TC009,Generate report test,Reports,Fail,BUG-005,Low,Tester2,60
+TC010,Email notification test,Notifications,Pass,,,Tester1,25

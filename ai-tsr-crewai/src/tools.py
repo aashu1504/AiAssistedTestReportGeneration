@@ -363,6 +363,35 @@ def compute_metrics(df: pd.DataFrame) -> Dict[str, Any]:
         metrics['defects_by_priority'] = defects_by_priority
         logger.debug(f"Defects by priority: {defects_by_priority}")
     
+    # Priority-to-severity fallback: If no severity data but priority data exists, map priority to severity
+    if ('Severity' not in df.columns or df['Severity'].isna().all() or (df['Severity'] == '').all()) and \
+       ('Priority' in df.columns and not df['Priority'].isna().all() and (df['Priority'] != '').any()):
+        
+        logger.info("No severity data found, mapping priority to severity for quality gates")
+        
+        # Create priority to severity mapping
+        priority_to_severity = {
+            'Highest': 'Critical',
+            'High': 'Major', 
+            'Medium': 'Medium',
+            'Low': 'Minor'
+        }
+        
+        # Map priority values to severity
+        df['Severity'] = df['Priority'].map(priority_to_severity).fillna('')
+        
+        # Recompute defects by severity using the mapped values
+        defect_df = df[(df['Severity'].notna()) & (df['Severity'] != '') & 
+                      (df['BugID'].notna()) & (df['BugID'] != '')]
+        defects_by_severity = defect_df['Severity'].value_counts().to_dict()
+        
+        # Ensure all severity levels are present
+        for severity in ['Critical', 'Major', 'Medium', 'Minor']:
+            if severity not in defects_by_severity:
+                defects_by_severity[severity] = 0
+        metrics['defects_by_severity'] = defects_by_severity
+        logger.debug(f"Defects by severity (mapped from priority): {defects_by_severity}")
+    
     # Defect density by module
     if 'Module' in df.columns and 'BugID' in df.columns:
         # Count unique bugs per module
