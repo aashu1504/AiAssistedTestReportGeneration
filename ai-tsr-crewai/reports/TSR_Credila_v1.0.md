@@ -1,21 +1,21 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_Final Sign-Off Test_v1.0_20250913_034351
-- **Linked Test Plan**: TP-FINAL-001
-- **Report Date**: 2025-09-13 03:43:51
+- **Report ID**: TSR_Credila_v1.0_20250914_021629
+- **Linked Test Plan**: TP-DEFAULT-001
+- **Report Date**: 2025-09-14 02:16:29
 - **Report Version**: 1.0
 
 ## Introduction
 
 ### Project Information
-- **Project**: Final Sign-Off Test
+- **Project**: Credila
 - **Release**: v1.0
-- **Test Scope**: Test final sign-off configuration
-- **Test Objectives**: Verify all sign-off names and dates work correctly
+- **Test Scope**: Functional Testing, Regression Testing, Integration Testing
+- **Test Objectives**: Verify system functionality, Ensure quality standards, Validate release readiness
 
 ### Executive Summary
-This report summarizes the test execution results for Final Sign-Off Test release v1.0. The testing was conducted covering Test final sign-off configuration with the primary objective of Verify all sign-off names and dates work correctly.
+This report summarizes the test execution results for Credila release v1.0. The testing was conducted covering Functional Testing, Regression Testing, Integration Testing with the primary objective of Verify system functionality, Ensure quality standards, Validate release readiness.
 
 ## Test Summary
 
@@ -48,14 +48,16 @@ This report summarizes the test execution results for Final Sign-Off Test releas
 ## Test Environment
 
 ### Environment Details
-- **Environment Name**: Test Environment
-- **Hardware**: Standard test hardware
-- **Software**: Test environment software stack
-- **Operating System**: N/A
-- **Browser/Platform**: N/A
-- **Database**: N/A
-- **Test Data**: Standard test data set
-- **Configuration**: Default configuration
+- **Environment Name**: QA
+- **Software Version**: v1.1.0
+- **Software Details**: Application v2.1.0, API Gateway v1.5.2, Microservices v3.0.1
+- **Browsers**: Chrome 120, Firefox 119, Safari 17, Edge 120
+- **Database**: PostgreSQL 15.4
+- **Database Details**: PostgreSQL 15.4 with Redis 7.2 cache
+- **Deployment**: Docker Containers
+- **Load Balancer**: NGINX 1.24
+- **Monitoring**: Prometheus + Grafana
+- **Logging**: ELK Stack (Elasticsearch 8.11, Logstash 8.11, Kibana 8.11)
 
 ### Environment Issues
 
@@ -238,21 +240,21 @@ All exit criteria have been met.
 ## Sign-Off
 
 ### Test Team
-- **Test Lead**: John Smith
-- **Test Engineer**: Jane Doe
-- **Date**: 2025-09-13
+- **Test Lead**: Ashish Uniyal
+- **Test Engineer**: Saikat Ghosh
+- **Date**: 2025-09-14
 
 ### Development Team
-- **Development Lead**: Mike Johnson
-- **Date**: 2025-09-13
+- **Development Lead**: Tejsing Wagh
+- **Date**: 2025-09-14
 
 ### Product Owner
-- **Product Owner**: Sarah Wilson
-- **Date**: 2025-09-13
+- **Product Owner**: GSuppa
+- **Date**: 2025-09-14
 
 ### Quality Assurance
-- **QA Manager**: David Brown
-- **Date**: 2025-09-13
+- **QA Manager**: Dhiraj Barhate
+- **Date**: 2025-09-14
 
 ### Release Decision
 - **Release Recommendation**: REJECTED
@@ -260,5 +262,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-13 03:43:51*
+*Report generated on 2025-09-14 02:16:29*
 *Report Version: 1.0*

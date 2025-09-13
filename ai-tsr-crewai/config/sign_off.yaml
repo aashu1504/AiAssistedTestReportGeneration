@@ -2,6 +2,29 @@
 # This file defines the default sign-off information for TSR reports
 # Values can be overridden by environment variables
 
+# Test Environment Configuration
+test_environment:
+  # Environment type (QA, UAT, Pre-Prod, Production, Staging)
+  environment_name: "Staging"
+  
+  # Software information
+  software_version: "v2.1.0"
+  software_details: "Application v2.1.0, API Gateway v1.5.2, Microservices v3.0.1"
+  
+  # Browser information (comma-separated list)
+  browsers: "Chrome 120, Firefox 119, Safari 17, Edge 120"
+  
+  # Database information
+  database_type: "PostgreSQL"
+  database_version: "15.4"
+  database_details: "PostgreSQL 15.4 with Redis 7.2 cache"
+  
+  # Additional environment details
+  deployment_type: "Docker Containers"
+  load_balancer: "NGINX 1.24"
+  monitoring: "Prometheus + Grafana"
+  logging: "ELK Stack (Elasticsearch 8.11, Logstash 8.11, Kibana 8.11)"
+
 sign_off:
   # Test Team
   test_lead: "John Smith"
@@ -22,9 +45,23 @@ sign_off:
 # Environment variable mappings
 # These define which environment variables can override config values
 env_mappings:
+  # Sign-off mappings
   TSR_TEST_LEAD: "test_lead"
   TSR_TEST_ENGINEER: "test_engineer"
   TSR_DEV_LEAD: "dev_lead"
   TSR_PRODUCT_OWNER: "product_owner"
   TSR_QA_MANAGER: "qa_manager"
   TSR_DATE_FORMAT: "date_format"
+  
+  # Test environment mappings
+  TSR_ENVIRONMENT_NAME: "test_environment.environment_name"
+  TSR_SOFTWARE_VERSION: "test_environment.software_version"
+  TSR_SOFTWARE_DETAILS: "test_environment.software_details"
+  TSR_BROWSERS: "test_environment.browsers"
+  TSR_DATABASE_TYPE: "test_environment.database_type"
+  TSR_DATABASE_VERSION: "test_environment.database_version"
+  TSR_DATABASE_DETAILS: "test_environment.database_details"
+  TSR_DEPLOYMENT_TYPE: "test_environment.deployment_type"
+  TSR_LOAD_BALANCER: "test_environment.load_balancer"
+  TSR_MONITORING: "test_environment.monitoring"
+  TSR_LOGGING: "test_environment.logging"

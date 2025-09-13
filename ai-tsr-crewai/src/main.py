@@ -361,6 +361,31 @@ def generate_sign_off_info() -> Dict[str, Any]:
     }
 
 
+def generate_test_environment_info() -> Dict[str, Any]:
+    """
+    Generate test environment information from configuration.
+    
+    Returns:
+        Dictionary containing test environment information
+    """
+    config_manager = ConfigManager()
+    env_config = config_manager.load_test_environment_config()
+    
+    return {
+        'environment_name': env_config.get('environment_name', 'Staging'),
+        'software_version': env_config.get('software_version', 'v1.0.0'),
+        'software_details': env_config.get('software_details', 'Application v1.0.0'),
+        'browsers': env_config.get('browsers', 'Chrome, Firefox, Safari, Edge'),
+        'database_type': env_config.get('database_type', 'PostgreSQL'),
+        'database_version': env_config.get('database_version', '14.0'),
+        'database_details': env_config.get('database_details', 'PostgreSQL 14.0'),
+        'deployment_type': env_config.get('deployment_type', 'Docker'),
+        'load_balancer': env_config.get('load_balancer', 'NGINX'),
+        'monitoring': env_config.get('monitoring', 'Prometheus'),
+        'logging': env_config.get('logging', 'ELK Stack')
+    }
+
+
 def setup_logging(verbose: bool = False, debug: bool = False) -> None:
     """Configure logging based on environment variables."""
     level = logging.DEBUG if debug else (logging.INFO if verbose else logging.WARNING)
@@ -517,17 +542,24 @@ def main() -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python -m src.main --file data/sample_tc_execution.xlsx --project "SampleProject" --release "R1.0.0" --environment "QA Windows/Chrome" --scope "Login, Checkout, Orders" --objectives "Functional Regression" --linked_plan "TP-001"
+  # Minimal usage (most values from .env)
+  python -m src.main --project "SampleProject" --release "R1.0.0"
   
-  python -m src.main --file data/test_results.csv --project "MyApp" --release "v2.1" --environment "Linux/Firefox" --scope "API Testing" --objectives "Performance" --linked_plan "TP-002" --outdir custom_reports/
+  # With custom file
+  python -m src.main --file data/test_results.csv --project "MyApp" --release "v2.1"
+  
+  # Override specific values
+  python -m src.main --project "MyApp" --release "v2.1" --scope "API Testing" --objectives "Performance"
+  
+  # Full customization
+  python -m src.main --file data/sample_tc_execution.xlsx --project "SampleProject" --release "R1.0.0" --environment "QA Windows/Chrome" --scope "Login, Checkout, Orders" --objectives "Functional Regression" --linked_plan "TP-001" --outdir custom_reports/
         """
     )
     
     # Required arguments
     parser.add_argument(
         '--file',
-        default='data/sample_tc_execution.xlsx',
-        help='Path to test execution file (.xlsx, .csv, .json, .xml) [default: data/sample_tc_execution.xlsx]'
+        help='Path to test execution file (.xlsx, .csv, .json, .xml) [default: from .env TSR_DEFAULT_FILE]'
     )
     parser.add_argument(
         '--project',
@@ -539,19 +571,19 @@ Examples:
     )
     parser.add_argument(
         '--environment',
-        help='Test environment (e.g., "QA Windows/Chrome", "Production")'
+        help='Test environment (e.g., "QA Windows/Chrome", "Production") [default: from .env TSR_ENVIRONMENT_NAME]'
     )
     parser.add_argument(
         '--scope',
-        help='Test scope (e.g., "Login, Checkout, Orders", "API Testing")'
+        help='Test scope (e.g., "Login, Checkout, Orders", "API Testing") [default: from .env TSR_DEFAULT_SCOPE]'
     )
     parser.add_argument(
         '--objectives',
-        help='Test objectives (e.g., "Functional Regression", "Performance")'
+        help='Test objectives (e.g., "Functional Regression", "Performance") [default: from .env TSR_DEFAULT_OBJECTIVES]'
     )
     parser.add_argument(
         '--linked_plan',
-        help='Linked test plan ID (e.g., "TP-001", "TEST-123")'
+        help='Linked test plan ID (e.g., "TP-001", "TEST-123") [default: from .env TSR_DEFAULT_LINKED_PLAN]'
     )
     
     # Optional arguments
@@ -637,12 +669,35 @@ Examples:
         return 0
     
     # Validate required arguments for TSR generation
-    required_args = ['project', 'release', 'environment', 'scope', 'objectives', 'linked_plan']
+    required_args = ['project', 'release']
     missing_args = [arg for arg in required_args if not getattr(args, arg)]
     if missing_args:
         print(f"❌ Error: Missing required arguments: {', '.join(f'--{arg}' for arg in missing_args)}")
         print("Use --list-quality-gates to see available quality gates")
         return 1
+    
+    # Set defaults from .env if not provided
+    if not args.file:
+        args.file = os.getenv('TSR_DEFAULT_FILE', 'data/sample_tc_execution.xlsx')
+        print(f"📋 Using file from .env: {args.file}")
+    
+    if not args.environment:
+        config_manager = ConfigManager()
+        env_config = config_manager.load_test_environment_config()
+        args.environment = env_config.get('environment_name', 'Test Environment')
+        print(f"📋 Using environment from .env: {args.environment}")
+    
+    if not args.scope:
+        args.scope = os.getenv('TSR_DEFAULT_SCOPE', 'Functional Testing, Regression Testing')
+        print(f"📋 Using scope from .env: {args.scope}")
+    
+    if not args.objectives:
+        args.objectives = os.getenv('TSR_DEFAULT_OBJECTIVES', 'Verify system functionality, Ensure quality standards')
+        print(f"📋 Using objectives from .env: {args.objectives}")
+    
+    if not args.linked_plan:
+        args.linked_plan = os.getenv('TSR_DEFAULT_LINKED_PLAN', 'TP-DEFAULT-001')
+        print(f"📋 Using linked plan from .env: {args.linked_plan}")
     
     logger.info("Starting TSR generation process...")
     
@@ -770,14 +825,10 @@ Examples:
             
             # Additional template fields
             'report_version': '1.0',
-            'hardware_info': 'Standard test hardware',
-            'software_info': 'Test environment software stack',
-            'os_version': 'N/A',
-            'browser_version': 'N/A',
-            'database_version': 'N/A',
-            'test_data_info': 'Standard test data set',
-            'configuration': 'Default configuration',
             'sign_off': generate_sign_off_info(),
+            
+            # Test environment information (dynamic from config)
+            'test_environment': generate_test_environment_info(),
             'release_recommendation': 'APPROVED',  # Will be calculated below
             'release_comments': 'Based on test execution results and exit criteria evaluation',
             
@@ -809,6 +860,9 @@ Examples:
         
         # Generate dynamic variances based on actual data
         context['variances'] = generate_dynamic_variances(metrics, summary, context['modules_covered'], args)
+        
+        # Generate dynamic recommendations based on lessons learned
+        context['recommendations'] = context['lessons_learned'].get('improvements', [])
         
         # Step 6: Render templates
         print("\n📄 Step 6: Rendering report templates...")

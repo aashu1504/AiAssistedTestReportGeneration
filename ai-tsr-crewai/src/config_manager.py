@@ -269,13 +269,79 @@ class ConfigManager:
         
         if not config:
             # Return default values if config file not found
-            return {
+            default_config = {
                 'test_lead': 'TBD',
                 'test_engineer': 'TBD',
                 'dev_lead': 'TBD',
-                'product_lead': 'TBD',
-                'qa_lead': 'TBD',
+                'product_owner': 'TBD',
+                'qa_manager': 'TBD',
                 'date_format': '%Y-%m-%d'
             }
+        else:
+            default_config = config.get('sign_off', {})
         
-        return config.get('sign_off', {})
+        # Apply environment variable overrides
+        env_overrides = {
+            'test_lead': os.getenv('TSR_TEST_LEAD'),
+            'test_engineer': os.getenv('TSR_TEST_ENGINEER'),
+            'dev_lead': os.getenv('TSR_DEV_LEAD'),
+            'product_owner': os.getenv('TSR_PRODUCT_OWNER'),
+            'qa_manager': os.getenv('TSR_QA_MANAGER'),
+            'date_format': os.getenv('TSR_DATE_FORMAT')
+        }
+        
+        # Apply overrides where environment variables are set
+        for key, value in env_overrides.items():
+            if value is not None:
+                default_config[key] = value
+        
+        return default_config
+    
+    def load_test_environment_config(self) -> Dict[str, Any]:
+        """
+        Load test environment configuration with environment variable overrides.
+        
+        Returns:
+            Test environment configuration dictionary with overrides applied
+        """
+        config = self.load_config('sign_off.yaml')
+        
+        if not config:
+            # Return default values if config file not found
+            default_config = {
+                'environment_name': 'Staging',
+                'software_version': 'v1.0.0',
+                'software_details': 'Application v1.0.0',
+                'browsers': 'Chrome, Firefox, Safari, Edge',
+                'database_type': 'PostgreSQL',
+                'database_version': '14.0',
+                'database_details': 'PostgreSQL 14.0',
+                'deployment_type': 'Docker',
+                'load_balancer': 'NGINX',
+                'monitoring': 'Prometheus',
+                'logging': 'ELK Stack'
+            }
+        else:
+            default_config = config.get('test_environment', {})
+        
+        # Apply environment variable overrides
+        env_overrides = {
+            'environment_name': os.getenv('TSR_ENVIRONMENT_NAME'),
+            'software_version': os.getenv('TSR_SOFTWARE_VERSION'),
+            'software_details': os.getenv('TSR_SOFTWARE_DETAILS'),
+            'browsers': os.getenv('TSR_BROWSERS'),
+            'database_type': os.getenv('TSR_DATABASE_TYPE'),
+            'database_version': os.getenv('TSR_DATABASE_VERSION'),
+            'database_details': os.getenv('TSR_DATABASE_DETAILS'),
+            'deployment_type': os.getenv('TSR_DEPLOYMENT_TYPE'),
+            'load_balancer': os.getenv('TSR_LOAD_BALANCER'),
+            'monitoring': os.getenv('TSR_MONITORING'),
+            'logging': os.getenv('TSR_LOGGING')
+        }
+        
+        # Apply overrides where environment variables are set
+        for key, value in env_overrides.items():
+            if value is not None:
+                default_config[key] = value
+        
+        return default_config

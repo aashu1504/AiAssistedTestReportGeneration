@@ -40,14 +40,16 @@ This report summarizes the test execution results for {{ project }} release {{ r
 ## Test Environment
 
 ### Environment Details
-- **Environment Name**: {{ environment }}
-- **Hardware**: {{ hardware_info or 'Standard test hardware' }}
-- **Software**: {{ software_info or 'Test environment software stack' }}
-- **Operating System**: {{ os_version or 'N/A' }}
-- **Browser/Platform**: {{ browser_version or 'N/A' }}
-- **Database**: {{ database_version or 'N/A' }}
-- **Test Data**: {{ test_data_info or 'Standard test data set' }}
-- **Configuration**: {{ configuration or 'Default configuration' }}
+- **Environment Name**: {{ test_environment.environment_name or environment }}
+- **Software Version**: {{ test_environment.software_version or 'N/A' }}
+- **Software Details**: {{ test_environment.software_details or 'N/A' }}
+- **Browsers**: {{ test_environment.browsers or 'N/A' }}
+- **Database**: {{ test_environment.database_type or 'N/A' }} {{ test_environment.database_version or '' }}
+- **Database Details**: {{ test_environment.database_details or 'N/A' }}
+- **Deployment**: {{ test_environment.deployment_type or 'N/A' }}
+- **Load Balancer**: {{ test_environment.load_balancer or 'N/A' }}
+- **Monitoring**: {{ test_environment.monitoring or 'N/A' }}
+- **Logging**: {{ test_environment.logging or 'N/A' }}
 
 ### Environment Issues
 {% if environment_issues %}
