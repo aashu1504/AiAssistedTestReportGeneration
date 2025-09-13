@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSR - Credila v1.0</title>
+    <title>TSR - E-Commerce Platform v2.5.3</title>
     <style>
         * {
             margin: 0;
@@ -492,11 +492,11 @@
         <!-- Header -->
         <div class="header">
             <h1>Test Summary Report</h1>
-            <div class="subtitle">Credila - v1.0</div>
+            <div class="subtitle">E-Commerce Platform - v2.5.3</div>
             <div class="meta">
                 <span>Environment: QA</span>
-                <span>Plan: TP-DEFAULT-001</span>
-                <span>Generated: 2025-09-14 02:16:29</span>
+                <span>Plan: TP-ECOMMERCE-2024-004</span>
+                <span>Generated: 2025-09-14 02:50:16</span>
             </div>
         </div>
         
@@ -504,8 +504,8 @@
             <!-- Executive Summary -->
             <div class="exec-summary">
                 <h2>Executive Summary</h2>
-                <p><strong>Test Execution:</strong> 10 total tests, 10 executed (50.0% pass rate)</p>
-                <p><strong>Defects:</strong> 5 total defects identified (1 critical, 2 major)</p>
+                <p><strong>Test Execution:</strong> 45 total tests, 45 executed (66.67% pass rate)</p>
+                <p><strong>Defects:</strong> 15 total defects identified (3 critical, 6 major, 5 medium, 1 minor)</p>
                 <p><strong>Status:</strong> 
                 
                     ❌ Requires immediate action
@@ -515,23 +515,23 @@
         <!-- Key Metrics -->
         <div class="metrics-grid">
             <div class="metric-card total">
-                <div class="metric-value">10</div>
+                <div class="metric-value">45</div>
                 <div class="metric-label">Total Tests</div>
             </div>
             <div class="metric-card executed">
-                <div class="metric-value">10</div>
+                <div class="metric-value">45</div>
                 <div class="metric-label">Executed</div>
                 <div class="metric-percentage">100.0%</div>
             </div>
             <div class="metric-card passed">
-                <div class="metric-value">5</div>
+                <div class="metric-value">30</div>
                 <div class="metric-label">Passed</div>
-                <div class="metric-percentage">50.0%</div>
+                <div class="metric-percentage">66.67%</div>
             </div>
             <div class="metric-card failed">
-                <div class="metric-value">5</div>
+                <div class="metric-value">15</div>
                 <div class="metric-label">Failed</div>
-                <div class="metric-percentage">50.0%</div>
+                <div class="metric-percentage">33.3%</div>
             </div>
             <div class="metric-card blocked">
                 <div class="metric-value">0</div>
@@ -582,43 +582,75 @@
                     <tbody>
                         
                         <tr>
-                            <td><strong>Authentication</strong></td>
-                            <td>3</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><strong>API Testing</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
                             <td><span class="status-badge status-failed">2</span></td>
-                            <td>33.3%</td>
+                            <td>60.0%</td>
                         </tr>
                         
                         <tr>
-                            <td><strong>Notifications</strong></td>
-                            <td>1</td>
+                            <td><strong>Authentication</strong></td>
+                            <td>5</td>
                             <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">0</span></td>
-                            <td>100.0%</td>
+                            <td><span class="status-badge status-failed">4</span></td>
+                            <td>20.0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Dashboard</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Order Management</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Payment</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
                         </tr>
                         
                         <tr>
                             <td><strong>Reports</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>80.0%</td>
                         </tr>
                         
                         <tr>
-                            <td><strong>Search</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><strong>Security</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>80.0%</td>
                         </tr>
                         
                         <tr>
                             <td><strong>User Management</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
                         </tr>
                         
                     </tbody>
@@ -642,11 +674,25 @@
                     <tbody>
                         
                         <tr>
-                            <td><strong>Authentication</strong></td>
-                            <td>3</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><strong>API Testing</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
                             <td><span class="status-badge status-failed">2</span></td>
-                            <td>33.3%</td>
+                            <td>60.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Authentication</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><span class="status-badge status-failed">4</span></td>
+                            <td>20.0%</td>
                             <td>
                                 
                                 
@@ -656,53 +702,95 @@
                         </tr>
                         
                         <tr>
-                            <td><strong>Notifications</strong></td>
-                            <td>1</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">0</span></td>
-                            <td>100.0%</td>
+                            <td><strong>Dashboard</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
                             <td>
                                 
                                 
-                                    <span class="status-badge status-passed">Excellent</span>
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Order Management</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Payment</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
                                 
                             </td>
                         </tr>
                         
                         <tr>
                             <td><strong>Reports</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>80.0%</td>
                             <td>
                                 
                                 
-                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                    <span class="status-badge status-passed">Good</span>
                                 
                             </td>
                         </tr>
                         
                         <tr>
-                            <td><strong>Search</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><strong>Security</strong></td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
                             <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>80.0%</td>
                             <td>
                                 
                                 
-                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                    <span class="status-badge status-passed">Good</span>
                                 
                             </td>
                         </tr>
                         
                         <tr>
                             <td><strong>User Management</strong></td>
-                            <td>2</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>50.0%</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
                             <td>
                                 
                                 
@@ -775,7 +863,7 @@
                     
                     <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid yellow;">
                         <h4 style="color: yellow;">Pass Rate Deviation (Medium)</h4>
-                        <p><strong>Description:</strong> Pass rate of 50.0% is significantly below expected threshold</p>
+                        <p><strong>Description:</strong> Pass rate of 66.7% is significantly below expected threshold</p>
                         <p><strong>Impact:</strong> Quality concerns may indicate widespread issues</p>
                         <p><strong>Mitigation:</strong> Conduct root cause analysis and implement quality gates</p>
                     </div>
@@ -783,15 +871,23 @@
                     
                     <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid red;">
                         <h4 style="color: red;">Critical Defect Deviation (Critical)</h4>
-                        <p><strong>Description:</strong> 1 critical defect(s) found - release blocker</p>
+                        <p><strong>Description:</strong> 3 critical defect(s) found - release blocker</p>
                         <p><strong>Impact:</strong> Critical functionality is compromised, release should be delayed</p>
                         <p><strong>Mitigation:</strong> Immediate defect resolution and re-testing required</p>
                     </div>
                     
                     
                     <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid orange;">
+                        <h4 style="color: orange;">Major Defect Deviation (High)</h4>
+                        <p><strong>Description:</strong> 6 major defect(s) exceed acceptable threshold</p>
+                        <p><strong>Impact:</strong> Significant functionality issues may impact user experience</p>
+                        <p><strong>Mitigation:</strong> Prioritize major defect resolution before release</p>
+                    </div>
+                    
+                    
+                    <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid orange;">
                         <h4 style="color: orange;">Module Defect Density Deviation (High)</h4>
-                        <p><strong>Description:</strong> High defect density in modules: Authentication, Notifications, Reports, Search, User Management</p>
+                        <p><strong>Description:</strong> High defect density in modules: API Testing, Authentication, Order Management, User Management</p>
                         <p><strong>Impact:</strong> Specific modules show excessive defect rates</p>
                         <p><strong>Mitigation:</strong> Focus additional testing and development effort on high-defect modules</p>
                     </div>
@@ -824,24 +920,24 @@
                     <tbody>
                         <tr>
                             <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
-                            <td>1</td>
+                            <td>3</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>3</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-major"><strong>Major</strong></span></td>
-                            <td>2</td>
+                            <td>6</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>2</td>
+                            <td>6</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-medium"><strong>Medium</strong></span></td>
-                            <td>1</td>
+                            <td>5</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>5</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-minor"><strong>Minor</strong></span></td>
@@ -852,10 +948,10 @@
                         </tr>
                         <tr style="font-weight: bold; background-color: #f8f9fa;">
                             <td><strong>Total</strong></td>
-                            <td>5</td>
+                            <td>15</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>5</td>
+                            <td>15</td>
                         </tr>
                     </tbody>
                 </table>
@@ -888,19 +984,19 @@
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-001</td>
                             <td>Authentication</td>
-                            <td>Tester1</td>
+                            <td>John Smith</td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-002</strong></td>
-                            <td><span class="status-badge status-failed">Critical</span></td>
-                            <td>Highest</td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-002</td>
                             <td>Authentication</td>
-                            <td>Tester2</td>
+                            <td>John Smith</td>
                         </tr>
                         
                         
@@ -911,32 +1007,152 @@
                             <td>Medium</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-003</td>
-                            <td>User Management</td>
-                            <td>Tester2</td>
+                            <td>Authentication</td>
+                            <td>John Smith</td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-004</strong></td>
-                            <td><span class="status-badge status-failed">Major</span></td>
-                            <td>High</td>
+                            <td><span class="status-badge status-failed">Critical</span></td>
+                            <td></td>
                             <td><span class="status-badge status-blocked">Open</span></td>
                             <td>Bug BUG-004</td>
-                            <td>Search</td>
-                            <td>Tester2</td>
+                            <td>Authentication</td>
+                            <td>John Smith</td>
                         </tr>
                         
                         
                         
                         <tr>
                             <td><strong>BUG-005</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-005</td>
+                            <td>Dashboard</td>
+                            <td>Mike Johnson</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-006</strong></td>
+                            <td><span class="status-badge status-failed">Major</span></td>
+                            <td>High</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-006</td>
+                            <td>Order Management</td>
+                            <td>Sarah Wilson</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-007</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-007</td>
+                            <td>Order Management</td>
+                            <td>Sarah Wilson</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-008</strong></td>
+                            <td><span class="status-badge status-failed">Major</span></td>
+                            <td>High</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-008</td>
+                            <td>Payment</td>
+                            <td>David Brown</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-009</strong></td>
                             <td><span class="status-badge status-failed">Minor</span></td>
                             <td>Low</td>
                             <td><span class="status-badge status-blocked">Open</span></td>
-                            <td>Bug BUG-005</td>
+                            <td>Bug BUG-009</td>
                             <td>Reports</td>
-                            <td>Tester2</td>
+                            <td>Lisa Chen</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-010</strong></td>
+                            <td><span class="status-badge status-failed">Major</span></td>
+                            <td>High</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-010</td>
+                            <td>User Management</td>
+                            <td>Alex Kumar</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-011</strong></td>
+                            <td><span class="status-badge status-failed">Medium</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-011</td>
+                            <td>User Management</td>
+                            <td>Alex Kumar</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-012</strong></td>
+                            <td><span class="status-badge status-failed">Critical</span></td>
+                            <td>High</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-012</td>
+                            <td>API Testing</td>
+                            <td>API Tester</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-013</strong></td>
+                            <td><span class="status-badge status-failed">Major</span></td>
+                            <td>Medium</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-013</td>
+                            <td>API Testing</td>
+                            <td>API Tester</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-014</strong></td>
+                            <td><span class="status-badge status-failed">Major</span></td>
+                            <td>High</td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-014</td>
+                            <td>Performance</td>
+                            <td>Perf Tester</td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td><strong>BUG-015</strong></td>
+                            <td><span class="status-badge status-failed">Critical</span></td>
+                            <td></td>
+                            <td><span class="status-badge status-blocked">Open</span></td>
+                            <td>Bug BUG-015</td>
+                            <td>Security</td>
+                            <td>Security Tester</td>
                         </tr>
                         
                         
@@ -960,7 +1176,6 @@
                         
                         
                         
-                        <li><strong>Notifications module</strong> shows excellent stability with 100.0% pass rate</li>
                         
                         
                         
@@ -972,6 +1187,21 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
+                        <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
+                        <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
+                        <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
                         
                     </ul>
                     
@@ -983,34 +1213,48 @@
                     <ul>
                         
                         
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of 50.0% is below conditional threshold (95%)</li>
+                        <li><strong>Overall Quality Risk:</strong> Pass rate of 66.67% is below conditional threshold (95%)</li>
                         
                         
-                        <li><strong>Critical Defects:</strong> 1 critical defects require immediate attention</li>
+                        <li><strong>Critical Defects:</strong> 3 critical defects require immediate attention</li>
                         
                         
-                        
-                        
-                        
-                        <li><strong>Authentication module</strong> shows critical quality issues with 33.3% pass rate</li>
+                        <li><strong>Major Defect Volume:</strong> 6 major defects exceed acceptable limit (2)</li>
                         
                         
                         
                         
-                        
-                        
-                        
-                        <li><strong>Reports module</strong> needs attention with 50.0% pass rate</li>
-                        
-                        
-                        
-                        
-                        <li><strong>Search module</strong> needs attention with 50.0% pass rate</li>
+                        <li><strong>API Testing module</strong> needs attention with 60.0% pass rate</li>
                         
                         
                         
                         
-                        <li><strong>User Management module</strong> needs attention with 50.0% pass rate</li>
+                        <li><strong>Authentication module</strong> shows critical quality issues with 20.0% pass rate</li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><strong>Order Management module</strong> needs attention with 60.0% pass rate</li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><strong>User Management module</strong> needs attention with 60.0% pass rate</li>
                         
                         
                         
@@ -1033,7 +1277,7 @@
                         
                         
                         
-                        <p>✅ All planned test cases executed (10/10)</p>
+                        <p>✅ All planned test cases executed (45/45)</p>
                         
                         
                         
@@ -1045,13 +1289,13 @@
                     <div style="margin: 1rem 0;">
                         
                         
-                        <p>❌ Pass rate below conditional threshold (50.0% < 95%)</p>
+                        <p>❌ Pass rate below conditional threshold (66.67% < 95%)</p>
                         
                         
-                        <p>❌ Critical defects exceed conditional limit (1 > 0)</p>
+                        <p>❌ Critical defects exceed conditional limit (3 > 0)</p>
                         
                         
-                        <p>❌ Major defects exceed conditional limit (2 > 1)</p>
+                        <p>❌ Major defects exceed conditional limit (6 > 1)</p>
                         
                         
                     </div>
@@ -1065,7 +1309,7 @@
                     <h3>What Went Well</h3>
                     <ul>
                         
-                        <li>Excellent test execution rate of 100.0% (10/10 tests)</li>
+                        <li>Excellent test execution rate of 100.0% (45/45 tests)</li>
                         
                         <li>No blocked tests - test environment was stable</li>
                         
@@ -1077,13 +1321,15 @@
                     <h3>Areas for Improvement</h3>
                     <ul>
                         
-                        <li>Low pass rate of 50.0% indicates quality concerns</li>
+                        <li>Low pass rate of 66.7% indicates quality concerns</li>
                         
-                        <li>1 critical defect(s) require immediate attention</li>
+                        <li>3 critical defect(s) require immediate attention</li>
                         
-                        <li>High defect density in modules: Authentication (3 defects), Notifications (1 defects), Reports (2 defects), Search (2 defects), User Management (2 defects)</li>
+                        <li>High number of major defects (6) indicates quality issues</li>
                         
-                        <li>Low pass rates in modules: Authentication (33.3%), Reports (50.0%), Search (50.0%), User Management (50.0%)</li>
+                        <li>High defect density in modules: API Testing (3 defects), Authentication (5 defects), Dashboard (2 defects), Order Management (3 defects), Payment (2 defects), Performance (2 defects), Reports (2 defects), Security (2 defects), User Management (3 defects)</li>
+                        
+                        <li>Low pass rates in modules: Authentication (20.0%)</li>
                         
                         
                     </ul>
@@ -1098,6 +1344,10 @@
                         <li>Establish critical defect resolution process with immediate escalation</li>
                         
                         <li>Implement automated testing for critical paths to prevent regression</li>
+                        
+                        <li>Increase test coverage for major functionality areas</li>
+                        
+                        <li>Implement continuous integration with automated testing</li>
                         
                         <li>Prioritize high-defect modules for additional testing and development focus</li>
                         
@@ -1168,6 +1418,10 @@
                     
                     <li>Implement automated testing for critical paths to prevent regression</li>
                     
+                    <li>Increase test coverage for major functionality areas</li>
+                    
+                    <li>Implement continuous integration with automated testing</li>
+                    
                     <li>Prioritize high-defect modules for additional testing and development focus</li>
                     
                     <li>Review and improve test cases for low-performing modules</li>
@@ -1185,7 +1439,7 @@
         
         <!-- Footer -->
         <div class="footer">
-            <p>Generated on 2025-09-14 02:16:29 | Test Summary Report for Credila v1.0</p>
+            <p>Generated on 2025-09-14 02:50:16 | Test Summary Report for E-Commerce Platform v2.5.3</p>
         </div>
     </div>
     

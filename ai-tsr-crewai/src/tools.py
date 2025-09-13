@@ -32,7 +32,12 @@ CANONICAL_COLUMNS = {
     'outcome': 'Result',
     'bugid': 'BugID',
     'bug_id': 'BugID',
+    'bug id': 'BugID',
+    'bugid ': 'BugID',
+    'bug_id ': 'BugID',
     'defect_id': 'BugID',
+    'defectid': 'BugID',
+    'defect id': 'BugID',
     'priority': 'Priority',
     'severity': 'Severity',
     'duration': 'Duration',
@@ -60,20 +65,53 @@ RESULT_MAPPINGS = {
     '': 'Not Executed'
 }
 
-# Severity mappings
+# Severity mappings - maps various severity naming conventions to standard levels
 SEVERITY_MAPPINGS = {
+    # Critical severity variations
     'critical': 'Critical',
     'crit': 'Critical',
     '1': 'Critical',
+    'p1': 'Critical',
+    'p-1': 'Critical',
+    'severe': 'Critical',
+    'fatal': 'Critical',
+    'blocker': 'Critical',
+    'blocking': 'Critical',
+    
+    # Major severity variations (including "High")
     'major': 'Major',
     'maj': 'Major',
     '2': 'Major',
+    'p2': 'Major',
+    'p-2': 'Major',
+    'high': 'Major',
+    'high-priority': 'Major',
+    'high_priority': 'Major',
+    'urgent': 'Major',
+    'important': 'Major',
+    
+    # Medium severity variations
     'medium': 'Medium',
     'med': 'Medium',
     '3': 'Medium',
+    'p3': 'Medium',
+    'p-3': 'Medium',
+    'moderate': 'Medium',
+    'normal': 'Medium',
+    'average': 'Medium',
+    
+    # Minor severity variations (including "Low")
     'minor': 'Minor',
     'min': 'Minor',
-    '4': 'Minor'
+    '4': 'Minor',
+    'p4': 'Minor',
+    'p-4': 'Minor',
+    'low': 'Minor',
+    'low-priority': 'Minor',
+    'low_priority': 'Minor',
+    'trivial': 'Minor',
+    'cosmetic': 'Minor',
+    'enhancement': 'Minor'
 }
 
 # Priority mappings

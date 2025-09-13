@@ -505,7 +505,7 @@
             <div class="exec-summary">
                 <h2>Executive Summary</h2>
                 <p><strong>Test Execution:</strong> {{ total_tests }} total tests, {{ executed_tests }} executed ({{ pass_rate }}% pass rate)</p>
-                <p><strong>Defects:</strong> {{ (defects.critical.open + defects.major.open + defects.medium.open + defects.minor.open) }} total defects identified ({{ defects.critical.open }} critical, {{ defects.major.open }} major)</p>
+                <p><strong>Defects:</strong> {{ (defects.critical.open + defects.major.open + defects.medium.open + defects.minor.open) }} total defects identified ({{ defects.critical.open }} critical, {{ defects.major.open }} major, {{ defects.medium.open }} medium, {{ defects.minor.open }} minor)</p>
                 <p><strong>Status:</strong> 
                 {% if quality_gate_evaluation.release_recommendation == 'APPROVED' %}
                     ✅ Ready for release

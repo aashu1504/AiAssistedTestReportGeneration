@@ -1,48 +1,56 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_Credila_v1.0_20250914_021629
-- **Linked Test Plan**: TP-DEFAULT-001
-- **Report Date**: 2025-09-14 02:16:29
+- **Report ID**: TSR_E-Commerce Platform_v2.5.3_20250914_025016
+- **Linked Test Plan**: TP-ECOMMERCE-2024-004
+- **Report Date**: 2025-09-14 02:50:16
 - **Report Version**: 1.0
 
 ## Introduction
 
 ### Project Information
-- **Project**: Credila
-- **Release**: v1.0
-- **Test Scope**: Functional Testing, Regression Testing, Integration Testing
-- **Test Objectives**: Verify system functionality, Ensure quality standards, Validate release readiness
+- **Project**: E-Commerce Platform
+- **Release**: v2.5.3
+- **Test Scope**: End-to-End Testing, Security Testing, Performance Testing
+- **Test Objectives**: Validate critical user journeys, Ensure security compliance, Verify performance benchmarks
 
 ### Executive Summary
-This report summarizes the test execution results for Credila release v1.0. The testing was conducted covering Functional Testing, Regression Testing, Integration Testing with the primary objective of Verify system functionality, Ensure quality standards, Validate release readiness.
+This report summarizes the test execution results for E-Commerce Platform release v2.5.3. The testing was conducted covering End-to-End Testing, Security Testing, Performance Testing with the primary objective of Validate critical user journeys, Ensure security compliance, Verify performance benchmarks.
 
 ## Test Summary
 
 | Metric | Count | Percentage |
 |--------|-------|------------|
-| **Total Tests** | 10 | 100% |
-| **Executed** | 10 | 100.0% |
-| **Passed** | 5 | 50.0% |
-| **Failed** | 5 | 50.0% |
+| **Total Tests** | 45 | 100% |
+| **Executed** | 45 | 100.0% |
+| **Passed** | 30 | 66.7% |
+| **Failed** | 15 | 33.3% |
 | **Blocked** | 0 | 0.0% |
 | **Skipped** | 0 | 0.0% |
-| **Pass Rate** | 50.0% | - |
+| **Pass Rate** | 66.7% | - |
 
 ## Modules Covered
 
 | Module | Tests Executed | Passed | Failed | Pass Rate | Status |
 |--------|----------------|--------|--------|-----------|--------|
 
-| Authentication | 3 | 1 | 2 | 0.0% | N/A |
+| API Testing | 5 | 3 | 2 | 0.0% | N/A |
 
-| Notifications | 1 | 1 | 0 | 0.0% | N/A |
+| Authentication | 5 | 1 | 4 | 0.0% | N/A |
 
-| Reports | 2 | 1 | 1 | 0.0% | N/A |
+| Dashboard | 5 | 4 | 1 | 0.0% | N/A |
 
-| Search | 2 | 1 | 1 | 0.0% | N/A |
+| Order Management | 5 | 3 | 2 | 0.0% | N/A |
 
-| User Management | 2 | 1 | 1 | 0.0% | N/A |
+| Payment | 5 | 4 | 1 | 0.0% | N/A |
+
+| Performance | 5 | 4 | 1 | 0.0% | N/A |
+
+| Reports | 5 | 4 | 1 | 0.0% | N/A |
+
+| Security | 5 | 4 | 1 | 0.0% | N/A |
+
+| User Management | 5 | 3 | 2 | 0.0% | N/A |
 
 
 ## Test Environment
@@ -83,15 +91,19 @@ No environment issues identified.
 
 ### Test Execution Variances
 
-- **Pass Rate Deviation** (Medium): Pass rate of 50.0% is significantly below expected threshold
+- **Pass Rate Deviation** (Medium): Pass rate of 66.7% is significantly below expected threshold
   - **Impact**: Quality concerns may indicate widespread issues
   - **Mitigation**: Conduct root cause analysis and implement quality gates
 
-- **Critical Defect Deviation** (Critical): 1 critical defect(s) found - release blocker
+- **Critical Defect Deviation** (Critical): 3 critical defect(s) found - release blocker
   - **Impact**: Critical functionality is compromised, release should be delayed
   - **Mitigation**: Immediate defect resolution and re-testing required
 
-- **Module Defect Density Deviation** (High): High defect density in modules: Authentication, Notifications, Reports, Search, User Management
+- **Major Defect Deviation** (High): 6 major defect(s) exceed acceptable threshold
+  - **Impact**: Significant functionality issues may impact user experience
+  - **Mitigation**: Prioritize major defect resolution before release
+
+- **Module Defect Density Deviation** (High): High defect density in modules: API Testing, Authentication, Order Management, User Management
   - **Impact**: Specific modules show excessive defect rates
   - **Mitigation**: Focus additional testing and development effort on high-defect modules
 
@@ -105,11 +117,11 @@ No environment issues identified.
 
 | Severity | Open | Closed | Deferred | Total |
 |----------|------|--------|----------|-------|
-| **Critical** | 1 | 0 | 0 | 1 |
-| **Major** | 2 | 0 | 0 | 2 |
-| **Medium** | 1 | 0 | 0 | 1 |
+| **Critical** | 3 | 0 | 0 | 3 |
+| **Major** | 6 | 0 | 0 | 6 |
+| **Medium** | 5 | 0 | 0 | 5 |
 | **Minor** | 1 | 0 | 0 | 1 |
-| **Total** | 5 | 0 | 0 | 5 |
+| **Total** | 15 | 0 | 0 | 15 |
 
 ## Key Bugs
 
@@ -117,17 +129,37 @@ No environment issues identified.
 | Bug ID | Severity | Priority | Status | Description | Module | Assigned To |
 |--------|----------|----------|--------|-------------|--------|-------------|
 
-| nan |  |  | Open | N/A | Authentication | Tester1 |
+| nan |  | High | Open | N/A | Authentication | John Smith |
 
-| BUG-001 | Major | High | Open | N/A | Authentication | Tester1 |
+| BUG-001 | Major | High | Open | N/A | Authentication | John Smith |
 
-| BUG-002 | Critical | Highest | Open | N/A | Authentication | Tester2 |
+| BUG-002 | Medium | Medium | Open | N/A | Authentication | John Smith |
 
-| BUG-003 | Medium | Medium | Open | N/A | User Management | Tester2 |
+| BUG-003 | Medium | Medium | Open | N/A | Authentication | John Smith |
 
-| BUG-004 | Major | High | Open | N/A | Search | Tester2 |
+| BUG-004 | Critical |  | Open | N/A | Authentication | John Smith |
 
-| BUG-005 | Minor | Low | Open | N/A | Reports | Tester2 |
+| BUG-005 | Medium | Medium | Open | N/A | Dashboard | Mike Johnson |
+
+| BUG-006 | Major | High | Open | N/A | Order Management | Sarah Wilson |
+
+| BUG-007 | Medium | Medium | Open | N/A | Order Management | Sarah Wilson |
+
+| BUG-008 | Major | High | Open | N/A | Payment | David Brown |
+
+| BUG-009 | Minor | Low | Open | N/A | Reports | Lisa Chen |
+
+| BUG-010 | Major | High | Open | N/A | User Management | Alex Kumar |
+
+| BUG-011 | Medium | Medium | Open | N/A | User Management | Alex Kumar |
+
+| BUG-012 | Critical | High | Open | N/A | API Testing | API Tester |
+
+| BUG-013 | Major | Medium | Open | N/A | API Testing | API Tester |
+
+| BUG-014 | Major | High | Open | N/A | Performance | Perf Tester |
+
+| BUG-015 | Critical |  | Open | N/A | Security | Security Tester |
 
 
 
@@ -136,39 +168,63 @@ No environment issues identified.
 | Module | Total Tests | Total Defects | Density % | Risk Level | Critical | Major | Medium | Minor |
 |--------|-------------|---------------|-----------|------------|----------|-------|--------|-------|
 
-| Authentication | 3 | 3 | 100.0% | High | 1 | 1 | 0 | 0 |
+| Authentication | 5 | 5 | 100.0% | High | 1 | 1 | 2 | 0 |
 
-| User Management | 2 | 2 | 100.0% | High | 0 | 0 | 1 | 0 |
+| Dashboard | 5 | 2 | 40.0% | High | 0 | 0 | 1 | 0 |
 
-| Search | 2 | 2 | 100.0% | High | 0 | 1 | 0 | 0 |
+| Order Management | 5 | 3 | 60.0% | High | 0 | 1 | 1 | 0 |
 
-| Reports | 2 | 2 | 100.0% | High | 0 | 0 | 0 | 1 |
+| Payment | 5 | 2 | 40.0% | High | 0 | 1 | 0 | 0 |
 
-| Notifications | 1 | 1 | 100.0% | High | 0 | 0 | 0 | 0 |
+| Reports | 5 | 2 | 40.0% | High | 0 | 0 | 0 | 1 |
+
+| User Management | 5 | 3 | 60.0% | High | 0 | 1 | 1 | 0 |
+
+| API Testing | 5 | 3 | 60.0% | High | 1 | 1 | 0 | 0 |
+
+| Performance | 5 | 2 | 40.0% | High | 0 | 1 | 0 | 0 |
+
+| Security | 5 | 2 | 40.0% | High | 1 | 0 | 0 | 0 |
 
 
 ### Defect Density Analysis
 
 
-- **Authentication**: 3 defects in 3 tests (100.0% density)
+- **Authentication**: 5 defects in 5 tests (100.0% density)
   - Risk Level: High
-  - Severity Breakdown: 1 Critical, 1 Major, 0 Medium, 0 Minor
+  - Severity Breakdown: 1 Critical, 1 Major, 2 Medium, 0 Minor
 
-- **User Management**: 2 defects in 2 tests (100.0% density)
+- **Dashboard**: 2 defects in 5 tests (40.0% density)
   - Risk Level: High
   - Severity Breakdown: 0 Critical, 0 Major, 1 Medium, 0 Minor
 
-- **Search**: 2 defects in 2 tests (100.0% density)
+- **Order Management**: 3 defects in 5 tests (60.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 1 Major, 1 Medium, 0 Minor
+
+- **Payment**: 2 defects in 5 tests (40.0% density)
   - Risk Level: High
   - Severity Breakdown: 0 Critical, 1 Major, 0 Medium, 0 Minor
 
-- **Reports**: 2 defects in 2 tests (100.0% density)
+- **Reports**: 2 defects in 5 tests (40.0% density)
   - Risk Level: High
   - Severity Breakdown: 0 Critical, 0 Major, 0 Medium, 1 Minor
 
-- **Notifications**: 1 defects in 1 tests (100.0% density)
+- **User Management**: 3 defects in 5 tests (60.0% density)
   - Risk Level: High
-  - Severity Breakdown: 0 Critical, 0 Major, 0 Medium, 0 Minor
+  - Severity Breakdown: 0 Critical, 1 Major, 1 Medium, 0 Minor
+
+- **API Testing**: 3 defects in 5 tests (60.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 1 Critical, 1 Major, 0 Medium, 0 Minor
+
+- **Performance**: 2 defects in 5 tests (40.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 0 Critical, 1 Major, 0 Medium, 0 Minor
+
+- **Security**: 2 defects in 5 tests (40.0% density)
+  - Risk Level: High
+  - Severity Breakdown: 1 Critical, 0 Major, 0 Medium, 0 Minor
 
 
 
@@ -218,6 +274,10 @@ All exit criteria have been met.
 
 - Implement automated testing for critical paths to prevent regression
 
+- Increase test coverage for major functionality areas
+
+- Implement continuous integration with automated testing
+
 - Prioritize high-defect modules for additional testing and development focus
 
 - Review and improve test cases for low-performing modules
@@ -262,5 +322,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-14 02:16:29*
+*Report generated on 2025-09-14 02:50:16*
 *Report Version: 1.0*
