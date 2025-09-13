@@ -29,12 +29,12 @@ This report summarizes the test execution results for {{ project }} release {{ r
 | **Skipped** | {{ skipped_tests }} | {{ "%.1f"|format((skipped_tests/total_tests*100) if total_tests > 0 else 0) }}% |
 | **Pass Rate** | {{ "%.1f"|format(pass_rate) }}% | - |
 
-## Modules Covered
+## Test Execution Summary by Module
 
-| Module | Tests Executed | Passed | Failed | Pass Rate | Status |
-|--------|----------------|--------|--------|-----------|--------|
+| Module | Total Tests | Executed | Passed | Failed | Pass Rate | Quality Status |
+|--------|-------------|----------|--------|--------|-----------|----------------|
 {% for module, stats in modules_covered.items() %}
-| {{ module }} | {{ stats.get('total', 0) }} | {{ stats.get('passed', 0) }} | {{ stats.get('failed', 0) }} | {{ "%.1f"|format(stats.get('pass_rate', 0)) }}% | {{ stats.get('status', 'N/A') }} |
+| {{ module }} | {{ stats.get('total', 0) }} | {{ stats.get('total', 0) }} | {{ stats.get('passed', 0) }} | {{ stats.get('failed', 0) }} | {{ "%.1f"|format(stats.get('pass_rate', 0)) }}% | {{ stats.get('status', 'N/A') }} |
 {% endfor %}
 
 ## Test Environment

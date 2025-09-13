@@ -1,21 +1,21 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_E-Commerce Platform_v2.5.3_20250914_025016
-- **Linked Test Plan**: TP-ECOMMERCE-2024-004
-- **Report Date**: 2025-09-14 02:50:16
+- **Report ID**: TSR_E-Commerce Platform_v2.5.6_20250914_030430
+- **Linked Test Plan**: TP-DEFAULT-001
+- **Report Date**: 2025-09-14 03:04:30
 - **Report Version**: 1.0
 
 ## Introduction
 
 ### Project Information
 - **Project**: E-Commerce Platform
-- **Release**: v2.5.3
-- **Test Scope**: End-to-End Testing, Security Testing, Performance Testing
-- **Test Objectives**: Validate critical user journeys, Ensure security compliance, Verify performance benchmarks
+- **Release**: v2.5.6
+- **Test Scope**: Functional Testing, Regression Testing, Integration Testing
+- **Test Objectives**: Verify system functionality, Ensure quality standards, Validate release readiness
 
 ### Executive Summary
-This report summarizes the test execution results for E-Commerce Platform release v2.5.3. The testing was conducted covering End-to-End Testing, Security Testing, Performance Testing with the primary objective of Validate critical user journeys, Ensure security compliance, Verify performance benchmarks.
+This report summarizes the test execution results for E-Commerce Platform release v2.5.6. The testing was conducted covering Functional Testing, Regression Testing, Integration Testing with the primary objective of Verify system functionality, Ensure quality standards, Validate release readiness.
 
 ## Test Summary
 
@@ -29,28 +29,28 @@ This report summarizes the test execution results for E-Commerce Platform releas
 | **Skipped** | 0 | 0.0% |
 | **Pass Rate** | 66.7% | - |
 
-## Modules Covered
+## Test Execution Summary by Module
 
-| Module | Tests Executed | Passed | Failed | Pass Rate | Status |
-|--------|----------------|--------|--------|-----------|--------|
+| Module | Total Tests | Executed | Passed | Failed | Pass Rate | Quality Status |
+|--------|-------------|----------|--------|--------|-----------|----------------|
 
-| API Testing | 5 | 3 | 2 | 0.0% | N/A |
+| API Testing | 5 | 5 | 3 | 2 | 0.0% | N/A |
 
-| Authentication | 5 | 1 | 4 | 0.0% | N/A |
+| Authentication | 5 | 5 | 1 | 4 | 0.0% | N/A |
 
-| Dashboard | 5 | 4 | 1 | 0.0% | N/A |
+| Dashboard | 5 | 5 | 4 | 1 | 0.0% | N/A |
 
-| Order Management | 5 | 3 | 2 | 0.0% | N/A |
+| Order Management | 5 | 5 | 3 | 2 | 0.0% | N/A |
 
-| Payment | 5 | 4 | 1 | 0.0% | N/A |
+| Payment | 5 | 5 | 4 | 1 | 0.0% | N/A |
 
-| Performance | 5 | 4 | 1 | 0.0% | N/A |
+| Performance | 5 | 5 | 4 | 1 | 0.0% | N/A |
 
-| Reports | 5 | 4 | 1 | 0.0% | N/A |
+| Reports | 5 | 5 | 4 | 1 | 0.0% | N/A |
 
-| Security | 5 | 4 | 1 | 0.0% | N/A |
+| Security | 5 | 5 | 4 | 1 | 0.0% | N/A |
 
-| User Management | 5 | 3 | 2 | 0.0% | N/A |
+| User Management | 5 | 5 | 3 | 2 | 0.0% | N/A |
 
 
 ## Test Environment
@@ -322,5 +322,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-14 02:50:16*
+*Report generated on 2025-09-14 03:04:30*
 *Report Version: 1.0*
