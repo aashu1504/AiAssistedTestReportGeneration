@@ -801,7 +801,7 @@ def render_report(context: Dict[str, Any], template_dir: str, out_dir: str, base
         
         # Render HTML report
         try:
-            html_template = env.get_template('tsr_html.j2')
+            html_template = env.get_template('tsr_html_tabbed.j2')
             html_content = html_template.render(**context)
             html_path = os.path.join(out_dir, f"{base_name}.html")
             
@@ -810,8 +810,8 @@ def render_report(context: Dict[str, Any], template_dir: str, out_dir: str, base
             logger.info(f"Generated HTML report: {html_path}")
             
         except TemplateNotFound:
-            logger.error("HTML template not found: tsr_html.j2")
-            raise FileNotFoundError("HTML template tsr_html.j2 not found")
+            logger.error("HTML template not found: tsr_html_tabbed.j2")
+            raise FileNotFoundError("HTML template tsr_html_tabbed.j2 not found")
         
         logger.info("Report rendering completed successfully")
         return md_path, html_path

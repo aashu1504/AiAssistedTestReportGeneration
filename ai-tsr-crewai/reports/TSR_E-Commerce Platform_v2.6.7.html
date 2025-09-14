@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSR - E-Commerce Platform v2.6.7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .header .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Tab Navigation */
+        .tab-nav {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .tab-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-button:hover {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+        
+        .tab-button .icon {
+            font-size: 1.1rem;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .exec-summary h2 {
+            color: #0369a1;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .exec-summary p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Tables */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .table-container h2 {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .status-passed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-failed {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-blocked {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-critical {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        
+        .status-major {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+        
+        .status-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-minor {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Charts */
+        .chart-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .chart-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Quality Gate */
+        .quality-gate {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid;
+        }
+        
+        .quality-gate.approved {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .quality-gate.conditional {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+        
+        .quality-gate.rejected {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .quality-gate h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Sign-off */
+        .sign-off {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .sign-off h3 {
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .sign-off-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .sign-off-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .sign-off-item strong {
+            display: block;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                box-shadow: none;
+            }
+            
+            .header .meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 600px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .tab-nav {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Test Summary Report</h1>
+            <div class="subtitle">E-Commerce Platform - v2.6.7</div>
+            <div class="meta">
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span>2025-09-14</span>
+                </div>
+                <div class="meta-item">
+                    <span>🌍</span>
+                    <span>QA</span>
+                </div>
+                <div class="meta-item">
+                    <span>📊</span>
+                    <span>45 Tests</span>
+                </div>
+                <div class="meta-item">
+                    <span>✅</span>
+                    <span>66.67% Pass Rate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-button active" onclick="showTab('overview')">
+                <span class="icon">📊</span>
+                <span>Overview</span>
+            </button>
+            <button class="tab-button" onclick="showTab('execution')">
+                <span class="icon">⚡</span>
+                <span>Test Execution</span>
+            </button>
+            <button class="tab-button" onclick="showTab('defects')">
+                <span class="icon">🐛</span>
+                <span>Defects</span>
+            </button>
+            <button class="tab-button" onclick="showTab('analysis')">
+                <span class="icon">📈</span>
+                <span>Analysis</span>
+            </button>
+            <button class="tab-button" onclick="showTab('environment')">
+                <span class="icon">🌐</span>
+                <span>Environment</span>
+            </button>
+            <button class="tab-button" onclick="showTab('signoff')">
+                <span class="icon">✍️</span>
+                <span>Sign-off</span>
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="overview" class="tab-content active">
+            <!-- Executive Summary -->
+            <div class="exec-summary">
+                <h2>Executive Summary</h2>
+                <p><strong>Test Execution:</strong> 45 total tests, 45 executed (66.67% pass rate)</p>
+                <p><strong>Defects:</strong> 15 total defects identified (3 critical, 6 major, 5 medium, 1 minor)</p>
+                <p><strong>Status:</strong> 
+                
+                    ❌ Requires immediate action
+                
+                </p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                <div class="metric-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #1e293b;">45</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Total Tests</div>
+                </div>
+                <div class="metric-card" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #0369a1;">45</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Executed</div>
+                    <div style="color: #0369a1; font-size: 0.8rem; margin-top: 0.5rem;">100.0%</div>
+                </div>
+                <div class="metric-card" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #166534;">30</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Passed</div>
+                    <div style="color: #166534; font-size: 0.8rem; margin-top: 0.5rem;">66.7%</div>
+                </div>
+                <div class="metric-card" style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #dc2626;">15</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Failed</div>
+                    <div style="color: #dc2626; font-size: 0.8rem; margin-top: 0.5rem;">33.3%</div>
+                </div>
+                <div class="metric-card" style="background: #fef3c7; border: 1px solid #fed7aa; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #d97706;">0</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Blocked</div>
+                </div>
+                <div class="metric-card" style="background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #374151;">0</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Skipped</div>
+                </div>
+            </div>
+
+            <!-- Quality Gate -->
+            <div class="quality-gate rejected">
+                <h3>Quality Gate Evaluation</h3>
+                <p><strong>Recommendation:</strong> REJECTED</p>
+                <p><strong>Gate Used:</strong> Strict Quality Gate</p>
+                
+            </div>
+
+            <!-- Test Execution Summary -->
+            <div class="table-container">
+                <h2>Test Execution Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Total Tests</strong></td>
+                            <td>45</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Executed</strong></td>
+                            <td>45</td>
+                            <td>100.0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Passed</strong></td>
+                            <td>30</td>
+                            <td>66.7%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Failed</strong></td>
+                            <td>15</td>
+                            <td>33.3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blocked</strong></td>
+                            <td>0</td>
+                            <td>0.0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skipped</strong></td>
+                            <td>0</td>
+                            <td>0.0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Release Decision -->
+            <div class="table-container">
+                <h2>Release Decision</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Release Recommendation</h3>
+                    <p><strong>Release Recommendation:</strong> 
+                        <span class="status-badge status-rejected" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: #fef2f2; color: #dc2626;">
+                            REJECTED
+                        </span>
+                    </p>
+                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="execution" class="tab-content">
+            <!-- Test Execution Charts -->
+            <div class="charts-section" style="margin-bottom: 2rem;">
+                <h2>Test Analytics</h2>
+                <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Test Results</h3>
+                        <img src="assets/pass_fail.png" alt="Test Results Chart" onclick="openModal('Test Results Summary', 'assets/pass_fail.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Failures by Module</h3>
+                        <img src="assets/fail_by_module.png" alt="Module Results Chart" onclick="openModal('Test Failures by Module', 'assets/fail_by_module.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Execution Summary by Module -->
+            <div class="table-container">
+                <h2>Test Execution Summary by Module</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Total Tests</th>
+                            <th>Executed</th>
+                            <th>Passed</th>
+                            <th>Failed</th>
+                            <th>Pass Rate</th>
+                            <th>Quality Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td><strong>API Testing</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Authentication</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">1</span></td>
+                            <td><span class="status-badge status-failed">4</span></td>
+                            <td>20.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-failed">Critical</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Dashboard</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Order Management</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Payment</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Reports</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>Security</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">4</span></td>
+                            <td><span class="status-badge status-failed">1</span></td>
+                            <td>80.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-passed">Good</span>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>User Management</strong></td>
+                            <td>5</td>
+                            <td>5</td>
+                            <td><span class="status-badge status-passed">3</span></td>
+                            <td><span class="status-badge status-failed">2</span></td>
+                            <td>60.0%</td>
+                            <td>
+                                
+                                
+                                    <span class="status-badge status-blocked">Needs Attention</span>
+                                
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="defects" class="tab-content">
+            <!-- Defect Charts -->
+            <div class="charts-section" style="margin-bottom: 2rem;">
+                <h2>Defect Analytics</h2>
+                <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                        <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                        <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defect Summary -->
+            <div class="table-container">
+                <h2>Defect Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th>Open</th>
+                            <th>Closed</th>
+                            <th>Deferred</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
+                            <td>6</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
+                            <td>5</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr style="font-weight: bold; background-color: #f8f9fa;">
+                            <td><strong>Total</strong></td>
+                            <td>15</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Key Bugs -->
+            <div class="table-container">
+                <h2>Key Bugs Identified</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bug ID</th>
+                            <th>Severity</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Module</th>
+                            <th>Assigned To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-001</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Authentication</td>
+                                    <td>John Smith</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-002</strong></td>
+                                    <td><span class="status-badge status-medium">Medium</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Authentication</td>
+                                    <td>John Smith</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-003</strong></td>
+                                    <td><span class="status-badge status-medium">Medium</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Authentication</td>
+                                    <td>John Smith</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-004</strong></td>
+                                    <td><span class="status-badge status-critical">Critical</span></td>
+                                    <td>N/A</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Authentication</td>
+                                    <td>John Smith</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-005</strong></td>
+                                    <td><span class="status-badge status-medium">Medium</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Dashboard</td>
+                                    <td>Mike Johnson</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-006</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Order Management</td>
+                                    <td>Sarah Wilson</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-007</strong></td>
+                                    <td><span class="status-badge status-medium">Medium</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Order Management</td>
+                                    <td>Sarah Wilson</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-008</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Payment</td>
+                                    <td>David Brown</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-009</strong></td>
+                                    <td><span class="status-badge status-minor">Minor</span></td>
+                                    <td>Low</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Reports</td>
+                                    <td>Lisa Chen</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-010</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>User Management</td>
+                                    <td>Alex Kumar</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-011</strong></td>
+                                    <td><span class="status-badge status-medium">Medium</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>User Management</td>
+                                    <td>Alex Kumar</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-012</strong></td>
+                                    <td><span class="status-badge status-critical">Critical</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>API Testing</td>
+                                    <td>API Tester</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-013</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>Medium</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>API Testing</td>
+                                    <td>API Tester</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-014</strong></td>
+                                    <td><span class="status-badge status-major">Major</span></td>
+                                    <td>High</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Performance</td>
+                                    <td>Perf Tester</td>
+                                </tr>
+                                
+                            
+                                
+                                <tr>
+                                    <td><strong>BUG-015</strong></td>
+                                    <td><span class="status-badge status-critical">Critical</span></td>
+                                    <td>N/A</td>
+                                    <td><span class="status-badge status-open">Open</span></td>
+                                    <td>N/A</td>
+                                    <td>Security</td>
+                                    <td>Security Tester</td>
+                                </tr>
+                                
+                            
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <!-- Key Findings -->
+            <div class="table-container">
+                <h2>Key Findings</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Stable Areas</h3>
+                    <ul>
+                        
+                            <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
+                            <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
+                            <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
+                            <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
+                        
+                    </ul>
+                    
+                    <h3>Risky Areas</h3>
+                    <ul>
+                        
+                        <li><strong>Overall Quality Risk:</strong> Pass rate of 66.7% is below conditional threshold (95%)</li>
+                        
+                        
+                        <li><strong>Critical Defects:</strong> 3 critical defects require immediate attention</li>
+                        
+                        
+                        <li><strong>Major Defect Volume:</strong> 6 major defects exceed acceptable limit (2)</li>
+                        
+                        
+                            
+                                
+                                <li><strong>API Testing module</strong> needs attention with 60.0% pass rate</li>
+                                
+                            
+                                
+                                <li><strong>Authentication module</strong> needs attention with 20.0% pass rate</li>
+                                
+                            
+                                
+                            
+                                
+                                <li><strong>Order Management module</strong> needs attention with 60.0% pass rate</li>
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                                <li><strong>User Management module</strong> needs attention with 60.0% pass rate</li>
+                                
+                            
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Lessons Learned -->
+            <div class="table-container">
+                <h2>Lessons Learned</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>What Went Well</h3>
+                    <ul>
+                        
+                            <li>Excellent test execution rate of 100.0% (45/45 tests)</li>
+                            <li>No blocked tests - test environment was stable</li>
+                            <li>No flaky tests identified - test reliability is good</li>
+                        
+                    </ul>
+                    
+                    <h3>Areas for Improvement</h3>
+                    <ul>
+                        <li>Low pass rate of 66.7% indicates quality concerns</li>
+                        
+                        <li>3 critical defect(s) require immediate attention</li>
+                        
+                        
+                        <li>High number of major defects (6) indicates quality issues</li>
+                        
+                        
+                            
+                            
+                                
+                            
+                                
+                                    
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                            
+                            <li>Low pass rates in modules: Authentication</li>
+                            
+                        
+                        
+                    </ul>
+                    
+                    <h3>Recommendations for Next Cycle</h3>
+                    <ul>
+                        
+                            <li>Implement stricter quality gates and code review processes</li>
+                            <li>Focus on root cause analysis for failing test cases</li>
+                            <li>Establish critical defect resolution process with immediate escalation</li>
+                            <li>Implement automated testing for critical paths to prevent regression</li>
+                            <li>Increase test coverage for major functionality areas</li>
+                            <li>Implement continuous integration with automated testing</li>
+                            <li>Prioritize high-defect modules for additional testing and development focus</li>
+                            <li>Review and improve test cases for low-performing modules</li>
+                            <li>Establish regular test execution schedules and monitoring</li>
+                            <li>Implement comprehensive test data management processes</li>
+                            <li>Create robust defect tracking and resolution workflows</li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Variances/Deviations -->
+            <div class="table-container">
+                <h2>Variances/Deviations</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Test Execution Variances</h3>
+                    <ul>
+                        
+                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                            <strong>Pass Rate Deviation:</strong> Pass rate of 66.7% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
+                        </li>
+                        
+                        
+                        
+                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                            <strong>Critical Defect Deviation:</strong> 3 critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
+                        </li>
+                        
+                        
+                        
+                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                            <strong>Major Defect Deviation:</strong> 6 major defect(s) exceed acceptable threshold. Significant functionality issues may impact user experience. Prioritize major defect resolution before release.
+                        </li>
+                        
+                        
+                        
+                            
+                            
+                                
+                            
+                                
+                                    
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                                
+                            
+                            
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                <strong>Module Pass Rate Deviation:</strong> Low pass rates in modules: Authentication. Specific modules show poor quality indicators. Review and improve test cases for low-performing modules.
+                            </li>
+                            
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Defect Density Analysis -->
+            
+
+            <!-- Exit Criteria -->
+            <div class="table-container">
+                <h2>Exit Criteria</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Criteria Met</h3>
+                    <div style="margin: 1rem 0;">
+                        <p>✅ All planned test cases executed (45/45)</p>
+                    </div>
+                    
+                    <h3>Criteria Not Met</h3>
+                    <div style="margin: 1rem 0;">
+                        
+                        <p>❌ Pass rate below conditional threshold (66.7% < 95%)</p>
+                        
+                        
+                        <p>❌ Critical defects exceed conditional limit (3 > 0)</p>
+                        
+                        
+                        <p>❌ Major defects exceed conditional limit (6 > 1)</p>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Recommendations -->
+            <div class="table-container">
+                <h2>Recommendations</h2>
+                <div style="padding: 1.5rem;">
+                    <ol style="line-height: 1.8;">
+                        <li>Implement stricter quality gates and code review processes</li>
+                        <li>Focus on root cause analysis for failing test cases</li>
+                        <li>Establish critical defect resolution process with immediate escalation</li>
+                        <li>Implement automated testing for critical paths to prevent regression</li>
+                        <li>Increase test coverage for major functionality areas</li>
+                        <li>Implement continuous integration with automated testing</li>
+                        <li>Prioritize high-defect modules for additional testing and development focus</li>
+                        <li>Review and improve test cases for low-performing modules</li>
+                        <li>Establish regular test execution schedules and monitoring</li>
+                        <li>Implement comprehensive test data management processes</li>
+                        <li>Create robust defect tracking and resolution workflows</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div id="environment" class="tab-content">
+            <!-- Test Environment -->
+            <div class="table-container">
+                <h2>Test Environment</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Environment Details</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Environment Name:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">QA</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Version:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">v1.1.0</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Details:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Application v2.1.0, API Gateway v1.5.2, Microservices v3.0.1</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Browsers:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Chrome 120, Firefox 119, Safari 17, Edge 120</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">PostgreSQL 15.4</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database Details:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">PostgreSQL 15.4 with Redis 7.2 cache</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Deployment:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Docker Containers</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Load Balancer:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">NGINX 1.24</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Monitoring:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Prometheus + Grafana</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Logging:</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">ELK Stack (Elasticsearch 8.11, Logstash 8.11, Kibana 8.11)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="signoff" class="tab-content">
+            <!-- Sign-off -->
+            <div class="table-container">
+                <h2>Sign-Off</h2>
+                <div style="padding: 1.5rem;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Test Team</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Development Team</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Product Owner</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Quality Assurance</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Test Lead: Ashish Uniyal</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Development Lead: Tejsing Wagh</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Product Owner: GSuppa</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">QA Manager: Dhiraj Barhate</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Test Engineer: Saikat Ghosh</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for image viewing -->
+    <div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
+        <div style="position: relative; margin: auto; padding: 0; width: 80%; max-width: 700px; top: 50%; transform: translateY(-50%);">
+            <span onclick="closeModal()" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+            <img id="modalImage" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        function openModal(title, imageSrc) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = imageSrc;
+            document.title = title + ' - TSR';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

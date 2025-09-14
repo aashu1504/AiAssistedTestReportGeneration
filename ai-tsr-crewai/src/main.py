@@ -779,6 +779,7 @@ Examples:
             'environment': args.environment,
             'linked_plan': args.linked_plan,
             'generated_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'report_date': datetime.now().strftime("%Y-%m-%d"),
             
             # Test summary data
             'total_tests': summary.get('total', 0),
