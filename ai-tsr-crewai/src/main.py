@@ -781,6 +781,10 @@ Examples:
             'generated_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'report_date': datetime.now().strftime("%Y-%m-%d"),
             
+            # Report title configuration
+            'report_title': os.getenv('TSR_REPORT_TITLE', 'Test Summary Report'),
+            'page_title': os.getenv('TSR_PAGE_TITLE', 'Test Summary Report'),
+            
             # Test summary data
             'total_tests': summary.get('total', 0),
             'executed_tests': summary.get('executed', 0),

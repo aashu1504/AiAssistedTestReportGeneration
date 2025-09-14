@@ -1,7 +1,7 @@
 # Test Summary Report (TSR)
 
 ## Report Identifier
-- **Report ID**: TSR_E-Commerce Platform_v2.6.23_20250915_013521
+- **Report ID**: TSR_E-Commerce Platform_v2.6.23_20250915_020244
 - **Linked Test Plan**: TP-DEFAULT-001
 - **Report Date**: 2025-09-15
 - **Report Version**: 1.0
@@ -56,8 +56,8 @@ This report summarizes the test execution results for E-Commerce Platform releas
 ## Test Environment
 
 ### Environment Details
-- **Environment Name**: QA
-- **Software Version**: v1.1.0
+- **Environment Name**: Staging
+- **Software Version**: v2.1.0
 - **Software Details**: Application v2.1.0, API Gateway v1.5.2, Microservices v3.0.1
 - **Browsers**: Chrome 120, Firefox 119, Safari 17, Edge 120
 - **Database**: PostgreSQL 15.4
@@ -128,6 +128,8 @@ No environment issues identified.
 
 | Bug ID | Severity | Priority | Status | Description | Module | Assigned To |
 |--------|----------|----------|--------|-------------|--------|-------------|
+
+| nan |  | High | Open | N/A | Authentication | John Smith |
 
 | BUG-001 | Major | High | Open | N/A | Authentication | John Smith |
 
@@ -320,5 +322,5 @@ All exit criteria have been met.
 
 ---
 
-*Report generated on 2025-09-15 01:35:21*
+*Report generated on 2025-09-15 02:02:44*
 *Report Version: 1.0*

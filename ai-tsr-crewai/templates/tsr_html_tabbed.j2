@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSR - {{ project }} {{ release }}</title>
+    <title>{{ page_title }} - {{ project }} {{ release }}</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23667eea'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -144,14 +145,14 @@
         }
         
         .collapsible-content {
-            max-height: 2000px;
+            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.3s ease-in;
         }
         
-        .collapsible-content.collapsed {
-            max-height: 0;
-            transition: max-height 0.3s ease-in;
+        .collapsible-content.expanded {
+            max-height: 2000px;
+            transition: max-height 0.3s ease-out;
         }
         
         .collapsible-content .content-wrapper {
@@ -447,7 +448,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>Test Summary Report</h1>
+            <h1>{{ report_title }}</h1>
             <div class="subtitle">{{ project }} - {{ release }}</div>
             <div class="meta">
                 <div class="meta-item">
@@ -1190,24 +1191,24 @@
                                         <td>{{ ((data.passed or 0) / (data.total or 1) * 100) | round(1) }}%</td>
                                         <td>
                                             {% set module_tests = test_data | selectattr('Module', 'equalto', module) | list %}
-                                            {% set total_time = 0 %}
-                                            {% set valid_times = 0 %}
+                                            {% set module_total_time = 0 %}
+                                            {% set module_valid_times = 0 %}
                                             {% for test in module_tests %}
                                                 {% set exec_time = test.get('Duration', test.get('Execution Time (ms)', '')) %}
                                                 {% if exec_time and exec_time != '' and exec_time != 'nan' %}
-                                                    {% set total_time = total_time + (exec_time | int) %}
-                                                    {% set valid_times = valid_times + 1 %}
+                                                    {% set module_total_time = module_total_time + (exec_time | int) %}
+                                                    {% set module_valid_times = module_valid_times + 1 %}
                                                 {% endif %}
                                             {% endfor %}
-                                            {% if valid_times > 0 %}
-                                                {{ "%.0f"|format(total_time / valid_times) }}ms
+                                            {% if module_valid_times > 0 %}
+                                                {{ "%.0f"|format(module_total_time / module_valid_times) }}ms
                                             {% else %}
                                                 <span style="color: #64748b; font-style: italic;">N/A</span>
                                             {% endif %}
                                         </td>
                                         <td>
-                                            {% if total_time > 0 %}
-                                                {{ total_time }}ms
+                                            {% if module_total_time > 0 %}
+                                                {{ module_total_time }}ms
                                             {% else %}
                                                 <span style="color: #64748b; font-style: italic;">N/A</span>
                                             {% endif %}
@@ -1639,22 +1640,22 @@
             var content = document.getElementById(sectionId);
             var icon = event.target.querySelector('.toggle-icon');
             
-            if (content.classList.contains('collapsed')) {
-                content.classList.remove('collapsed');
-                icon.textContent = '▼';
-            } else {
-                content.classList.add('collapsed');
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
                 icon.textContent = '▶';
+            } else {
+                content.classList.add('expanded');
+                icon.textContent = '▼';
             }
         }
         
-        // Initialize collapsible sections (all open by default)
+        // Initialize collapsible sections (all collapsed by default)
         document.addEventListener('DOMContentLoaded', function() {
             var collapsibleHeaders = document.querySelectorAll('.collapsible-header');
             collapsibleHeaders.forEach(function(header) {
                 var icon = header.querySelector('.toggle-icon');
                 if (icon) {
-                    icon.textContent = '▼';
+                    icon.textContent = '▶';
                 }
             });
         });
