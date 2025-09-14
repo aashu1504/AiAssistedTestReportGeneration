@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="15" total="45" passed="30">
+  <reporter-output>
+  </reporter-output>
+  <suite name="E-Commerce Platform Test Suite" duration-ms="125000" started-at="2025-09-14T10:00:00Z" finished-at="2025-09-14T10:02:05Z">
+    <groups>
+    </groups>
+    <test name="Authentication Tests" duration-ms="4610" started-at="2025-09-14T10:00:00Z" finished-at="2025-09-14T10:00:04Z">
+      <class name="com.ecommerce.tests.AuthenticationTests">
+        <test-method status="PASS" signature="validUserLogin()" name="validUserLogin" duration-ms="1250" started-at="2025-09-14T10:00:00Z" finished-at="2025-09-14T10:00:01Z" description="Valid User Login">
+          <params>
+            <param name="module" value="Authentication"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="John Smith"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="invalidPasswordLogin()" name="invalidPasswordLogin" duration-ms="890" started-at="2025-09-14T10:00:01Z" finished-at="2025-09-14T10:00:02Z" description="Invalid Password Login">
+          <params>
+            <param name="module" value="Authentication"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="John Smith"></param>
+            <param name="bugid" value="BUG-001"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Invalid credentials provided</message>
+          </exception>
+        </test-method>
+        <test-method status="FAIL" signature="emptyUsernameLogin()" name="emptyUsernameLogin" duration-ms="650" started-at="2025-09-14T10:00:02Z" finished-at="2025-09-14T10:00:02Z" description="Empty Username Login">
+          <params>
+            <param name="module" value="Authentication"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="John Smith"></param>
+            <param name="bugid" value="BUG-002"></param>
+            <param name="severity" value="Medium"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Username field is required</message>
+          </exception>
+        </test-method>
+        <test-method status="FAIL" signature="emptyPasswordLogin()" name="emptyPasswordLogin" duration-ms="720" started-at="2025-09-14T10:00:02Z" finished-at="2025-09-14T10:00:03Z" description="Empty Password Login">
+          <params>
+            <param name="module" value="Authentication"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="John Smith"></param>
+            <param name="bugid" value="BUG-003"></param>
+            <param name="severity" value="Medium"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Password field is required</message>
+          </exception>
+        </test-method>
+        <test-method status="FAIL" signature="sqlInjectionLogin()" name="sqlInjectionLogin" duration-ms="1100" started-at="2025-09-14T10:00:03Z" finished-at="2025-09-14T10:00:04Z" description="SQL Injection Login">
+          <params>
+            <param name="module" value="Authentication"></param>
+            <param name="priority" value="Critical"></param>
+            <param name="tester" value="John Smith"></param>
+            <param name="bugid" value="BUG-004"></param>
+            <param name="severity" value="Critical"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Security vulnerability detected</message>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+    <test name="Dashboard Tests" duration-ms="12800" started-at="2025-09-14T10:00:04Z" finished-at="2025-09-14T10:00:17Z">
+      <class name="com.ecommerce.tests.DashboardTests">
+        <test-method status="PASS" signature="loadDashboard()" name="loadDashboard" duration-ms="2100" started-at="2025-09-14T10:00:04Z" finished-at="2025-09-14T10:00:06Z" description="Load Dashboard">
+          <params>
+            <param name="module" value="Dashboard"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Mike Johnson"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="widgetDisplay()" name="widgetDisplay" duration-ms="1800" started-at="2025-09-14T10:00:06Z" finished-at="2025-09-14T10:00:08Z" description="Widget Display">
+          <params>
+            <param name="module" value="Dashboard"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Mike Johnson"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="dataRefresh()" name="dataRefresh" duration-ms="3200" started-at="2025-09-14T10:00:08Z" finished-at="2025-09-14T10:00:11Z" description="Data Refresh">
+          <params>
+            <param name="module" value="Dashboard"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Mike Johnson"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="responsiveLayout()" name="responsiveLayout" duration-ms="2500" started-at="2025-09-14T10:00:11Z" finished-at="2025-09-14T10:00:14Z" description="Responsive Layout">
+          <params>
+            <param name="module" value="Dashboard"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Mike Johnson"></param>
+            <param name="bugid" value="BUG-005"></param>
+            <param name="severity" value="Medium"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Layout breaks on mobile view</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="performanceMetrics()" name="performanceMetrics" duration-ms="4100" started-at="2025-09-14T10:00:14Z" finished-at="2025-09-14T10:00:17Z" description="Performance Metrics">
+          <params>
+            <param name="module" value="Dashboard"></param>
+            <param name="priority" value="Low"></param>
+            <param name="tester" value="Mike Johnson"></param>
+          </params>
+        </test-method>
+      </class>
+    </test>
+    <test name="Order Management Tests" duration-ms="17050" started-at="2025-09-14T10:00:17Z" finished-at="2025-09-14T10:00:34Z">
+      <class name="com.ecommerce.tests.OrderManagementTests">
+        <test-method status="PASS" signature="createNewOrder()" name="createNewOrder" duration-ms="2800" started-at="2025-09-14T10:00:17Z" finished-at="2025-09-14T10:00:20Z" description="Create New Order">
+          <params>
+            <param name="module" value="Order Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Sarah Wilson"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="editExistingOrder()" name="editExistingOrder" duration-ms="1950" started-at="2025-09-14T10:00:20Z" finished-at="2025-09-14T10:00:22Z" description="Edit Existing Order">
+          <params>
+            <param name="module" value="Order Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Sarah Wilson"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="deleteOrder()" name="deleteOrder" duration-ms="1600" started-at="2025-09-14T10:00:22Z" finished-at="2025-09-14T10:00:24Z" description="Delete Order">
+          <params>
+            <param name="module" value="Order Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Sarah Wilson"></param>
+            <param name="bugid" value="BUG-006"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Delete confirmation not working</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="orderValidation()" name="orderValidation" duration-ms="2200" started-at="2025-09-14T10:00:24Z" finished-at="2025-09-14T10:00:26Z" description="Order Validation">
+          <params>
+            <param name="module" value="Order Management"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Sarah Wilson"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="bulkOrderImport()" name="bulkOrderImport" duration-ms="8500" started-at="2025-09-14T10:00:26Z" finished-at="2025-09-14T10:00:34Z" description="Bulk Order Import">
+          <params>
+            <param name="module" value="Order Management"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Sarah Wilson"></param>
+            <param name="bugid" value="BUG-007"></param>
+            <param name="severity" value="Medium"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>File upload timeout</message>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+    <test name="Payment Tests" duration-ms="14700" started-at="2025-09-14T10:00:34Z" finished-at="2025-09-14T10:00:49Z">
+      <class name="com.ecommerce.tests.PaymentTests">
+        <test-method status="PASS" signature="creditCardPayment()" name="creditCardPayment" duration-ms="3200" started-at="2025-09-14T10:00:34Z" finished-at="2025-09-14T10:00:37Z" description="Credit Card Payment">
+          <params>
+            <param name="module" value="Payment"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="David Brown"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="paypalPayment()" name="paypalPayment" duration-ms="2800" started-at="2025-09-14T10:00:37Z" finished-at="2025-09-14T10:00:40Z" description="PayPal Payment">
+          <params>
+            <param name="module" value="Payment"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="David Brown"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="invalidCardPayment()" name="invalidCardPayment" duration-ms="1900" started-at="2025-09-14T10:00:40Z" finished-at="2025-09-14T10:00:42Z" description="Invalid Card Payment">
+          <params>
+            <param name="module" value="Payment"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="David Brown"></param>
+            <param name="bugid" value="BUG-008"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Payment gateway error</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="refundProcess()" name="refundProcess" duration-ms="4500" started-at="2025-09-14T10:00:42Z" finished-at="2025-09-14T10:00:46Z" description="Refund Process">
+          <params>
+            <param name="module" value="Payment"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="David Brown"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="paymentHistory()" name="paymentHistory" duration-ms="1200" started-at="2025-09-14T10:00:46Z" finished-at="2025-09-14T10:00:49Z" description="Payment History">
+          <params>
+            <param name="module" value="Payment"></param>
+            <param name="priority" value="Low"></param>
+            <param name="tester" value="David Brown"></param>
+          </params>
+        </test-method>
+      </class>
+    </test>
+    <test name="Reports Tests" duration-ms="19100" started-at="2025-09-14T10:00:49Z" finished-at="2025-09-14T10:01:08Z">
+      <class name="com.ecommerce.tests.ReportsTests">
+        <test-method status="PASS" signature="generateSalesReport()" name="generateSalesReport" duration-ms="5600" started-at="2025-09-14T10:00:49Z" finished-at="2025-09-14T10:00:55Z" description="Generate Sales Report">
+          <params>
+            <param name="module" value="Reports"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Lisa Chen"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="exportPdfReport()" name="exportPdfReport" duration-ms="4200" started-at="2025-09-14T10:00:55Z" finished-at="2025-09-14T10:01:00Z" description="Export PDF Report">
+          <params>
+            <param name="module" value="Reports"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Lisa Chen"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="emailReport()" name="emailReport" duration-ms="3800" started-at="2025-09-14T10:01:00Z" finished-at="2025-09-14T10:01:03Z" description="Email Report">
+          <params>
+            <param name="module" value="Reports"></param>
+            <param name="priority" value="Low"></param>
+            <param name="tester" value="Lisa Chen"></param>
+            <param name="bugid" value="BUG-009"></param>
+            <param name="severity" value="Low"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Email service unavailable</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="reportFiltering()" name="reportFiltering" duration-ms="2100" started-at="2025-09-14T10:01:03Z" finished-at="2025-09-14T10:01:05Z" description="Report Filtering">
+          <params>
+            <param name="module" value="Reports"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Lisa Chen"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="dataVisualization()" name="dataVisualization" duration-ms="3400" started-at="2025-09-14T10:01:05Z" finished-at="2025-09-14T10:01:08Z" description="Data Visualization">
+          <params>
+            <param name="module" value="Reports"></param>
+            <param name="priority" value="Low"></param>
+            <param name="tester" value="Lisa Chen"></param>
+          </params>
+        </test-method>
+      </class>
+    </test>
+    <test name="User Management Tests" duration-ms="9000" started-at="2025-09-14T10:01:08Z" finished-at="2025-09-14T10:01:17Z">
+      <class name="com.ecommerce.tests.UserManagementTests">
+        <test-method status="PASS" signature="createUserAccount()" name="createUserAccount" duration-ms="1800" started-at="2025-09-14T10:01:08Z" finished-at="2025-09-14T10:01:10Z" description="Create User Account">
+          <params>
+            <param name="module" value="User Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Alex Kumar"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="updateUserProfile()" name="updateUserProfile" duration-ms="1500" started-at="2025-09-14T10:01:10Z" finished-at="2025-09-14T10:01:11Z" description="Update User Profile">
+          <params>
+            <param name="module" value="User Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Alex Kumar"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="deleteUserAccount()" name="deleteUserAccount" duration-ms="1200" started-at="2025-09-14T10:01:11Z" finished-at="2025-09-14T10:01:12Z" description="Delete User Account">
+          <params>
+            <param name="module" value="User Management"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Alex Kumar"></param>
+            <param name="bugid" value="BUG-010"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>User deletion failed</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="roleAssignment()" name="roleAssignment" duration-ms="2000" started-at="2025-09-14T10:01:12Z" finished-at="2025-09-14T10:01:14Z" description="Role Assignment">
+          <params>
+            <param name="module" value="User Management"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Alex Kumar"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="passwordReset()" name="passwordReset" duration-ms="2500" started-at="2025-09-14T10:01:14Z" finished-at="2025-09-14T10:01:17Z" description="Password Reset">
+          <params>
+            <param name="module" value="User Management"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Alex Kumar"></param>
+            <param name="bugid" value="BUG-011"></param>
+            <param name="severity" value="Medium"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Reset email not sent</message>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+    <test name="API Tests" duration-ms="4600" started-at="2025-09-14T10:01:17Z" finished-at="2025-09-14T10:01:22Z">
+      <class name="com.ecommerce.tests.APITests">
+        <test-method status="PASS" signature="loginApiEndpoint()" name="loginApiEndpoint" duration-ms="800" started-at="2025-09-14T10:01:17Z" finished-at="2025-09-14T10:01:18Z" description="Login API Endpoint">
+          <params>
+            <param name="module" value="API Testing"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="API Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="getUserDataApi()" name="getUserDataApi" duration-ms="600" started-at="2025-09-14T10:01:18Z" finished-at="2025-09-14T10:01:19Z" description="Get User Data API">
+          <params>
+            <param name="module" value="API Testing"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="API Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="createOrderApi()" name="createOrderApi" duration-ms="1200" started-at="2025-09-14T10:01:19Z" finished-at="2025-09-14T10:01:20Z" description="Create Order API">
+          <params>
+            <param name="module" value="API Testing"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="API Tester"></param>
+            <param name="bugid" value="BUG-012"></param>
+            <param name="severity" value="Critical"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>500 Internal Server Error</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="updateOrderApi()" name="updateOrderApi" duration-ms="900" started-at="2025-09-14T10:01:20Z" finished-at="2025-09-14T10:01:21Z" description="Update Order API">
+          <params>
+            <param name="module" value="API Testing"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="API Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="deleteOrderApi()" name="deleteOrderApi" duration-ms="1100" started-at="2025-09-14T10:01:21Z" finished-at="2025-09-14T10:01:22Z" description="Delete Order API">
+          <params>
+            <param name="module" value="API Testing"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="API Tester"></param>
+            <param name="bugid" value="BUG-013"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>404 Not Found</message>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+    <test name="Performance Tests" duration-ms="26300" started-at="2025-09-14T10:01:22Z" finished-at="2025-09-14T10:01:48Z">
+      <class name="com.ecommerce.tests.PerformanceTests">
+        <test-method status="PASS" signature="pageLoadPerformance()" name="pageLoadPerformance" duration-ms="3500" started-at="2025-09-14T10:01:22Z" finished-at="2025-09-14T10:01:26Z" description="Page Load Performance">
+          <params>
+            <param name="module" value="Performance"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Perf Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="databaseQueryPerformance()" name="databaseQueryPerformance" duration-ms="2800" started-at="2025-09-14T10:01:26Z" finished-at="2025-09-14T10:01:29Z" description="Database Query Performance">
+          <params>
+            <param name="module" value="Performance"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Perf Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="concurrentUserLoad()" name="concurrentUserLoad" duration-ms="12000" started-at="2025-09-14T10:01:29Z" finished-at="2025-09-14T10:01:41Z" description="Concurrent User Load">
+          <params>
+            <param name="module" value="Performance"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Perf Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="memoryUsage()" name="memoryUsage" duration-ms="4500" started-at="2025-09-14T10:01:41Z" finished-at="2025-09-14T10:01:46Z" description="Memory Usage">
+          <params>
+            <param name="module" value="Performance"></param>
+            <param name="priority" value="Medium"></param>
+            <param name="tester" value="Perf Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="responseTimeUnderLoad()" name="responseTimeUnderLoad" duration-ms="15000" started-at="2025-09-14T10:01:46Z" finished-at="2025-09-14T10:01:48Z" description="Response Time Under Load">
+          <params>
+            <param name="module" value="Performance"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Perf Tester"></param>
+            <param name="bugid" value="BUG-014"></param>
+            <param name="severity" value="High"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Response time exceeds threshold</message>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+    <test name="Security Tests" duration-ms="10100" started-at="2025-09-14T10:01:48Z" finished-at="2025-09-14T10:01:58Z">
+      <class name="com.ecommerce.tests.SecurityTests">
+        <test-method status="PASS" signature="sqlInjectionTest()" name="sqlInjectionTest" duration-ms="2200" started-at="2025-09-14T10:01:48Z" finished-at="2025-09-14T10:01:50Z" description="SQL Injection Test">
+          <params>
+            <param name="module" value="Security"></param>
+            <param name="priority" value="Critical"></param>
+            <param name="tester" value="Security Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="xssVulnerabilityTest()" name="xssVulnerabilityTest" duration-ms="1800" started-at="2025-09-14T10:01:50Z" finished-at="2025-09-14T10:01:52Z" description="XSS Vulnerability Test">
+          <params>
+            <param name="module" value="Security"></param>
+            <param name="priority" value="Critical"></param>
+            <param name="tester" value="Security Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="FAIL" signature="authenticationBypass()" name="authenticationBypass" duration-ms="1600" started-at="2025-09-14T10:01:52Z" finished-at="2025-09-14T10:01:54Z" description="Authentication Bypass">
+          <params>
+            <param name="module" value="Security"></param>
+            <param name="priority" value="Critical"></param>
+            <param name="tester" value="Security Tester"></param>
+            <param name="bugid" value="BUG-015"></param>
+            <param name="severity" value="Critical"></param>
+          </params>
+          <exception class="org.testng.TestException">
+            <message>Security vulnerability found</message>
+          </exception>
+        </test-method>
+        <test-method status="PASS" signature="sessionManagement()" name="sessionManagement" duration-ms="2000" started-at="2025-09-14T10:01:54Z" finished-at="2025-09-14T10:01:56Z" description="Session Management">
+          <params>
+            <param name="module" value="Security"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Security Tester"></param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="dataEncryption()" name="dataEncryption" duration-ms="2500" started-at="2025-09-14T10:01:56Z" finished-at="2025-09-14T10:01:58Z" description="Data Encryption">
+          <params>
+            <param name="module" value="Security"></param>
+            <param name="priority" value="High"></param>
+            <param name="tester" value="Security Tester"></param>
+          </params>
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>
