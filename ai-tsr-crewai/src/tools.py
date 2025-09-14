@@ -21,11 +21,15 @@ CANONICAL_COLUMNS = {
     'module': 'Module',
     'testcaseid': 'TestCaseID', 
     'test_case_id': 'TestCaseID',
+    'test case id': 'TestCaseID',
     'testcase': 'TestCaseID',
     'tc_id': 'TestCaseID',
     'tcid': 'TestCaseID',
     'description': 'Description',
     'desc': 'Description',
+    'test name': 'Description',
+    'testname': 'Description',
+    'name': 'Description',
     'run': 'Run',
     'result': 'Result',
     'status': 'Result',
@@ -41,6 +45,8 @@ CANONICAL_COLUMNS = {
     'priority': 'Priority',
     'severity': 'Severity',
     'duration': 'Duration',
+    'execution time (ms)': 'Duration',
+    'execution_time': 'Duration',
     'tester': 'Tester',
     'executed_by': 'Tester'
 }
@@ -116,10 +122,12 @@ SEVERITY_MAPPINGS = {
 
 # Priority mappings
 PRIORITY_MAPPINGS = {
+    'critical': 'Critical',
     'highest': 'Highest',
     'high': 'High',
     'medium': 'Medium',
     'low': 'Low',
+    '0': 'Critical',
     '1': 'Highest',
     '2': 'High',
     '3': 'Medium',
@@ -462,16 +470,39 @@ def compute_metrics(df: pd.DataFrame) -> Dict[str, Any]:
                     else:
                         severity_breakdown = {'critical': 0, 'major': 0, 'medium': module_bugs, 'minor': 0}
                 
+                # Calculate risk level based on defect severity and density
+                critical_count = severity_breakdown.get('critical', 0)
+                major_count = severity_breakdown.get('major', 0)
+                medium_count = severity_breakdown.get('medium', 0)
+                minor_count = severity_breakdown.get('minor', 0)
+                
+                # Calculate actual total defects as sum of all severity counts
+                actual_total_defects = critical_count + major_count + medium_count + minor_count
+                
+                # Recalculate density ratio based on actual defect count
+                actual_density_ratio = actual_total_defects / module_total_tests if module_total_tests > 0 else 0
+                
+                # Risk level logic:
+                # High: Critical defects OR very high density (>80%) OR high density (>60%) with major+ defects
+                # Medium: Major defects OR moderate density (30-60%) with any defects OR high density (>60%) with only minor defects
+                # Low: Only minor defects with low density (<30%)
+                if critical_count > 0 or actual_density_ratio > 0.8 or (actual_density_ratio > 0.6 and (major_count > 0 or critical_count > 0)):
+                    risk_level = 'High'
+                elif major_count > 0 or (actual_density_ratio > 0.3 and actual_total_defects > 0) or (actual_density_ratio > 0.6 and actual_total_defects > 0):
+                    risk_level = 'Medium'
+                else:
+                    risk_level = 'Low'
+                
                 defect_density[module] = {
-                    'total': module_bugs,
-                    'density': round(density_ratio, 3),
-                    'density_percentage': round(density_ratio * 100, 1),
+                    'total': actual_total_defects,
+                    'density': round(actual_density_ratio, 3),
+                    'density_percentage': round(actual_density_ratio * 100, 1),
                     'total_tests': module_total_tests,
-                    'critical': severity_breakdown.get('critical', 0),
-                    'major': severity_breakdown.get('major', 0),
-                    'medium': severity_breakdown.get('medium', 0),
-                    'minor': severity_breakdown.get('minor', 0),
-                    'risk_level': 'High' if density_ratio > 0.3 else 'Medium' if density_ratio > 0.1 else 'Low'
+                    'critical': critical_count,
+                    'major': major_count,
+                    'medium': medium_count,
+                    'minor': minor_count,
+                    'risk_level': risk_level
                 }
         metrics['density'] = defect_density
         logger.debug(f"Enhanced defect density by module: {defect_density}")

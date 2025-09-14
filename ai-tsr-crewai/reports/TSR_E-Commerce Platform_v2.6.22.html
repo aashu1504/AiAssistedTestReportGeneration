@@ -1,0 +1,3748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSR - E-Commerce Platform v2.6.22</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .header .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Tab Navigation */
+        .tab-nav {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .tab-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-button:hover {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+        
+        .tab-button .icon {
+            font-size: 1.1rem;
+        }
+        
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .collapsible-header {
+            width: 100%;
+            background: #f8fafc;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            transition: background-color 0.2s ease;
+        }
+        
+        .collapsible-header:hover {
+            background: #e2e8f0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+            transition: max-height 0.3s ease-in;
+        }
+        
+        .collapsible-content .content-wrapper {
+            padding: 1.5rem;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .exec-summary h2 {
+            color: #0369a1;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .exec-summary p {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Tables */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .table-container h2 {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .status-passed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-failed {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-blocked {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-critical {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        
+        .status-major {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+        
+        .status-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-minor {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Charts */
+        .chart-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .chart-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Quality Gate */
+        .quality-gate {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid;
+        }
+        
+        .quality-gate.approved {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .quality-gate.conditional {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+        
+        .quality-gate.rejected {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .quality-gate h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Sign-off */
+        .sign-off {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .sign-off h3 {
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .sign-off-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .sign-off-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .sign-off-item strong {
+            display: block;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                box-shadow: none;
+            }
+            
+            .header .meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 600px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .tab-nav {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Test Summary Report</h1>
+            <div class="subtitle">E-Commerce Platform - v2.6.22</div>
+            <div class="meta">
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span>2025-09-14</span>
+                </div>
+                <div class="meta-item">
+                    <span>🌍</span>
+                    <span>QA</span>
+                </div>
+                <div class="meta-item">
+                    <span>📊</span>
+                    <span>45 Tests</span>
+                </div>
+                <div class="meta-item">
+                    <span>✅</span>
+                    <span>66.67% Pass Rate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-button active" onclick="showTab('overview')">
+                <span class="icon">📊</span>
+                <span>Overview</span>
+            </button>
+            <button class="tab-button" onclick="showTab('analysis')">
+                <span class="icon">📈</span>
+                <span>Analysis</span>
+            </button>
+            <button class="tab-button" onclick="showTab('modules')">
+                <span class="icon">🏗️</span>
+                <span>Modules</span>
+            </button>
+            <button class="tab-button" onclick="showTab('testdetails')">
+                <span class="icon">🔍</span>
+                <span>Test Details</span>
+            </button>
+            <button class="tab-button" onclick="showTab('defects')">
+                <span class="icon">🐛</span>
+                <span>Defects</span>
+            </button>
+            <button class="tab-button" onclick="showTab('signoff')">
+                <span class="icon">✍️</span>
+                <span>Sign-off</span>
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="overview" class="tab-content active">
+            <!-- Executive Summary -->
+            <div class="exec-summary">
+                <h2>Executive Summary</h2>
+                <p><strong>Test Execution:</strong> 45 total tests, 45 executed (66.67% pass rate)</p>
+                <p><strong>Defects:</strong> 15 total defects identified (3 critical, 6 major, 5 medium, 1 minor)</p>
+                <p><strong>Status:</strong> 
+                
+                    ❌ Requires immediate action
+                
+                </p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                <div class="metric-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #1e293b;">45</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Total Tests</div>
+                </div>
+                <div class="metric-card" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #0369a1;">45</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Executed</div>
+                    <div style="color: #0369a1; font-size: 0.8rem; margin-top: 0.5rem;">100.0%</div>
+                </div>
+                <div class="metric-card" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #166534;">30</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Passed</div>
+                    <div style="color: #166534; font-size: 0.8rem; margin-top: 0.5rem;">66.7%</div>
+                </div>
+                <div class="metric-card" style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #dc2626;">15</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Failed</div>
+                    <div style="color: #dc2626; font-size: 0.8rem; margin-top: 0.5rem;">33.3%</div>
+                </div>
+                <div class="metric-card" style="background: #fef3c7; border: 1px solid #fed7aa; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #d97706;">0</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Blocked</div>
+                </div>
+                <div class="metric-card" style="background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 8px; padding: 1.5rem; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #374151;">0</div>
+                    <div style="color: #64748b; font-size: 0.9rem;">Skipped</div>
+                </div>
+            </div>
+
+            <!-- Test Execution Summary (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-exec-summary')">
+                    <span class="section-title">📊 Test Execution Summary</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-exec-summary">
+                    <div class="content-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Count</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Total Tests</strong></td>
+                                    <td>45</td>
+                                    <td>100%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Executed</strong></td>
+                                    <td>45</td>
+                                    <td>100.0%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Passed</strong></td>
+                                    <td>30</td>
+                                    <td>66.7%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Failed</strong></td>
+                                    <td>15</td>
+                                    <td>33.3%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Blocked</strong></td>
+                                    <td>0</td>
+                                    <td>0.0%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Skipped</strong></td>
+                                    <td>0</td>
+                                    <td>0.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quality Gate (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('quality-gate')">
+                    <span class="section-title">🎯 Quality Gate Evaluation</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="quality-gate">
+                    <div class="content-wrapper">
+                        <div class="quality-gate rejected">
+                            <h3>Quality Gate Evaluation</h3>
+                            <p><strong>Recommendation:</strong> REJECTED</p>
+                            <p><strong>Gate Used:</strong> Strict Quality Gate</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="analysis" class="tab-content">
+
+            <!-- Key Findings and Insights (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('ai-insights')">
+                    <span class="section-title">🔍 Key Findings & Insights</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="ai-insights">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Findings</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Stable Areas</h3>
+                                <ul>
+                                    
+                                        <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
+                                        <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
+                                        <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
+                                        <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
+                                    
+                                </ul>
+                                
+                                <h3>Risky Areas</h3>
+                                <ul>
+                                    
+                                    <li><strong>Overall Quality Risk:</strong> Pass rate of 66.7% is below conditional threshold (95%)</li>
+                                    
+                                    
+                                    <li><strong>Critical Defects:</strong> 3 critical defects require immediate attention</li>
+                                    
+                                    
+                                    <li><strong>Major Defect Volume:</strong> 6 major defects exceed acceptable limit (2)</li>
+                                    
+                                    
+                                        
+                                            
+                                            <li><strong>API Testing module</strong> needs attention with 60.0% pass rate</li>
+                                            
+                                        
+                                            
+                                            <li><strong>Authentication module</strong> needs attention with 20.0% pass rate</li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                            <li><strong>Order Management module</strong> needs attention with 60.0% pass rate</li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                            <li><strong>User Management module</strong> needs attention with 60.0% pass rate</li>
+                                            
+                                        
+                                    
+                                    
+                                        
+                                            
+                                            <li><strong>Authentication module</strong> shows high defect density (80.0%)</li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lessons Learned (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('trend-analysis')">
+                    <span class="section-title">📚 Lessons Learned</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="trend-analysis">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Lessons Learned</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>What Went Well</h3>
+                                <ul>
+                                    
+                                        <li>Excellent test execution rate of 100.0% (45/45 tests)</li>
+                                        <li>No blocked tests - test environment was stable</li>
+                                        <li>No flaky tests identified - test reliability is good</li>
+                                    
+                                </ul>
+                                
+                                <h3>Areas for Improvement</h3>
+                                <ul>
+                                    <li>Low pass rate of 66.7% indicates quality concerns</li>
+                                    
+                                    <li>3 critical defect(s) require immediate attention</li>
+                                    
+                                    
+                                    <li>High number of major defects (6) indicates quality issues</li>
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                        <li>Low pass rates in modules: Authentication</li>
+                                        
+                                    
+                                    
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                        <li>High defect density in modules: Authentication</li>
+                                        
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variances & Deviations (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('risk-assessment')">
+                    <span class="section-title">⚠️ Variances & Deviations</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="risk-assessment">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Variances/Deviations</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Test Execution Variances</h3>
+                                <ul>
+                                    
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Pass Rate Deviation:</strong> Pass rate of 66.7% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
+                                    </li>
+                                    
+                                    
+                                    
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Critical Defect Deviation:</strong> 3 critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
+                                    </li>
+                                    
+                                    
+                                    
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                        <strong>Major Defect Deviation:</strong> 6 major defect(s) exceed acceptable threshold. Significant functionality issues may impact user experience. Prioritize major defect resolution before release.
+                                    </li>
+                                    
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                            <strong>Module Pass Rate Deviation:</strong> Low pass rates in modules: Authentication. Specific modules show poor quality indicators. Review and improve test cases for low-performing modules.
+                                        </li>
+                                        
+                                    
+                                    
+                                    
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                            <strong>Module Defect Density Deviation (High):</strong> High defect density in modules: Authentication. Specific modules show excessive defect rates. Focus additional testing and development effort on high-defect modules.
+                                        </li>
+                                        
+                                    
+                                    
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="modules" class="tab-content">
+            <!-- Test Analytics Charts (Always Visible) -->
+            <div class="charts-section" style="margin-bottom: 2rem;">
+                <h2>Test Analytics</h2>
+                <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Test Results</h3>
+                        <img src="assets/pass_fail.png" alt="Test Results Chart" onclick="openModal('Test Results Summary', 'assets/pass_fail.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Failures by Module</h3>
+                        <img src="assets/fail_by_module.png" alt="Module Results Chart" onclick="openModal('Test Failures by Module', 'assets/fail_by_module.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module Performance Overview (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-summary')">
+                    <span class="section-title">📊 Test Execution Summary by Module</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-summary">
+                    <div class="content-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Total Tests</th>
+                                    <th>Executed</th>
+                                    <th>Passed</th>
+                                    <th>Failed</th>
+                                    <th>Pass Rate</th>
+                                    <th>Quality Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td><strong>API Testing</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">3</span></td>
+                                    <td><span class="status-badge status-failed">2</span></td>
+                                    <td>60.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Authentication</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">1</span></td>
+                                    <td><span class="status-badge status-failed">4</span></td>
+                                    <td>20.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-failed">Critical</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Dashboard</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">4</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>80.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Order Management</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">3</span></td>
+                                    <td><span class="status-badge status-failed">2</span></td>
+                                    <td>60.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Payment</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">4</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>80.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Performance</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">4</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>80.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Reports</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">4</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>80.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Security</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">4</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>80.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>User Management</strong></td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge status-passed">3</span></td>
+                                    <td><span class="status-badge status-failed">2</span></td>
+                                    <td>60.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Module Comparison (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-comparison')">
+                    <span class="section-title">🔍 Module Comparison & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-comparison">
+                    <div class="content-wrapper">
+                        <!-- Defect Density Analysis -->
+                        
+                        <div class="table-container">
+                            <h2>Defect Density per Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Total Tests</th>
+                                        <th>Density %</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Authentication</strong></td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>80.0%</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Dashboard</strong></td>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>20.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Order Management</strong></td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>40.0%</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Payment</strong></td>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>20.0%</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Reports</strong></td>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>20.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>User Management</strong></td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>40.0%</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>API Testing</strong></td>
+                                        <td>2</td>
+                                        <td>5</td>
+                                        <td>40.0%</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Performance</strong></td>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>20.0%</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Security</strong></td>
+                                        <td>1</td>
+                                        <td>5</td>
+                                        <td>20.0%</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        
+
+                        <!-- Module Risk Assessment -->
+                        <div class="table-container">
+                            <h2>Module Risk Assessment</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>High Risk Modules</h3>
+                                
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                
+                                
+                                <ul>
+                                    
+                                    <li><strong>API Testing:</strong> 60.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>Authentication:</strong> 20.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>Order Management:</strong> 60.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>User Management:</strong> 60.0% pass rate - Requires immediate attention</li>
+                                    
+                                </ul>
+                                
+                                
+                                <h3>Stable Modules</h3>
+                                
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                
+                                
+                                <p style="color: #d97706; font-style: italic;">⚠️ No modules currently meet the "Stable" criteria (≥90% pass rate). Consider focusing on improving test coverage and debugging for modules with lower pass rates.</p>
+                                
+                                
+                                <h3>Module Performance Summary</h3>
+                                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                                    <p><strong>Analysis Results:</strong></p>
+                                    <ul style="margin: 0.5rem 0;">
+                                        <li>High Risk Modules: 4</li>
+                                        <li>Stable Modules: 0</li>
+                                        <li>Total Modules Analyzed: 9</li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="testdetails" class="tab-content">
+            <!-- Test Execution Summary -->
+            <div class="table-container">
+                <h2>Test Execution Overview</h2>
+                <div style="padding: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #1e293b;">45</div>
+                            <div style="color: #64748b;">Total Test Cases</div>
+                        </div>
+                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">30</div>
+                            <div style="color: #64748b;">Passed Tests</div>
+                        </div>
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">15</div>
+                            <div style="color: #64748b;">Failed Tests</div>
+                        </div>
+                        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #0369a1;">66.7%</div>
+                            <div style="color: #64748b;">Pass Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Individual Test Results (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-results')">
+                    <span class="section-title">📋 All Test Case Results</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-results">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Complete Test Execution Details</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Execution Time</th>
+                                        <th>Tester</th>
+                                        <th>Environment</th>
+                                        <th>Browser</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>TC_LOGIN_001</strong></td>
+                                        <td>Valid User Login</td>
+                                        <td>Authentication</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1250ms</td>
+                                        <td>John Smith</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_LOGIN_002</strong></td>
+                                        <td>Invalid Password Login</td>
+                                        <td>Authentication</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>890ms</td>
+                                        <td>John Smith</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_LOGIN_003</strong></td>
+                                        <td>Empty Username Login</td>
+                                        <td>Authentication</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>650ms</td>
+                                        <td>John Smith</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_LOGIN_004</strong></td>
+                                        <td>Empty Password Login</td>
+                                        <td>Authentication</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>720ms</td>
+                                        <td>John Smith</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_LOGIN_005</strong></td>
+                                        <td>SQL Injection Login</td>
+                                        <td>Authentication</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">Critical</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1100ms</td>
+                                        <td>John Smith</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_DASHBOARD_001</strong></td>
+                                        <td>Load Dashboard</td>
+                                        <td>Dashboard</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2100ms</td>
+                                        <td>Mike Johnson</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_DASHBOARD_002</strong></td>
+                                        <td>Widget Display</td>
+                                        <td>Dashboard</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1800ms</td>
+                                        <td>Mike Johnson</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_DASHBOARD_003</strong></td>
+                                        <td>Data Refresh</td>
+                                        <td>Dashboard</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>3200ms</td>
+                                        <td>Mike Johnson</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_DASHBOARD_004</strong></td>
+                                        <td>Responsive Layout</td>
+                                        <td>Dashboard</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>2500ms</td>
+                                        <td>Mike Johnson</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_DASHBOARD_005</strong></td>
+                                        <td>Performance Metrics</td>
+                                        <td>Dashboard</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>4100ms</td>
+                                        <td>Mike Johnson</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_ORDER_001</strong></td>
+                                        <td>Create New Order</td>
+                                        <td>Order Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2800ms</td>
+                                        <td>Sarah Wilson</td>
+                                        <td>QA</td>
+                                        <td>Firefox 119</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_ORDER_002</strong></td>
+                                        <td>Edit Existing Order</td>
+                                        <td>Order Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1950ms</td>
+                                        <td>Sarah Wilson</td>
+                                        <td>QA</td>
+                                        <td>Firefox 119</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_ORDER_003</strong></td>
+                                        <td>Delete Order</td>
+                                        <td>Order Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1600ms</td>
+                                        <td>Sarah Wilson</td>
+                                        <td>QA</td>
+                                        <td>Firefox 119</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_ORDER_004</strong></td>
+                                        <td>Order Validation</td>
+                                        <td>Order Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2200ms</td>
+                                        <td>Sarah Wilson</td>
+                                        <td>QA</td>
+                                        <td>Firefox 119</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_ORDER_005</strong></td>
+                                        <td>Bulk Order Import</td>
+                                        <td>Order Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>8500ms</td>
+                                        <td>Sarah Wilson</td>
+                                        <td>QA</td>
+                                        <td>Firefox 119</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PAYMENT_001</strong></td>
+                                        <td>Credit Card Payment</td>
+                                        <td>Payment</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>3200ms</td>
+                                        <td>David Brown</td>
+                                        <td>QA</td>
+                                        <td>Edge 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PAYMENT_002</strong></td>
+                                        <td>PayPal Payment</td>
+                                        <td>Payment</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2800ms</td>
+                                        <td>David Brown</td>
+                                        <td>QA</td>
+                                        <td>Edge 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PAYMENT_003</strong></td>
+                                        <td>Invalid Card Payment</td>
+                                        <td>Payment</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1900ms</td>
+                                        <td>David Brown</td>
+                                        <td>QA</td>
+                                        <td>Edge 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PAYMENT_004</strong></td>
+                                        <td>Refund Process</td>
+                                        <td>Payment</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>4500ms</td>
+                                        <td>David Brown</td>
+                                        <td>QA</td>
+                                        <td>Edge 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PAYMENT_005</strong></td>
+                                        <td>Payment History</td>
+                                        <td>Payment</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1200ms</td>
+                                        <td>David Brown</td>
+                                        <td>QA</td>
+                                        <td>Edge 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_REPORT_001</strong></td>
+                                        <td>Generate Sales Report</td>
+                                        <td>Reports</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>5600ms</td>
+                                        <td>Lisa Chen</td>
+                                        <td>QA</td>
+                                        <td>Safari 17</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_REPORT_002</strong></td>
+                                        <td>Export PDF Report</td>
+                                        <td>Reports</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>4200ms</td>
+                                        <td>Lisa Chen</td>
+                                        <td>QA</td>
+                                        <td>Safari 17</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_REPORT_003</strong></td>
+                                        <td>Email Report</td>
+                                        <td>Reports</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>3800ms</td>
+                                        <td>Lisa Chen</td>
+                                        <td>QA</td>
+                                        <td>Safari 17</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_REPORT_004</strong></td>
+                                        <td>Report Filtering</td>
+                                        <td>Reports</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2100ms</td>
+                                        <td>Lisa Chen</td>
+                                        <td>QA</td>
+                                        <td>Safari 17</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_REPORT_005</strong></td>
+                                        <td>Data Visualization</td>
+                                        <td>Reports</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>3400ms</td>
+                                        <td>Lisa Chen</td>
+                                        <td>QA</td>
+                                        <td>Safari 17</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_USER_001</strong></td>
+                                        <td>Create User Account</td>
+                                        <td>User Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1800ms</td>
+                                        <td>Alex Kumar</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_USER_002</strong></td>
+                                        <td>Update User Profile</td>
+                                        <td>User Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1500ms</td>
+                                        <td>Alex Kumar</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_USER_003</strong></td>
+                                        <td>Delete User Account</td>
+                                        <td>User Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1200ms</td>
+                                        <td>Alex Kumar</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_USER_004</strong></td>
+                                        <td>Role Assignment</td>
+                                        <td>User Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2000ms</td>
+                                        <td>Alex Kumar</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_USER_005</strong></td>
+                                        <td>Password Reset</td>
+                                        <td>User Management</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>2500ms</td>
+                                        <td>Alex Kumar</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_API_001</strong></td>
+                                        <td>Login API Endpoint</td>
+                                        <td>API Testing</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>800ms</td>
+                                        <td>API Tester</td>
+                                        <td>QA</td>
+                                        <td>Postman</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_API_002</strong></td>
+                                        <td>Get User Data API</td>
+                                        <td>API Testing</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>600ms</td>
+                                        <td>API Tester</td>
+                                        <td>QA</td>
+                                        <td>Postman</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_API_003</strong></td>
+                                        <td>Create Order API</td>
+                                        <td>API Testing</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1200ms</td>
+                                        <td>API Tester</td>
+                                        <td>QA</td>
+                                        <td>Postman</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_API_004</strong></td>
+                                        <td>Update Order API</td>
+                                        <td>API Testing</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>900ms</td>
+                                        <td>API Tester</td>
+                                        <td>QA</td>
+                                        <td>Postman</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_API_005</strong></td>
+                                        <td>Delete Order API</td>
+                                        <td>API Testing</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1100ms</td>
+                                        <td>API Tester</td>
+                                        <td>QA</td>
+                                        <td>Postman</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PERF_001</strong></td>
+                                        <td>Page Load Performance</td>
+                                        <td>Performance</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>3500ms</td>
+                                        <td>Perf Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PERF_002</strong></td>
+                                        <td>Database Query Performance</td>
+                                        <td>Performance</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2800ms</td>
+                                        <td>Perf Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PERF_003</strong></td>
+                                        <td>Concurrent User Load</td>
+                                        <td>Performance</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>12000ms</td>
+                                        <td>Perf Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PERF_004</strong></td>
+                                        <td>Memory Usage</td>
+                                        <td>Performance</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>4500ms</td>
+                                        <td>Perf Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_PERF_005</strong></td>
+                                        <td>Response Time Under Load</td>
+                                        <td>Performance</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>15000ms</td>
+                                        <td>Perf Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_SEC_001</strong></td>
+                                        <td>SQL Injection Test</td>
+                                        <td>Security</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">Critical</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2200ms</td>
+                                        <td>Security Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_SEC_002</strong></td>
+                                        <td>XSS Vulnerability Test</td>
+                                        <td>Security</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">Critical</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>1800ms</td>
+                                        <td>Security Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_SEC_003</strong></td>
+                                        <td>Authentication Bypass</td>
+                                        <td>Security</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">Critical</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>1600ms</td>
+                                        <td>Security Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_SEC_004</strong></td>
+                                        <td>Session Management</td>
+                                        <td>Security</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2000ms</td>
+                                        <td>Security Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC_SEC_005</strong></td>
+                                        <td>Data Encryption</td>
+                                        <td>Security</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical">High</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>2500ms</td>
+                                        <td>Security Tester</td>
+                                        <td>QA</td>
+                                        <td>Chrome 120</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Failed Test Details (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('failed-tests')">
+                    <span class="section-title">❌ Failed Test Cases (15)</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="failed-tests">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Failed Test Cases Analysis</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Error Message</th>
+                                        <th>Severity</th>
+                                        <th>Bug ID</th>
+                                        <th>Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_LOGIN_002</strong></td>
+                                            <td>Invalid Password Login</td>
+                                            <td>Authentication</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Invalid credentials provided</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>890ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_LOGIN_003</strong></td>
+                                            <td>Empty Username Login</td>
+                                            <td>Authentication</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Username field is required</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>650ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_LOGIN_004</strong></td>
+                                            <td>Empty Password Login</td>
+                                            <td>Authentication</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Password field is required</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>720ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_LOGIN_005</strong></td>
+                                            <td>SQL Injection Login</td>
+                                            <td>Authentication</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Security vulnerability detected</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1100ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_DASHBOARD_004</strong></td>
+                                            <td>Responsive Layout</td>
+                                            <td>Dashboard</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Layout breaks on mobile view</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>2500ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_ORDER_003</strong></td>
+                                            <td>Delete Order</td>
+                                            <td>Order Management</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Delete confirmation not working</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1600ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_ORDER_005</strong></td>
+                                            <td>Bulk Order Import</td>
+                                            <td>Order Management</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">File upload timeout</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>8500ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_PAYMENT_003</strong></td>
+                                            <td>Invalid Card Payment</td>
+                                            <td>Payment</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Payment gateway error</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1900ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_REPORT_003</strong></td>
+                                            <td>Email Report</td>
+                                            <td>Reports</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Low</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Email service unavailable</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Minor</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>3800ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_USER_003</strong></td>
+                                            <td>Delete User Account</td>
+                                            <td>User Management</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">User deletion failed</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1200ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_USER_005</strong></td>
+                                            <td>Password Reset</td>
+                                            <td>User Management</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Reset email not sent</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>2500ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_API_003</strong></td>
+                                            <td>Create Order API</td>
+                                            <td>API Testing</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">500 Internal Server Error</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1200ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_API_005</strong></td>
+                                            <td>Delete Order API</td>
+                                            <td>API Testing</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">404 Not Found</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1100ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_PERF_005</strong></td>
+                                            <td>Response Time Under Load</td>
+                                            <td>Performance</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">High</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Response time exceeds threshold</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>15000ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC_SEC_003</strong></td>
+                                            <td>Authentication Bypass</td>
+                                            <td>Security</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">Security vulnerability found</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>1600ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Execution Statistics (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-statistics')">
+                    <span class="section-title">📊 Test Execution Statistics</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-statistics">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Execution Statistics by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Tests</th>
+                                        <th>Passed</th>
+                                        <th>Failed</th>
+                                        <th>Pass Rate</th>
+                                        <th>Avg Execution Time</th>
+                                        <th>Total Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>API Testing</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">3</span></td>
+                                        <td><span class="status-badge status-failed">2</span></td>
+                                        <td>60.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Authentication</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">1</span></td>
+                                        <td><span class="status-badge status-failed">4</span></td>
+                                        <td>20.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Dashboard</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">4</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>80.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Order Management</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">3</span></td>
+                                        <td><span class="status-badge status-failed">2</span></td>
+                                        <td>60.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Payment</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">4</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>80.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Performance</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">4</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>80.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Reports</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">4</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>80.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Security</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">4</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>80.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>User Management</strong></td>
+                                        <td>5</td>
+                                        <td><span class="status-badge status-passed">3</span></td>
+                                        <td><span class="status-badge status-failed">2</span></td>
+                                        <td>60.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="defects" class="tab-content">
+            <!-- Defect Summary (Always Visible) -->
+            <div class="table-container">
+                <h2>Defect Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Severity</th>
+                            <th>Open</th>
+                            <th>Closed</th>
+                            <th>Deferred</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
+                            <td>6</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
+                            <td>5</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                        </tr>
+                        <tr style="font-weight: bold; background-color: #f8f9fa;">
+                            <td><strong>Total</strong></td>
+                            <td>15</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Defect Analysis Charts (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-charts')">
+                    <span class="section-title">📊 Defect Analysis Charts</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-charts">
+                    <div class="content-wrapper">
+                        <div class="charts-section" style="margin-bottom: 2rem;">
+                            <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                                    <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                                    <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Bugs Identified (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('key-bugs')">
+                    <span class="section-title">🐛 Key Bugs Identified</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="key-bugs">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Bugs Identified</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bug ID</th>
+                                        <th>Severity</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Description</th>
+                                        <th>Module</th>
+                                        <th>Assigned To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-001</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Authentication</td>
+                                                <td>John Smith</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-002</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Authentication</td>
+                                                <td>John Smith</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-003</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Authentication</td>
+                                                <td>John Smith</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-004</strong></td>
+                                                <td><span class="status-badge status-critical">Critical</span></td>
+                                                <td>Critical</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Authentication</td>
+                                                <td>John Smith</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-005</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Dashboard</td>
+                                                <td>Mike Johnson</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-006</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Order Management</td>
+                                                <td>Sarah Wilson</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-007</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Order Management</td>
+                                                <td>Sarah Wilson</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-008</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Payment</td>
+                                                <td>David Brown</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-009</strong></td>
+                                                <td><span class="status-badge status-minor">Minor</span></td>
+                                                <td>Low</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Reports</td>
+                                                <td>Lisa Chen</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-010</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>User Management</td>
+                                                <td>Alex Kumar</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-011</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>User Management</td>
+                                                <td>Alex Kumar</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-012</strong></td>
+                                                <td><span class="status-badge status-critical">Critical</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>API Testing</td>
+                                                <td>API Tester</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-013</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>API Testing</td>
+                                                <td>API Tester</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-014</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>High</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Performance</td>
+                                                <td>Perf Tester</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-015</strong></td>
+                                                <td><span class="status-badge status-critical">Critical</span></td>
+                                                <td>Critical</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Security</td>
+                                                <td>Security Tester</td>
+                                            </tr>
+                                            
+                                        
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defect Trends (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-trends')">
+                    <span class="section-title">📈 Defect Trends & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-trends">
+                    <div class="content-wrapper">
+                        <!-- Defect Distribution by Module -->
+                        <div class="table-container">
+                            <h2>Defect Distribution by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Defect Rate</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Authentication</strong></td>
+                                        <td>4</td>
+                                        <td>
+                                            <span class="status-badge status-critical">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">2</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>80.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Dashboard</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>20.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Order Management</strong></td>
+                                        <td>2</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>40.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Payment</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>20.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Reports</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">1</span>
+                                        </td>
+                                        <td>20.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>User Management</strong></td>
+                                        <td>2</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>40.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>API Testing</strong></td>
+                                        <td>2</td>
+                                        <td>
+                                            <span class="status-badge status-critical">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>40.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Performance</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>20.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Security</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>20.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Severity Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Severity Analysis</h2>
+                            <div style="padding: 1.5rem;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                                    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">3</div>
+                                        <div style="color: #64748b;">Critical Defects</div>
+                                        <div style="font-size: 0.8rem; color: #dc2626; margin-top: 0.5rem;">Immediate Action Required</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">6</div>
+                                        <div style="color: #64748b;">Major Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">High Priority</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">5</div>
+                                        <div style="color: #64748b;">Medium Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">Medium Priority</div>
+                                    </div>
+                                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">1</div>
+                                        <div style="color: #64748b;">Minor Defects</div>
+                                        <div style="font-size: 0.8rem; color: #166534; margin-top: 0.5rem;">Low Priority</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Defect Priority Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Priority Distribution</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Priority Level</th>
+                                        <th>Count</th>
+                                        <th>Percentage</th>
+                                        <th>Action Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>High</strong></td>
+                                        <td>21</td>
+                                        <td>46.7%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-failed">Within 24h</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Medium</strong></td>
+                                        <td>16</td>
+                                        <td>35.6%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-blocked">Within 3 days</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Critical</strong></td>
+                                        <td>4</td>
+                                        <td>8.9%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-passed">Next Sprint</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Low</strong></td>
+                                        <td>4</td>
+                                        <td>8.9%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-passed">Next Sprint</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Highest</strong></td>
+                                        <td>0</td>
+                                        <td>0.0%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-critical">Immediate</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Trend Summary -->
+                        <div class="table-container">
+                            <h2>Defect Trend Summary</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Key Insights</h3>
+                                <ul>
+                                    <li><strong>Total Defects:</strong> 15 defects identified across 9 modules</li>
+                                    <li><strong>Critical Issues:</strong> 3 critical defects require immediate attention</li>
+                                    <li><strong>Most Affected Module:</strong> Authentication with 4 defects</li>
+                                    <li><strong>Defect Density:</strong> 33.3% of test cases resulted in defects</li>
+                                </ul>
+                                
+                                <h3>Recommendations</h3>
+                                <ul>
+                                    
+                                    <li>🔴 <strong>Critical Priority:</strong> Address 3 critical defects before release</li>
+                                    
+                                    
+                                    <li>🟡 <strong>Module Focus:</strong> Authentication module needs additional testing and debugging</li>
+                                    
+                                    <li>🟢 <strong>Quality Improvement:</strong> Implement additional test coverage for high-defect areas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="signoff" class="tab-content">
+            <!-- Release Decision -->
+            <div class="table-container">
+                <h2>Release Decision</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Release Recommendation</h3>
+                    <p><strong>Release Recommendation:</strong> 
+                        <span class="status-badge status-rejected" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: #fef2f2; color: #dc2626;">
+                            REJECTED
+                        </span>
+                    </p>
+                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+                </div>
+            </div>
+
+            <!-- Sign-off Information -->
+            <div class="table-container">
+                <h2>Sign-Off</h2>
+                <div style="padding: 1.5rem;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Test Team</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Development Team</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Product Owner</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Quality Assurance</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Test Lead: Ashish Uniyal</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Development Lead: Tejsing Wagh</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Product Owner: GSuppa</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">QA Manager: Dhiraj Barhate</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Test Engineer: Saikat Ghosh</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Date: 2025-09-14</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal for image viewing -->
+    <div id="imageModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
+        <div style="position: relative; margin: auto; padding: 0; width: 80%; max-width: 700px; top: 50%; transform: translateY(-50%);">
+            <span onclick="closeModal()" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+            <img id="modalImage" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        function openModal(title, imageSrc) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = imageSrc;
+            document.title = title + ' - TSR';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Collapsible sections functionality
+        function toggleCollapsible(sectionId) {
+            var content = document.getElementById(sectionId);
+            var icon = event.target.querySelector('.toggle-icon');
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        }
+        
+        // Initialize collapsible sections (all open by default)
+        document.addEventListener('DOMContentLoaded', function() {
+            var collapsibleHeaders = document.querySelectorAll('.collapsible-header');
+            collapsibleHeaders.forEach(function(header) {
+                var icon = header.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.textContent = '▼';
+                }
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

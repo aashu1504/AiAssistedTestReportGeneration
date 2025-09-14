@@ -816,6 +816,13 @@ Examples:
             # Defect density (use enhanced data from metrics)
             'defect_density': metrics.get('density', {}),
             
+            # Additional metrics for template
+            'fail_by_module': metrics.get('fail_by_module', {}),
+            'defects_by_severity': metrics.get('defects_by_severity', {}),
+            'defects_by_priority': metrics.get('defects_by_priority', {}),
+            'density': metrics.get('density', {}),
+            'test_data': normalized_data.to_dict('records'),
+            
             # Charts
             'charts': chart_files,
             

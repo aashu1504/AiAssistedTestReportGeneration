@@ -104,6 +104,60 @@
             font-size: 1.1rem;
         }
         
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .collapsible-header {
+            width: 100%;
+            background: #f8fafc;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            transition: background-color 0.2s ease;
+        }
+        
+        .collapsible-header:hover {
+            background: #e2e8f0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+            transition: max-height 0.3s ease-in;
+        }
+        
+        .collapsible-content .content-wrapper {
+            padding: 1.5rem;
+        }
+        
         /* Tab Content */
         .tab-content {
             display: none;
@@ -365,11 +419,11 @@
                 </div>
                 <div class="meta-item">
                     <span>📊</span>
-                    <span>45 Tests</span>
+                    <span>16 Tests</span>
                 </div>
                 <div class="meta-item">
                     <span>✅</span>
-                    <span>66.67% Pass Rate</span>
+                    <span>62.5% Pass Rate</span>
                 </div>
             </div>
         </div>
@@ -380,21 +434,21 @@
                 <span class="icon">📊</span>
                 <span>Overview</span>
             </button>
-            <button class="tab-button" onclick="showTab('execution')">
-                <span class="icon">⚡</span>
-                <span>Test Execution</span>
-            </button>
-            <button class="tab-button" onclick="showTab('defects')">
-                <span class="icon">🐛</span>
-                <span>Defects</span>
-            </button>
             <button class="tab-button" onclick="showTab('analysis')">
                 <span class="icon">📈</span>
                 <span>Analysis</span>
             </button>
-            <button class="tab-button" onclick="showTab('environment')">
-                <span class="icon">🌐</span>
-                <span>Environment</span>
+            <button class="tab-button" onclick="showTab('modules')">
+                <span class="icon">🏗️</span>
+                <span>Modules</span>
+            </button>
+            <button class="tab-button" onclick="showTab('testdetails')">
+                <span class="icon">🔍</span>
+                <span>Test Details</span>
+            </button>
+            <button class="tab-button" onclick="showTab('defects')">
+                <span class="icon">🐛</span>
+                <span>Defects</span>
             </button>
             <button class="tab-button" onclick="showTab('signoff')">
                 <span class="icon">✍️</span>
@@ -407,8 +461,8 @@
             <!-- Executive Summary -->
             <div class="exec-summary">
                 <h2>Executive Summary</h2>
-                <p><strong>Test Execution:</strong> 45 total tests, 45 executed (66.67% pass rate)</p>
-                <p><strong>Defects:</strong> 15 total defects identified (3 critical, 6 major, 5 medium, 1 minor)</p>
+                <p><strong>Test Execution:</strong> 16 total tests, 16 executed (62.5% pass rate)</p>
+                <p><strong>Defects:</strong> 6 total defects identified (1 critical, 1 major, 1 medium, 3 minor)</p>
                 <p><strong>Status:</strong> 
                 
                     ❌ Requires immediate action
@@ -419,23 +473,23 @@
             <!-- Key Metrics -->
             <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem 0;">
                 <div class="metric-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #1e293b;">45</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #1e293b;">16</div>
                     <div style="color: #64748b; font-size: 0.9rem;">Total Tests</div>
                 </div>
                 <div class="metric-card" style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #0369a1;">45</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #0369a1;">16</div>
                     <div style="color: #64748b; font-size: 0.9rem;">Executed</div>
                     <div style="color: #0369a1; font-size: 0.8rem; margin-top: 0.5rem;">100.0%</div>
                 </div>
                 <div class="metric-card" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #166534;">30</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #166534;">10</div>
                     <div style="color: #64748b; font-size: 0.9rem;">Passed</div>
-                    <div style="color: #166534; font-size: 0.8rem; margin-top: 0.5rem;">66.7%</div>
+                    <div style="color: #166534; font-size: 0.8rem; margin-top: 0.5rem;">62.5%</div>
                 </div>
                 <div class="metric-card" style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                    <div style="font-size: 2rem; font-weight: bold; color: #dc2626;">15</div>
+                    <div style="font-size: 2rem; font-weight: bold; color: #dc2626;">6</div>
                     <div style="color: #64748b; font-size: 0.9rem;">Failed</div>
-                    <div style="color: #dc2626; font-size: 0.8rem; margin-top: 0.5rem;">33.3%</div>
+                    <div style="color: #dc2626; font-size: 0.8rem; margin-top: 0.5rem;">37.5%</div>
                 </div>
                 <div class="metric-card" style="background: #fef3c7; border: 1px solid #fed7aa; border-radius: 8px; padding: 1.5rem; text-align: center;">
                     <div style="font-size: 2rem; font-weight: bold; color: #d97706;">0</div>
@@ -447,78 +501,301 @@
                 </div>
             </div>
 
-            <!-- Quality Gate -->
-            <div class="quality-gate rejected">
-                <h3>Quality Gate Evaluation</h3>
-                <p><strong>Recommendation:</strong> REJECTED</p>
-                <p><strong>Gate Used:</strong> Strict Quality Gate</p>
-                
+            <!-- Test Execution Summary (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-exec-summary')">
+                    <span class="section-title">📊 Test Execution Summary</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-exec-summary">
+                    <div class="content-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Count</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Total Tests</strong></td>
+                                    <td>16</td>
+                                    <td>100%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Executed</strong></td>
+                                    <td>16</td>
+                                    <td>100.0%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Passed</strong></td>
+                                    <td>10</td>
+                                    <td>62.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Failed</strong></td>
+                                    <td>6</td>
+                                    <td>37.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Blocked</strong></td>
+                                    <td>0</td>
+                                    <td>0.0%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Skipped</strong></td>
+                                    <td>0</td>
+                                    <td>0.0%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <!-- Test Execution Summary -->
-            <div class="table-container">
-                <h2>Test Execution Summary</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Total Tests</strong></td>
-                            <td>45</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Executed</strong></td>
-                            <td>45</td>
-                            <td>100.0%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Passed</strong></td>
-                            <td>30</td>
-                            <td>66.7%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Failed</strong></td>
-                            <td>15</td>
-                            <td>33.3%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Blocked</strong></td>
-                            <td>0</td>
-                            <td>0.0%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Skipped</strong></td>
-                            <td>0</td>
-                            <td>0.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Release Decision -->
-            <div class="table-container">
-                <h2>Release Decision</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Release Recommendation</h3>
-                    <p><strong>Release Recommendation:</strong> 
-                        <span class="status-badge status-rejected" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: #fef2f2; color: #dc2626;">
-                            REJECTED
-                        </span>
-                    </p>
-                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+            <!-- Quality Gate (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('quality-gate')">
+                    <span class="section-title">🎯 Quality Gate Evaluation</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="quality-gate">
+                    <div class="content-wrapper">
+                        <div class="quality-gate rejected">
+                            <h3>Quality Gate Evaluation</h3>
+                            <p><strong>Recommendation:</strong> REJECTED</p>
+                            <p><strong>Gate Used:</strong> Strict Quality Gate</p>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <div id="execution" class="tab-content">
-            <!-- Test Execution Charts -->
+        <div id="analysis" class="tab-content">
+
+            <!-- Key Findings and Insights (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('ai-insights')">
+                    <span class="section-title">🔍 Key Findings & Insights</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="ai-insights">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Findings</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Stable Areas</h3>
+                                <ul>
+                                    
+                                        <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
+                                        <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
+                                        <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
+                                        <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
+                                    
+                                </ul>
+                                
+                                <h3>Risky Areas</h3>
+                                <ul>
+                                    
+                                    <li><strong>Overall Quality Risk:</strong> Pass rate of 62.5% is below conditional threshold (95%)</li>
+                                    
+                                    
+                                    <li><strong>Critical Defects:</strong> 1 critical defects require immediate attention</li>
+                                    
+                                    
+                                    
+                                        
+                                            
+                                            <li><strong>Cart module</strong> needs attention with 50.0% pass rate</li>
+                                            
+                                        
+                                            
+                                            <li><strong>Checkout module</strong> needs attention with 50.0% pass rate</li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                            <li><strong>Orders module</strong> needs attention with 50.0% pass rate</li>
+                                            
+                                        
+                                            
+                                        
+                                            
+                                            <li><strong>Profile module</strong> needs attention with 50.0% pass rate</li>
+                                            
+                                        
+                                    
+                                    
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lessons Learned (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('trend-analysis')">
+                    <span class="section-title">📚 Lessons Learned</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="trend-analysis">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Lessons Learned</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>What Went Well</h3>
+                                <ul>
+                                    
+                                        <li>Excellent test execution rate of 100.0% (16/16 tests)</li>
+                                        <li>No blocked tests - test environment was stable</li>
+                                        <li>No flaky tests identified - test reliability is good</li>
+                                    
+                                </ul>
+                                
+                                <h3>Areas for Improvement</h3>
+                                <ul>
+                                    <li>Low pass rate of 62.5% indicates quality concerns</li>
+                                    
+                                    <li>1 critical defect(s) require immediate attention</li>
+                                    
+                                    
+                                    <li>High number of major defects (1) indicates quality issues</li>
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variances & Deviations (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('risk-assessment')">
+                    <span class="section-title">⚠️ Variances & Deviations</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="risk-assessment">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Variances/Deviations</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Test Execution Variances</h3>
+                                <ul>
+                                    
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Pass Rate Deviation:</strong> Pass rate of 62.5% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
+                                    </li>
+                                    
+                                    
+                                    
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Critical Defect Deviation:</strong> 1 critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
+                                    </li>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                    
+                                    
+                                    
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                    
+                                    
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="modules" class="tab-content">
+            <!-- Test Analytics Charts (Always Visible) -->
             <div class="charts-section" style="margin-bottom: 2rem;">
                 <h2>Test Analytics</h2>
                 <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
@@ -533,181 +810,1054 @@
                 </div>
             </div>
 
-            <!-- Test Execution Summary by Module -->
+            <!-- Module Performance Overview (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-summary')">
+                    <span class="section-title">📊 Test Execution Summary by Module</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-summary">
+                    <div class="content-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Total Tests</th>
+                                    <th>Executed</th>
+                                    <th>Passed</th>
+                                    <th>Failed</th>
+                                    <th>Pass Rate</th>
+                                    <th>Quality Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td><strong>Cart</strong></td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-passed">1</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>50.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Checkout</strong></td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-passed">1</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>50.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Login</strong></td>
+                                    <td>4</td>
+                                    <td>4</td>
+                                    <td><span class="status-badge status-passed">3</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>75.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Good</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Orders</strong></td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-passed">1</span></td>
+                                    <td><span class="status-badge status-failed">1</span></td>
+                                    <td>50.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Product Page</strong></td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td><span class="status-badge status-passed">2</span></td>
+                                    <td><span class="status-badge status-failed">0</span></td>
+                                    <td>100.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-passed">Excellent</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>Profile</strong></td>
+                                    <td>4</td>
+                                    <td>4</td>
+                                    <td><span class="status-badge status-passed">2</span></td>
+                                    <td><span class="status-badge status-failed">2</span></td>
+                                    <td>50.0%</td>
+                                    <td>
+                                        
+                                        
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Module Comparison (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-comparison')">
+                    <span class="section-title">🔍 Module Comparison & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-comparison">
+                    <div class="content-wrapper">
+                        <!-- Defect Density Analysis -->
+                        
+                        <div class="table-container">
+                            <h2>Defect Density per Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Total Tests</th>
+                                        <th>Density %</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Login</strong></td>
+                                        <td>1</td>
+                                        <td>4</td>
+                                        <td>25.0%</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Checkout</strong></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>50.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Profile</strong></td>
+                                        <td>2</td>
+                                        <td>4</td>
+                                        <td>50.0%</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Orders</strong></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>50.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Cart</strong></td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>50.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Product Page</strong></td>
+                                        <td>0</td>
+                                        <td>2</td>
+                                        <td>0.0%</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        
+
+                        <!-- Module Risk Assessment -->
+                        <div class="table-container">
+                            <h2>Module Risk Assessment</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>High Risk Modules</h3>
+                                
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                
+                                
+                                <ul>
+                                    
+                                    <li><strong>Cart:</strong> 50.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>Checkout:</strong> 50.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>Orders:</strong> 50.0% pass rate - Requires immediate attention</li>
+                                    
+                                    <li><strong>Profile:</strong> 50.0% pass rate - Requires immediate attention</li>
+                                    
+                                </ul>
+                                
+                                
+                                <h3>Stable Modules</h3>
+                                
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                
+                                    
+                                    
+                                        
+                                    
+                                
+                                    
+                                    
+                                
+                                
+                                
+                                <ul>
+                                    
+                                    <li><strong>Product Page:</strong> 100.0% pass rate - Excellent performance</li>
+                                    
+                                </ul>
+                                
+                                
+                                <h3>Module Performance Summary</h3>
+                                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                                    <p><strong>Analysis Results:</strong></p>
+                                    <ul style="margin: 0.5rem 0;">
+                                        <li>High Risk Modules: 4</li>
+                                        <li>Stable Modules: 1</li>
+                                        <li>Total Modules Analyzed: 6</li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="testdetails" class="tab-content">
+            <!-- Test Execution Summary -->
             <div class="table-container">
-                <h2>Test Execution Summary by Module</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Module</th>
-                            <th>Total Tests</th>
-                            <th>Executed</th>
-                            <th>Passed</th>
-                            <th>Failed</th>
-                            <th>Pass Rate</th>
-                            <th>Quality Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr>
-                            <td><strong>API Testing</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">3</span></td>
-                            <td><span class="status-badge status-failed">2</span></td>
-                            <td>60.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-blocked">Needs Attention</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Authentication</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">1</span></td>
-                            <td><span class="status-badge status-failed">4</span></td>
-                            <td>20.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-failed">Critical</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Dashboard</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">4</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>80.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-passed">Good</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Order Management</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">3</span></td>
-                            <td><span class="status-badge status-failed">2</span></td>
-                            <td>60.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-blocked">Needs Attention</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Payment</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">4</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>80.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-passed">Good</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Performance</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">4</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>80.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-passed">Good</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Reports</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">4</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>80.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-passed">Good</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>Security</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">4</span></td>
-                            <td><span class="status-badge status-failed">1</span></td>
-                            <td>80.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-passed">Good</span>
-                                
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><strong>User Management</strong></td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td><span class="status-badge status-passed">3</span></td>
-                            <td><span class="status-badge status-failed">2</span></td>
-                            <td>60.0%</td>
-                            <td>
-                                
-                                
-                                    <span class="status-badge status-blocked">Needs Attention</span>
-                                
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+                <h2>Test Execution Overview</h2>
+                <div style="padding: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #1e293b;">16</div>
+                            <div style="color: #64748b;">Total Test Cases</div>
+                        </div>
+                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">10</div>
+                            <div style="color: #64748b;">Passed Tests</div>
+                        </div>
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">6</div>
+                            <div style="color: #64748b;">Failed Tests</div>
+                        </div>
+                        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #0369a1;">62.5%</div>
+                            <div style="color: #64748b;">Pass Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Individual Test Results (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-results')">
+                    <span class="section-title">📋 All Test Case Results</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-results">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Complete Test Execution Details</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Execution Time</th>
+                                        <th>Tester</th>
+                                        <th>Environment</th>
+                                        <th>Browser</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>TC001</strong></td>
+                                        <td>Verify valid login</td>
+                                        <td>Login</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC002</strong></td>
+                                        <td>Verify invalid login</td>
+                                        <td>Login</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC010</strong></td>
+                                        <td>Verify add to cart</td>
+                                        <td>Checkout</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-blocked">Medium</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC010</strong></td>
+                                        <td>Verify add to cart</td>
+                                        <td>Checkout</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC020</strong></td>
+                                        <td>Update profile info</td>
+                                        <td>Profile</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Highest</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC021</strong></td>
+                                        <td>Upload profile pic</td>
+                                        <td>Profile</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC030</strong></td>
+                                        <td>View past orders</td>
+                                        <td>Orders</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC031</strong></td>
+                                        <td>Cancel order</td>
+                                        <td>Orders</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC003</strong></td>
+                                        <td>Verify valid login</td>
+                                        <td>Login</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC003</strong></td>
+                                        <td>Verify invalid login</td>
+                                        <td>Login</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC011</strong></td>
+                                        <td>Verify add to cart</td>
+                                        <td>Cart</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC012</strong></td>
+                                        <td>Verify add to cart</td>
+                                        <td>Cart</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC022</strong></td>
+                                        <td>Update profile info</td>
+                                        <td>Profile</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Low</span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed">Fail</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC023</strong></td>
+                                        <td>Upload profile pic</td>
+                                        <td>Profile</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC032</strong></td>
+                                        <td>View product page</td>
+                                        <td>Product Page</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>TC033</strong></td>
+                                        <td>Verify product price</td>
+                                        <td>Product Page</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed"></span>
+                                            
+                                        </td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed">Pass</span>
+                                            
+                                        </td>
+                                        <td>ms</td>
+                                        <td></td>
+                                        <td>QA</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Failed Test Details (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('failed-tests')">
+                    <span class="section-title">❌ Failed Test Cases (6)</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="failed-tests">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Failed Test Cases Analysis</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Error Message</th>
+                                        <th>Severity</th>
+                                        <th>Bug ID</th>
+                                        <th>Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC002</strong></td>
+                                            <td>Verify invalid login</td>
+                                            <td>Login</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-critical">Critical</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC010</strong></td>
+                                            <td>Verify add to cart</td>
+                                            <td>Checkout</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-blocked">Medium</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC020</strong></td>
+                                            <td>Update profile info</td>
+                                            <td>Profile</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Highest</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Minor</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC031</strong></td>
+                                            <td>Cancel order</td>
+                                            <td>Orders</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Low</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Minor</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC011</strong></td>
+                                            <td>Verify add to cart</td>
+                                            <td>Cart</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Low</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Minor</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                        <tr>
+                                            <td><strong>TC022</strong></td>
+                                            <td>Update profile info</td>
+                                            <td>Profile</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Low</span>
+                                                
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
+                                            <td>
+                                                
+                                                
+                                                    <span class="status-badge status-passed">Major</span>
+                                                
+                                            </td>
+                                            <td>N/A</td>
+                                            <td>ms</td>
+                                        </tr>
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                        
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Execution Statistics (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-statistics')">
+                    <span class="section-title">📊 Test Execution Statistics</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-statistics">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Execution Statistics by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Tests</th>
+                                        <th>Passed</th>
+                                        <th>Failed</th>
+                                        <th>Pass Rate</th>
+                                        <th>Avg Execution Time</th>
+                                        <th>Total Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Cart</strong></td>
+                                        <td>2</td>
+                                        <td><span class="status-badge status-passed">1</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>50.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Checkout</strong></td>
+                                        <td>2</td>
+                                        <td><span class="status-badge status-passed">1</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>50.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Login</strong></td>
+                                        <td>4</td>
+                                        <td><span class="status-badge status-passed">3</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>75.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Orders</strong></td>
+                                        <td>2</td>
+                                        <td><span class="status-badge status-passed">1</span></td>
+                                        <td><span class="status-badge status-failed">1</span></td>
+                                        <td>50.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Product Page</strong></td>
+                                        <td>2</td>
+                                        <td><span class="status-badge status-passed">2</span></td>
+                                        <td><span class="status-badge status-failed">0</span></td>
+                                        <td>100.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Profile</strong></td>
+                                        <td>4</td>
+                                        <td><span class="status-badge status-passed">2</span></td>
+                                        <td><span class="status-badge status-failed">2</span></td>
+                                        <td>50.0%</td>
+                                        <td>0ms</td>
+                                        <td>0ms</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <div id="defects" class="tab-content">
-            <!-- Defect Charts -->
-            <div class="charts-section" style="margin-bottom: 2rem;">
-                <h2>Defect Analytics</h2>
-                <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
-                        <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                    </div>
-                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
-                        <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Defect Summary -->
+            <!-- Defect Summary (Always Visible) -->
             <div class="table-container">
                 <h2>Defect Summary</h2>
                 <table>
@@ -723,544 +1873,483 @@
                     <tbody>
                         <tr>
                             <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
-                            <td>3</td>
+                            <td>1</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>3</td>
+                            <td>1</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
-                            <td>6</td>
+                            <td>1</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>6</td>
+                            <td>1</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
-                            <td>5</td>
+                            <td>1</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>5</td>
+                            <td>1</td>
                         </tr>
                         <tr>
                             <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
-                            <td>1</td>
+                            <td>3</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>1</td>
+                            <td>3</td>
                         </tr>
                         <tr style="font-weight: bold; background-color: #f8f9fa;">
                             <td><strong>Total</strong></td>
-                            <td>15</td>
+                            <td>6</td>
                             <td>0</td>
                             <td>0</td>
-                            <td>15</td>
+                            <td>6</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Key Bugs -->
-            <div class="table-container">
-                <h2>Key Bugs Identified</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bug ID</th>
-                            <th>Severity</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Module</th>
-                            <th>Assigned To</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                            
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-001</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Authentication</td>
-                                    <td>John Smith</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-002</strong></td>
-                                    <td><span class="status-badge status-medium">Medium</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Authentication</td>
-                                    <td>John Smith</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-003</strong></td>
-                                    <td><span class="status-badge status-medium">Medium</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Authentication</td>
-                                    <td>John Smith</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-004</strong></td>
-                                    <td><span class="status-badge status-critical">Critical</span></td>
-                                    <td>N/A</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Authentication</td>
-                                    <td>John Smith</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-005</strong></td>
-                                    <td><span class="status-badge status-medium">Medium</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Dashboard</td>
-                                    <td>Mike Johnson</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-006</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Order Management</td>
-                                    <td>Sarah Wilson</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-007</strong></td>
-                                    <td><span class="status-badge status-medium">Medium</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Order Management</td>
-                                    <td>Sarah Wilson</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-008</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Payment</td>
-                                    <td>David Brown</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-009</strong></td>
-                                    <td><span class="status-badge status-minor">Minor</span></td>
-                                    <td>Low</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Reports</td>
-                                    <td>Lisa Chen</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-010</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>User Management</td>
-                                    <td>Alex Kumar</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-011</strong></td>
-                                    <td><span class="status-badge status-medium">Medium</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>User Management</td>
-                                    <td>Alex Kumar</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-012</strong></td>
-                                    <td><span class="status-badge status-critical">Critical</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>API Testing</td>
-                                    <td>API Tester</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-013</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>Medium</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>API Testing</td>
-                                    <td>API Tester</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-014</strong></td>
-                                    <td><span class="status-badge status-major">Major</span></td>
-                                    <td>High</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Performance</td>
-                                    <td>Perf Tester</td>
-                                </tr>
-                                
-                            
-                                
-                                <tr>
-                                    <td><strong>BUG-015</strong></td>
-                                    <td><span class="status-badge status-critical">Critical</span></td>
-                                    <td>N/A</td>
-                                    <td><span class="status-badge status-open">Open</span></td>
-                                    <td>N/A</td>
-                                    <td>Security</td>
-                                    <td>Security Tester</td>
-                                </tr>
-                                
-                            
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="analysis" class="tab-content">
-            <!-- Key Findings -->
-            <div class="table-container">
-                <h2>Key Findings</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Stable Areas</h3>
-                    <ul>
-                        
-                            <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
-                            <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
-                            <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
-                            <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
-                        
-                    </ul>
-                    
-                    <h3>Risky Areas</h3>
-                    <ul>
-                        
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of 66.7% is below conditional threshold (95%)</li>
-                        
-                        
-                        <li><strong>Critical Defects:</strong> 3 critical defects require immediate attention</li>
-                        
-                        
-                        <li><strong>Major Defect Volume:</strong> 6 major defects exceed acceptable limit (2)</li>
-                        
-                        
-                            
-                                
-                                <li><strong>API Testing module</strong> needs attention with 60.0% pass rate</li>
-                                
-                            
-                                
-                                <li><strong>Authentication module</strong> needs attention with 20.0% pass rate</li>
-                                
-                            
-                                
-                            
-                                
-                                <li><strong>Order Management module</strong> needs attention with 60.0% pass rate</li>
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                                <li><strong>User Management module</strong> needs attention with 60.0% pass rate</li>
-                                
-                            
-                        
-                        
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Lessons Learned -->
-            <div class="table-container">
-                <h2>Lessons Learned</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>What Went Well</h3>
-                    <ul>
-                        
-                            <li>Excellent test execution rate of 100.0% (45/45 tests)</li>
-                            <li>No blocked tests - test environment was stable</li>
-                            <li>No flaky tests identified - test reliability is good</li>
-                        
-                    </ul>
-                    
-                    <h3>Areas for Improvement</h3>
-                    <ul>
-                        <li>Low pass rate of 66.7% indicates quality concerns</li>
-                        
-                        <li>3 critical defect(s) require immediate attention</li>
-                        
-                        
-                        <li>High number of major defects (6) indicates quality issues</li>
-                        
-                        
-                            
-                            
-                                
-                            
-                                
-                                    
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                            
-                            <li>Low pass rates in modules: Authentication</li>
-                            
-                        
-                        
-                    </ul>
-                    
-                    <h3>Recommendations for Next Cycle</h3>
-                    <ul>
-                        
-                            <li>Implement stricter quality gates and code review processes</li>
-                            <li>Focus on root cause analysis for failing test cases</li>
-                            <li>Establish critical defect resolution process with immediate escalation</li>
-                            <li>Implement automated testing for critical paths to prevent regression</li>
-                            <li>Increase test coverage for major functionality areas</li>
-                            <li>Implement continuous integration with automated testing</li>
-                            <li>Prioritize high-defect modules for additional testing and development focus</li>
-                            <li>Review and improve test cases for low-performing modules</li>
-                            <li>Establish regular test execution schedules and monitoring</li>
-                            <li>Implement comprehensive test data management processes</li>
-                            <li>Create robust defect tracking and resolution workflows</li>
-                        
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Variances/Deviations -->
-            <div class="table-container">
-                <h2>Variances/Deviations</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Test Execution Variances</h3>
-                    <ul>
-                        
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
-                            <strong>Pass Rate Deviation:</strong> Pass rate of 66.7% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
-                        </li>
-                        
-                        
-                        
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
-                            <strong>Critical Defect Deviation:</strong> 3 critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
-                        </li>
-                        
-                        
-                        
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                            <strong>Major Defect Deviation:</strong> 6 major defect(s) exceed acceptable threshold. Significant functionality issues may impact user experience. Prioritize major defect resolution before release.
-                        </li>
-                        
-                        
-                        
-                            
-                            
-                                
-                            
-                                
-                                    
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                                
-                            
-                            
-                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                                <strong>Module Pass Rate Deviation:</strong> Low pass rates in modules: Authentication. Specific modules show poor quality indicators. Review and improve test cases for low-performing modules.
-                            </li>
-                            
-                        
-                        
-                        
-                        
-                        
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Defect Density Analysis -->
-            
-
-            <!-- Exit Criteria -->
-            <div class="table-container">
-                <h2>Exit Criteria</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Criteria Met</h3>
-                    <div style="margin: 1rem 0;">
-                        <p>✅ All planned test cases executed (45/45)</p>
-                    </div>
-                    
-                    <h3>Criteria Not Met</h3>
-                    <div style="margin: 1rem 0;">
-                        
-                        <p>❌ Pass rate below conditional threshold (66.7% < 95%)</p>
-                        
-                        
-                        <p>❌ Critical defects exceed conditional limit (3 > 0)</p>
-                        
-                        
-                        <p>❌ Major defects exceed conditional limit (6 > 1)</p>
-                        
+            <!-- Defect Analysis Charts (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-charts')">
+                    <span class="section-title">📊 Defect Analysis Charts</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-charts">
+                    <div class="content-wrapper">
+                        <div class="charts-section" style="margin-bottom: 2rem;">
+                            <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                                    <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                                    <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-            <!-- Recommendations -->
-            <div class="table-container">
-                <h2>Recommendations</h2>
-                <div style="padding: 1.5rem;">
-                    <ol style="line-height: 1.8;">
-                        <li>Implement stricter quality gates and code review processes</li>
-                        <li>Focus on root cause analysis for failing test cases</li>
-                        <li>Establish critical defect resolution process with immediate escalation</li>
-                        <li>Implement automated testing for critical paths to prevent regression</li>
-                        <li>Increase test coverage for major functionality areas</li>
-                        <li>Implement continuous integration with automated testing</li>
-                        <li>Prioritize high-defect modules for additional testing and development focus</li>
-                        <li>Review and improve test cases for low-performing modules</li>
-                        <li>Establish regular test execution schedules and monitoring</li>
-                        <li>Implement comprehensive test data management processes</li>
-                        <li>Create robust defect tracking and resolution workflows</li>
-                    </ol>
+            <!-- Key Bugs Identified (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('key-bugs')">
+                    <span class="section-title">🐛 Key Bugs Identified</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="key-bugs">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Bugs Identified</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bug ID</th>
+                                        <th>Severity</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Description</th>
+                                        <th>Module</th>
+                                        <th>Assigned To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                        
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-101</strong></td>
+                                                <td><span class="status-badge status-critical">Critical</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Login</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-102</strong></td>
+                                                <td><span class="status-badge status-medium">Medium</span></td>
+                                                <td>Medium</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Checkout</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-103</strong></td>
+                                                <td><span class="status-badge status-minor">Minor</span></td>
+                                                <td>Highest</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Profile</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-104</strong></td>
+                                                <td><span class="status-badge status-minor">Minor</span></td>
+                                                <td>Low</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Orders</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-105</strong></td>
+                                                <td><span class="status-badge status-minor">Minor</span></td>
+                                                <td>Low</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Cart</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                            
+                                            <tr>
+                                                <td><strong>BUG-106</strong></td>
+                                                <td><span class="status-badge status-major">Major</span></td>
+                                                <td>Low</td>
+                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>N/A</td>
+                                                <td>Profile</td>
+                                                <td>N/A</td>
+                                            </tr>
+                                            
+                                        
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="environment" class="tab-content">
-            <!-- Test Environment -->
-            <div class="table-container">
-                <h2>Test Environment</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Environment Details</h3>
-                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Environment Name:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">QA</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Version:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">v1.1.0</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Details:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Application v2.1.0, API Gateway v1.5.2, Microservices v3.0.1</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Browsers:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Chrome 120, Firefox 119, Safari 17, Edge 120</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">PostgreSQL 15.4</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database Details:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">PostgreSQL 15.4 with Redis 7.2 cache</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Deployment:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Docker Containers</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Load Balancer:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">NGINX 1.24</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Monitoring:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">Prometheus + Grafana</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Logging:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">ELK Stack (Elasticsearch 8.11, Logstash 8.11, Kibana 8.11)</td>
-                        </tr>
-                    </table>
+            <!-- Defect Trends (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-trends')">
+                    <span class="section-title">📈 Defect Trends & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-trends">
+                    <div class="content-wrapper">
+                        <!-- Defect Distribution by Module -->
+                        <div class="table-container">
+                            <h2>Defect Distribution by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Defect Rate</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Login</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>25.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">High</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Checkout</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>50.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Profile</strong></td>
+                                        <td>2</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">1</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">1</span>
+                                        </td>
+                                        <td>50.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">Medium</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Orders</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">1</span>
+                                        </td>
+                                        <td>50.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Cart</strong></td>
+                                        <td>1</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">1</span>
+                                        </td>
+                                        <td>50.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Product Page</strong></td>
+                                        <td>0</td>
+                                        <td>
+                                            <span class="status-badge status-critical">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">0</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">0</span>
+                                        </td>
+                                        <td>0.0%</td>
+                                        <td>
+                                            
+                                            
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">Low</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Severity Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Severity Analysis</h2>
+                            <div style="padding: 1.5rem;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                                    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">1</div>
+                                        <div style="color: #64748b;">Critical Defects</div>
+                                        <div style="font-size: 0.8rem; color: #dc2626; margin-top: 0.5rem;">Immediate Action Required</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">1</div>
+                                        <div style="color: #64748b;">Major Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">High Priority</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">1</div>
+                                        <div style="color: #64748b;">Medium Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">Medium Priority</div>
+                                    </div>
+                                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">3</div>
+                                        <div style="color: #64748b;">Minor Defects</div>
+                                        <div style="font-size: 0.8rem; color: #166534; margin-top: 0.5rem;">Low Priority</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Defect Priority Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Priority Distribution</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Priority Level</th>
+                                        <th>Count</th>
+                                        <th>Percentage</th>
+                                        <th>Action Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>Low</strong></td>
+                                        <td>3</td>
+                                        <td>50.0%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-passed">Next Sprint</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Medium</strong></td>
+                                        <td>2</td>
+                                        <td>33.3%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-blocked">Within 3 days</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>Highest</strong></td>
+                                        <td>1</td>
+                                        <td>16.7%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-critical">Immediate</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>High</strong></td>
+                                        <td>0</td>
+                                        <td>0.0%</td>
+                                        <td>
+                                            
+                                                <span class="status-badge status-failed">Within 24h</span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Trend Summary -->
+                        <div class="table-container">
+                            <h2>Defect Trend Summary</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Key Insights</h3>
+                                <ul>
+                                    <li><strong>Total Defects:</strong> 6 defects identified across 5 modules</li>
+                                    <li><strong>Critical Issues:</strong> 1 critical defects require immediate attention</li>
+                                    <li><strong>Most Affected Module:</strong> Profile with 2 defects</li>
+                                    <li><strong>Defect Density:</strong> 37.5% of test cases resulted in defects</li>
+                                </ul>
+                                
+                                <h3>Recommendations</h3>
+                                <ul>
+                                    
+                                    <li>🔴 <strong>Critical Priority:</strong> Address 1 critical defects before release</li>
+                                    
+                                    
+                                    <li>🟢 <strong>Quality Improvement:</strong> Implement additional test coverage for high-defect areas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <div id="signoff" class="tab-content">
-            <!-- Sign-off -->
+            <!-- Release Decision -->
+            <div class="table-container">
+                <h2>Release Decision</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Release Recommendation</h3>
+                    <p><strong>Release Recommendation:</strong> 
+                        <span class="status-badge status-rejected" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: #fef2f2; color: #dc2626;">
+                            REJECTED
+                        </span>
+                    </p>
+                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+                </div>
+            </div>
+
+            <!-- Sign-off Information -->
             <div class="table-container">
                 <h2>Sign-Off</h2>
                 <div style="padding: 1.5rem;">
@@ -1292,6 +2381,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -1341,6 +2431,31 @@
                 modal.style.display = 'none';
             }
         }
+        
+        // Collapsible sections functionality
+        function toggleCollapsible(sectionId) {
+            var content = document.getElementById(sectionId);
+            var icon = event.target.querySelector('.toggle-icon');
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        }
+        
+        // Initialize collapsible sections (all open by default)
+        document.addEventListener('DOMContentLoaded', function() {
+            var collapsibleHeaders = document.querySelectorAll('.collapsible-header');
+            collapsibleHeaders.forEach(function(header) {
+                var icon = header.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.textContent = '▼';
+                }
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {

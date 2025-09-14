@@ -1,0 +1,159 @@
+{
+  "summary": {
+    "total": 16,
+    "executed": 16,
+    "passed": 10,
+    "failed": 6,
+    "blocked": 0,
+    "skipped": 0,
+    "pass_pct": 62.5
+  },
+  "fail_by_module": {
+    "Profile": 2,
+    "Login": 1,
+    "Checkout": 1,
+    "Orders": 1,
+    "Cart": 1
+  },
+  "defects_by_severity": {
+    "Minor": 3,
+    "Critical": 1,
+    "Medium": 1,
+    "Major": 1
+  },
+  "defects_by_priority": {
+    "Low": 3,
+    "Medium": 2,
+    "Highest": 1,
+    "High": 0
+  },
+  "density": {
+    "Login": {
+      "total": 1,
+      "density": 0.25,
+      "density_percentage": 25.0,
+      "total_tests": 4,
+      "critical": 1,
+      "major": 0,
+      "medium": 0,
+      "minor": 0,
+      "risk_level": "High"
+    },
+    "Checkout": {
+      "total": 1,
+      "density": 0.5,
+      "density_percentage": 50.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 1,
+      "minor": 0,
+      "risk_level": "Medium"
+    },
+    "Profile": {
+      "total": 2,
+      "density": 0.5,
+      "density_percentage": 50.0,
+      "total_tests": 4,
+      "critical": 0,
+      "major": 1,
+      "medium": 0,
+      "minor": 1,
+      "risk_level": "Medium"
+    },
+    "Orders": {
+      "total": 1,
+      "density": 0.5,
+      "density_percentage": 50.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 0,
+      "minor": 1,
+      "risk_level": "Low"
+    },
+    "Cart": {
+      "total": 1,
+      "density": 0.5,
+      "density_percentage": 50.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 0,
+      "minor": 1,
+      "risk_level": "Low"
+    },
+    "Product Page": {
+      "total": 0,
+      "density": 0.0,
+      "density_percentage": 0.0,
+      "total_tests": 2,
+      "critical": 0,
+      "major": 0,
+      "medium": 0,
+      "minor": 0,
+      "risk_level": "Low"
+    }
+  },
+  "flaky": [
+    "TC010"
+  ],
+  "key_bugs": [
+    {
+      "id": "nan",
+      "module": "Login",
+      "severity": "",
+      "priority": "",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-101",
+      "module": "Login",
+      "severity": "Critical",
+      "priority": "Medium",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-102",
+      "module": "Checkout",
+      "severity": "Medium",
+      "priority": "Medium",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-103",
+      "module": "Profile",
+      "severity": "Minor",
+      "priority": "Highest",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-104",
+      "module": "Orders",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-105",
+      "module": "Cart",
+      "severity": "Minor",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    },
+    {
+      "id": "BUG-106",
+      "module": "Profile",
+      "severity": "Major",
+      "priority": "Low",
+      "status": "Open",
+      "assigned_to": ""
+    }
+  ]
+}

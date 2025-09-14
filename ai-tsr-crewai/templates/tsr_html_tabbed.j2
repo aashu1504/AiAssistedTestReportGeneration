@@ -104,6 +104,60 @@
             font-size: 1.1rem;
         }
         
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .collapsible-header {
+            width: 100%;
+            background: #f8fafc;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            transition: background-color 0.2s ease;
+        }
+        
+        .collapsible-header:hover {
+            background: #e2e8f0;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .collapsible-content {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+            transition: max-height 0.3s ease-in;
+        }
+        
+        .collapsible-content .content-wrapper {
+            padding: 1.5rem;
+        }
+        
         /* Tab Content */
         .tab-content {
             display: none;
@@ -380,21 +434,21 @@
                 <span class="icon">📊</span>
                 <span>Overview</span>
             </button>
-            <button class="tab-button" onclick="showTab('execution')">
-                <span class="icon">⚡</span>
-                <span>Test Execution</span>
-            </button>
-            <button class="tab-button" onclick="showTab('defects')">
-                <span class="icon">🐛</span>
-                <span>Defects</span>
-            </button>
             <button class="tab-button" onclick="showTab('analysis')">
                 <span class="icon">📈</span>
                 <span>Analysis</span>
             </button>
-            <button class="tab-button" onclick="showTab('environment')">
-                <span class="icon">🌐</span>
-                <span>Environment</span>
+            <button class="tab-button" onclick="showTab('modules')">
+                <span class="icon">🏗️</span>
+                <span>Modules</span>
+            </button>
+            <button class="tab-button" onclick="showTab('testdetails')">
+                <span class="icon">🔍</span>
+                <span>Test Details</span>
+            </button>
+            <button class="tab-button" onclick="showTab('defects')">
+                <span class="icon">🐛</span>
+                <span>Defects</span>
             </button>
             <button class="tab-button" onclick="showTab('signoff')">
                 <span class="icon">✍️</span>
@@ -451,80 +505,228 @@
                 </div>
             </div>
 
-            <!-- Quality Gate -->
-            <div class="quality-gate {{ quality_gate_evaluation.release_recommendation.lower() }}">
-                <h3>Quality Gate Evaluation</h3>
-                <p><strong>Recommendation:</strong> {{ quality_gate_evaluation.release_recommendation }}</p>
-                <p><strong>Gate Used:</strong> {{ quality_gate_evaluation.gate_name }}</p>
-                {% if quality_gate_evaluation.details %}
-                <p><strong>Details:</strong> {{ quality_gate_evaluation.details }}</p>
-                {% endif %}
-            </div>
 
-            <!-- Test Execution Summary -->
-            <div class="table-container">
-                <h2>Test Execution Summary</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Total Tests</strong></td>
-                            <td>{{ total_tests }}</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Executed</strong></td>
-                            <td>{{ executed_tests or (total_tests - skipped_tests) }}</td>
-                            <td>{{ "%.1f"|format(((executed_tests or (total_tests - skipped_tests))/total_tests*100) if total_tests > 0 else 0) }}%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Passed</strong></td>
-                            <td>{{ passed_tests }}</td>
-                            <td>{{ "%.1f"|format(pass_rate) }}%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Failed</strong></td>
-                            <td>{{ failed_tests }}</td>
-                            <td>{{ "%.1f"|format((failed_tests/total_tests*100) if total_tests > 0 else 0) }}%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Blocked</strong></td>
-                            <td>{{ blocked_tests or 0 }}</td>
-                            <td>{{ "%.1f"|format((blocked_tests/total_tests*100) if total_tests > 0 else 0) }}%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Skipped</strong></td>
-                            <td>{{ skipped_tests }}</td>
-                            <td>{{ "%.1f"|format((skipped_tests/total_tests*100) if total_tests > 0 else 0) }}%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Release Decision -->
-            <div class="table-container">
-                <h2>Release Decision</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Release Recommendation</h3>
-                    <p><strong>Release Recommendation:</strong> 
-                        <span class="status-badge status-{{ quality_gate_evaluation.release_recommendation.lower() }}" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: {% if quality_gate_evaluation.release_recommendation == 'REJECTED' %}#fef2f2; color: #dc2626;{% elif quality_gate_evaluation.release_recommendation == 'CONDITIONAL' %}#fef3c7; color: #d97706;{% else %}#dcfce7; color: #166534;{% endif %}">
-                            {{ quality_gate_evaluation.release_recommendation }}
-                        </span>
-                    </p>
-                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+            <!-- Quality Gate (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('quality-gate')">
+                    <span class="section-title">🎯 Quality Gate Evaluation</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="quality-gate">
+                    <div class="content-wrapper">
+                        <div class="quality-gate {{ quality_gate_evaluation.release_recommendation.lower() }}">
+                            <h3>Quality Gate Evaluation</h3>
+                            <p><strong>Recommendation:</strong> {{ quality_gate_evaluation.release_recommendation }}</p>
+                            <p><strong>Gate Used:</strong> {{ quality_gate_evaluation.gate_name }}</p>
+                            {% if quality_gate_evaluation.details %}
+                            <p><strong>Details:</strong> {{ quality_gate_evaluation.details }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <div id="execution" class="tab-content">
-            <!-- Test Execution Charts -->
+        <div id="analysis" class="tab-content">
+
+            <!-- Key Findings and Insights (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('ai-insights')">
+                    <span class="section-title">🔍 Key Findings & Insights</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="ai-insights">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Findings</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Stable Areas</h3>
+                                <ul>
+                                    {% if pass_rate >= 90 %}
+                                        <li><strong>Overall Quality:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% meets stability threshold</li>
+                                        <li><strong>Quality Assessment:</strong> System demonstrates good stability with high pass rate</li>
+                                    {% else %}
+                                        <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
+                                        <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
+                                        <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
+                                        <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
+                                    {% endif %}
+                                </ul>
+                                
+                                <div style="margin: 2rem 0;"></div>
+                                
+                                <h3>Risky Areas</h3>
+                                <ul>
+                                    {% if pass_rate < 95 %}
+                                    <li><strong>Overall Quality Risk:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% is below conditional threshold (95%)</li>
+                                    {% endif %}
+                                    {% if (defects.critical.open or 0) > 0 %}
+                                    <li><strong>Critical Defects:</strong> {{ defects.critical.open }} critical defects require immediate attention</li>
+                                    {% endif %}
+                                    {% if (defects.major.open or 0) > 2 %}
+                                    <li><strong>Major Defect Volume:</strong> {{ defects.major.open }} major defects exceed acceptable limit (2)</li>
+                                    {% endif %}
+                                    {% if modules_covered %}
+                                        {% for module, data in modules_covered.items() %}
+                                            {% if (data.passed or 0) / (data.total or 1) * 100 < 75 %}
+                                            <li><strong>{{ module }} module</strong> needs attention with {{ "%.1f"|format((data.passed or 0) / (data.total or 1) * 100) }}% pass rate</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if density %}
+                                        {% for module, data in density.items() %}
+                                            {% if data.get('density_percentage', 0) > 50 %}
+                                            <li><strong>{{ module }} module</strong> shows high defect density ({{ "%.1f"|format(data.get('density_percentage', 0)) }}%)</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0;"></div>
+
+            <!-- Lessons Learned (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('trend-analysis')">
+                    <span class="section-title">📚 Lessons Learned</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="trend-analysis">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Lessons Learned</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>What Went Well</h3>
+                                <ul>
+                                    {% if lessons_learned and lessons_learned.get('successes') %}
+                                        {% for item in lessons_learned.get('successes', []) %}
+                                        <li>{{ item }}</li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>Excellent test execution rate of {{ "%.1f"|format((executed_tests/total_tests*100) if total_tests > 0 else 0) }}% ({{ executed_tests }}/{{ total_tests }} tests)</li>
+                                        <li>No blocked tests - test environment was stable</li>
+                                        <li>No flaky tests identified - test reliability is good</li>
+                                    {% endif %}
+                                </ul>
+                                
+                                <h3>Areas for Improvement</h3>
+                                <ul>
+                                    <li>Low pass rate of {{ "%.1f"|format(pass_rate) }}% indicates quality concerns</li>
+                                    {% if (defects.critical.open or 0) > 0 %}
+                                    <li>{{ defects.critical.open }} critical defect(s) require immediate attention</li>
+                                    {% endif %}
+                                    {% if (defects.major.open or 0) > 0 %}
+                                    <li>High number of major defects ({{ defects.major.open }}) indicates quality issues</li>
+                                    {% endif %}
+                                    {% if modules_covered %}
+                                        {% set high_defect_modules = [] %}
+                                        {% for module, data in modules_covered.items() %}
+                                            {% if (data.passed or 0) / (data.total or 1) * 100 < 50 %}
+                                                {% set _ = high_defect_modules.append(module) %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if high_defect_modules %}
+                                        <li>Low pass rates in modules: {{ high_defect_modules | join(', ') }}</li>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if density %}
+                                        {% set high_density_modules = [] %}
+                                        {% for module, data in density.items() %}
+                                            {% if data.get('density_percentage', 0) > 50 %}
+                                                {% set _ = high_density_modules.append(module) %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if high_density_modules %}
+                                        <li>High defect density in modules: {{ high_density_modules | join(', ') }}</li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Variances & Deviations (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('risk-assessment')">
+                    <span class="section-title">⚠️ Variances & Deviations</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="risk-assessment">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Variances/Deviations</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Test Execution Variances</h3>
+                                <ul>
+                                    {% if pass_rate < 75 %}
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Pass Rate Deviation:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
+                                    </li>
+                                    {% endif %}
+                                    
+                                    {% if (defects.critical.open or 0) > 0 %}
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
+                                        <strong>Critical Defect Deviation:</strong> {{ defects.critical.open }} critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
+                                    </li>
+                                    {% endif %}
+                                    
+                                    {% if (defects.major.open or 0) > 2 %}
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                        <strong>Major Defect Deviation:</strong> {{ defects.major.open }} major defect(s) exceed acceptable threshold. Significant functionality issues may impact user experience. Prioritize major defect resolution before release.
+                                    </li>
+                                    {% endif %}
+                                    
+                                    {% if modules_covered %}
+                                        {% set high_defect_modules = [] %}
+                                        {% for module, data in modules_covered.items() %}
+                                            {% if (data.passed or 0) / (data.total or 1) * 100 < 50 %}
+                                                {% set _ = high_defect_modules.append(module) %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if high_defect_modules %}
+                                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                            <strong>Module Pass Rate Deviation:</strong> Low pass rates in modules: {{ high_defect_modules | join(', ') }}. Specific modules show poor quality indicators. Review and improve test cases for low-performing modules.
+                                        </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    
+                                    {% if density %}
+                                        {% set high_density_modules = [] %}
+                                        {% for module, data in density.items() %}
+                                            {% if data.get('density_percentage', 0) > 50 %}
+                                                {% set _ = high_density_modules.append(module) %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if high_density_modules %}
+                                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                            <strong>Module Defect Density Deviation (High):</strong> High defect density in modules: {{ high_density_modules | join(', ') }}. Specific modules show excessive defect rates. Focus additional testing and development effort on high-defect modules.
+                                        </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    
+                                    {% if not variances %}
+                                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px;">
+                                        <strong>No Significant Variances:</strong> Test execution proceeded as planned with no major deviations from expected outcomes.
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="modules" class="tab-content">
+            <!-- Test Analytics Charts (Always Visible) -->
             <div class="charts-section" style="margin-bottom: 2rem;">
                 <h2>Test Analytics</h2>
                 <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
@@ -539,67 +741,447 @@
                 </div>
             </div>
 
-            <!-- Test Execution Summary by Module -->
-            <div class="table-container">
-                <h2>Test Execution Summary by Module</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Module</th>
-                            <th>Total Tests</th>
-                            <th>Executed</th>
-                            <th>Passed</th>
-                            <th>Failed</th>
-                            <th>Pass Rate</th>
-                            <th>Quality Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for module, data in modules_covered.items() %}
-                        <tr>
-                            <td><strong>{{ module }}</strong></td>
-                            <td>{{ data.total or 0 }}</td>
-                            <td>{{ data.total or 0 }}</td>
-                            <td><span class="status-badge status-passed">{{ data.passed or 0 }}</span></td>
-                            <td><span class="status-badge status-failed">{{ data.failed or 0 }}</span></td>
-                            <td>{{ ((data.passed or 0) / (data.total or 1) * 100) | round(1) }}%</td>
-                            <td>
-                                {% set module_pass_rate = (data.passed or 0) / (data.total or 1) * 100 %}
-                                {% if module_pass_rate >= 90 %}
-                                    <span class="status-badge status-passed">Excellent</span>
-                                {% elif module_pass_rate >= 75 %}
-                                    <span class="status-badge status-passed">Good</span>
-                                {% elif module_pass_rate >= 50 %}
-                                    <span class="status-badge status-blocked">Needs Attention</span>
+            <!-- Module Performance Overview (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-summary')">
+                    <span class="section-title">📊 Test Execution Summary by Module</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-summary">
+                    <div class="content-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Total Tests</th>
+                                    <th>Executed</th>
+                                    <th>Passed</th>
+                                    <th>Failed</th>
+                                    <th>Pass Rate</th>
+                                    <th>Quality Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for module, data in modules_covered.items() %}
+                                <tr>
+                                    <td><strong>{{ module }}</strong></td>
+                                    <td>{{ data.total or 0 }}</td>
+                                    <td>{{ data.total or 0 }}</td>
+                                    <td><span class="status-badge status-passed">{{ data.passed or 0 }}</span></td>
+                                    <td><span class="status-badge status-failed">{{ data.failed or 0 }}</span></td>
+                                    <td>{{ ((data.passed or 0) / (data.total or 1) * 100) | round(1) }}%</td>
+                                    <td>
+                                        {% set module_pass_rate = (data.passed or 0) / (data.total or 1) * 100 %}
+                                        {% if module_pass_rate >= 90 %}
+                                            <span class="status-badge status-passed">Excellent</span>
+                                        {% elif module_pass_rate >= 75 %}
+                                            <span class="status-badge status-passed">Good</span>
+                                        {% elif module_pass_rate >= 50 %}
+                                            <span class="status-badge status-blocked">Needs Attention</span>
+                                        {% else %}
+                                            <span class="status-badge status-failed">Critical</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Module Comparison (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('module-comparison')">
+                    <span class="section-title">🔍 Module Comparison & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="module-comparison">
+                    <div class="content-wrapper">
+                        <!-- Defect Density Analysis -->
+                        {% if density %}
+                        <div class="table-container">
+                            <h2>Defect Density per Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Total Tests</th>
+                                        <th>Density %</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for module, data in density.items() %}
+                                    <tr>
+                                        <td><strong>{{ module }}</strong></td>
+                                        <td>{{ data.get('total', 0) }}</td>
+                                        <td>{{ data.get('total_tests', 0) }}</td>
+                                        <td>{{ "%.1f"|format(data.get('density_percentage', 0)) }}%</td>
+                                        <td>{{ data.get('critical', 0) }}</td>
+                                        <td>{{ data.get('major', 0) }}</td>
+                                        <td>{{ data.get('medium', 0) }}</td>
+                                        <td>{{ data.get('minor', 0) }}</td>
+                                        <td>
+                                            {% set risk_level = data.get('risk_level', 'Low') %}
+                                            {% if risk_level == 'High' %}
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">{{ risk_level }}</span>
+                                            {% elif risk_level == 'Medium' %}
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">{{ risk_level }}</span>
+                                            {% else %}
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">{{ risk_level }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+
+                        <!-- Module Risk Assessment -->
+                        <div class="table-container">
+                            <h2>Module Risk Assessment</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>High Risk Modules</h3>
+                                {% set high_risk_modules = [] %}
+                                {% for module, data in modules_covered.items() %}
+                                    {% set module_pass_rate = (data.passed or 0) / (data.total or 1) * 100 %}
+                                    {% if module_pass_rate < 75 %}
+                                        {% set _ = high_risk_modules.append({'name': module, 'rate': module_pass_rate}) %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if high_risk_modules %}
+                                <ul>
+                                    {% for module in high_risk_modules %}
+                                    <li><strong>{{ module.name }}:</strong> {{ "%.1f"|format(module.rate) }}% pass rate - Requires immediate attention</li>
+                                    {% endfor %}
+                                </ul>
                                 {% else %}
-                                    <span class="status-badge status-failed">Critical</span>
+                                <p style="color: #059669; font-style: italic;">✅ No high-risk modules identified - All modules are performing within acceptable thresholds.</p>
                                 {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                
+                                <div style="margin: 2rem 0;"></div>
+                                
+                                <h3>Stable Modules</h3>
+                                {% set stable_modules = [] %}
+                                {% for module, data in modules_covered.items() %}
+                                    {% set module_pass_rate = (data.passed or 0) / (data.total or 1) * 100 %}
+                                    {% if module_pass_rate >= 90 %}
+                                        {% set _ = stable_modules.append({'name': module, 'rate': module_pass_rate}) %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if stable_modules %}
+                                <ul>
+                                    {% for module in stable_modules %}
+                                    <li><strong>{{ module.name }}:</strong> {{ "%.1f"|format(module.rate) }}% pass rate - Excellent performance</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p style="color: #d97706; font-style: italic;">⚠️ No modules currently meet the "Stable" criteria (≥90% pass rate). Consider focusing on improving test coverage and debugging for modules with lower pass rates.</p>
+                                {% endif %}
+                                
+                                <div style="margin: 2rem 0;"></div>
+                                
+                                <h3>Module Performance Summary</h3>
+                                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                                    <p><strong>Analysis Results:</strong></p>
+                                    <ul style="margin: 0.5rem 0;">
+                                        <li>High Risk Modules: {{ high_risk_modules|length }}</li>
+                                        <li>Stable Modules: {{ stable_modules|length }}</li>
+                                        <li>Total Modules Analyzed: {{ modules_covered|length }}</li>
+                                    </ul>
+                                    {% if high_risk_modules|length == 0 and stable_modules|length == 0 %}
+                                    <p style="color: #64748b; font-style: italic; margin-top: 0.5rem;">All modules fall into the moderate performance range (75-89% pass rate).</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="testdetails" class="tab-content">
+            <!-- Test Execution Summary -->
+            <div class="table-container">
+                <h2>Test Execution Overview</h2>
+                <div style="padding: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #1e293b;">{{ total_tests }}</div>
+                            <div style="color: #64748b;">Total Test Cases</div>
+                        </div>
+                        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">{{ passed_tests }}</div>
+                            <div style="color: #64748b;">Passed Tests</div>
+                        </div>
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">{{ failed_tests }}</div>
+                            <div style="color: #64748b;">Failed Tests</div>
+                        </div>
+                        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 1rem; text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #0369a1;">{{ "%.1f"|format(pass_rate) }}%</div>
+                            <div style="color: #64748b;">Pass Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Individual Test Results (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-results')">
+                    <span class="section-title">📋 All Test Case Results</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-results">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Complete Test Execution Details</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Execution Time</th>
+                                        <th>Tester</th>
+                                        <th>Environment</th>
+                                        <th>Browser</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for test in test_data %}
+                                    <tr>
+                                        <td><strong>{{ test.get('TestCaseID', 'N/A') }}</strong></td>
+                                        <td>{{ test.get('Description', test.get('Test Name', 'N/A')) }}</td>
+                                        <td>{{ test.get('Module', 'N/A') }}</td>
+                                        <td>
+                                            {% set priority = test.get('Priority', '') %}
+                                            {% if priority and priority != '' and priority != 'nan' %}
+                                                {% if priority == 'High' or priority == 'Critical' %}
+                                                    <span class="status-badge status-critical">{{ priority }}</span>
+                                                {% elif priority == 'Medium' %}
+                                                    <span class="status-badge status-blocked">{{ priority }}</span>
+                                                {% else %}
+                                                    <span class="status-badge status-passed">{{ priority }}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% set status = test.get('Result', test.get('Status', 'N/A')) %}
+                                            {% if status == 'Pass' %}
+                                                <span class="status-badge status-passed">Pass</span>
+                                            {% elif status == 'Fail' %}
+                                                <span class="status-badge status-failed">Fail</span>
+                                            {% else %}
+                                                <span class="status-badge status-blocked">{{ status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% set exec_time = test.get('Duration', test.get('Execution Time (ms)', '')) %}
+                                            {% if exec_time and exec_time != '' and exec_time != 'nan' %}
+                                                {{ exec_time }}ms
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% set tester = test.get('Tester', '') %}
+                                            {% if tester and tester != '' and tester != 'nan' %}
+                                                {{ tester }}
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% set environment = test.get('Environment', '') %}
+                                            {% if environment and environment != '' and environment != 'nan' %}
+                                                {{ environment }}
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% set browser = test.get('Browser', '') %}
+                                            {% if browser and browser != '' and browser != 'nan' %}
+                                                {{ browser }}
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Failed Test Details (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('failed-tests')">
+                    <span class="section-title">❌ Failed Test Cases ({{ failed_tests }})</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="failed-tests">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Failed Test Cases Analysis</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Test Case ID</th>
+                                        <th>Test Name</th>
+                                        <th>Module</th>
+                                        <th>Priority</th>
+                                        <th>Error Message</th>
+                                        <th>Severity</th>
+                                        <th>Bug ID</th>
+                                        <th>Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for test in test_data %}
+                                        {% if test.get('Result', test.get('Status', '')) == 'Fail' %}
+                                        <tr>
+                                            <td><strong>{{ test.get('TestCaseID', 'N/A') }}</strong></td>
+                                            <td>{{ test.get('Description', test.get('Test Name', 'N/A')) }}</td>
+                                            <td>{{ test.get('Module', 'N/A') }}</td>
+                                            <td>
+                                                {% set priority = test.get('Priority', '') %}
+                                                {% if priority and priority != '' and priority != 'nan' %}
+                                                    {% if priority == 'High' or priority == 'Critical' %}
+                                                        <span class="status-badge status-critical">{{ priority }}</span>
+                                                    {% elif priority == 'Medium' %}
+                                                        <span class="status-badge status-blocked">{{ priority }}</span>
+                                                    {% else %}
+                                                        <span class="status-badge status-passed">{{ priority }}</span>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span style="color: #64748b; font-style: italic;">N/A</span>
+                                                {% endif %}
+                                            </td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">{{ test.get('Error Message', 'N/A') }}</td>
+                                            <td>
+                                                {% set severity = test.get('Severity', 'N/A') %}
+                                                {% if severity == 'Critical' %}
+                                                    <span class="status-badge status-critical">{{ severity }}</span>
+                                                {% elif severity == 'High' %}
+                                                    <span class="status-badge status-failed">{{ severity }}</span>
+                                                {% elif severity == 'Medium' %}
+                                                    <span class="status-badge status-blocked">{{ severity }}</span>
+                                                {% else %}
+                                                    <span class="status-badge status-passed">{{ severity }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% set bug_id = test.get('Bug ID', test.get('BugID', '')) %}
+                                                {% if bug_id and bug_id != '' and bug_id != 'nan' %}
+                                                    {{ bug_id }}
+                                                {% else %}
+                                                    <span style="color: #64748b; font-style: italic;">N/A</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% set exec_time = test.get('Duration', test.get('Execution Time (ms)', '')) %}
+                                                {% if exec_time and exec_time != '' and exec_time != 'nan' %}
+                                                    {{ exec_time }}ms
+                                                {% else %}
+                                                    <span style="color: #64748b; font-style: italic;">N/A</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Execution Statistics (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('test-statistics')">
+                    <span class="section-title">📊 Test Execution Statistics</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="test-statistics">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Execution Statistics by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Tests</th>
+                                        <th>Passed</th>
+                                        <th>Failed</th>
+                                        <th>Pass Rate</th>
+                                        <th>Avg Execution Time</th>
+                                        <th>Total Execution Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for module, data in modules_covered.items() %}
+                                    <tr>
+                                        <td><strong>{{ module }}</strong></td>
+                                        <td>{{ data.total or 0 }}</td>
+                                        <td><span class="status-badge status-passed">{{ data.passed or 0 }}</span></td>
+                                        <td><span class="status-badge status-failed">{{ data.failed or 0 }}</span></td>
+                                        <td>{{ ((data.passed or 0) / (data.total or 1) * 100) | round(1) }}%</td>
+                                        <td>
+                                            {% set module_tests = test_data | selectattr('Module', 'equalto', module) | list %}
+                                            {% set total_time = 0 %}
+                                            {% set valid_times = 0 %}
+                                            {% for test in module_tests %}
+                                                {% set exec_time = test.get('Duration', test.get('Execution Time (ms)', '')) %}
+                                                {% if exec_time and exec_time != '' and exec_time != 'nan' %}
+                                                    {% set total_time = total_time + (exec_time | int) %}
+                                                    {% set valid_times = valid_times + 1 %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if valid_times > 0 %}
+                                                {{ "%.0f"|format(total_time / valid_times) }}ms
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if total_time > 0 %}
+                                                {{ total_time }}ms
+                                            {% else %}
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <div id="defects" class="tab-content">
-            <!-- Defect Charts -->
-            <div class="charts-section" style="margin-bottom: 2rem;">
-                <h2>Defect Analytics</h2>
-                <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
-                        <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                    </div>
-                    <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
-                        <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Defect Summary -->
+            <!-- Defect Summary (Always Visible) -->
             <div class="table-container">
                 <h2>Defect Summary</h2>
                 <table>
@@ -652,367 +1234,249 @@
                 </table>
             </div>
 
-            <!-- Key Bugs -->
-            <div class="table-container">
-                <h2>Key Bugs Identified</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bug ID</th>
-                            <th>Severity</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Module</th>
-                            <th>Assigned To</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if key_bugs and key_bugs|length > 0 %}
-                            {% for bug in key_bugs %}
-                                {% if bug and bug.id and bug.id != 'NaN' and bug.id != 'nan' %}
-                                <tr>
-                                    <td><strong>{{ bug.id }}</strong></td>
-                                    <td><span class="status-badge status-{{ (bug.severity or 'unknown').lower() }}">{{ bug.severity or 'Unknown' }}</span></td>
-                                    <td>{{ bug.priority or 'N/A' }}</td>
-                                    <td><span class="status-badge status-{{ (bug.status or 'unknown').lower() }}">{{ bug.status or 'Unknown' }}</span></td>
-                                    <td>{{ bug.description or 'N/A' }}</td>
-                                    <td>{{ bug.module or 'N/A' }}</td>
-                                    <td>{{ bug.assigned_to or 'N/A' }}</td>
-                                </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <td colspan="7" style="text-align: center; color: #64748b; padding: 2rem;">No key bugs identified</td>
-                            </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="analysis" class="tab-content">
-            <!-- Key Findings -->
-            <div class="table-container">
-                <h2>Key Findings</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Stable Areas</h3>
-                    <ul>
-                        {% if pass_rate >= 90 %}
-                            <li><strong>Overall Quality:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% meets stability threshold</li>
-                            <li><strong>Quality Assessment:</strong> System demonstrates good stability with high pass rate</li>
-                        {% else %}
-                            <li><strong>Quality Assessment:</strong> No modules achieved the 90% pass rate threshold required for "stable" classification</li>
-                            <li><strong>Current Status:</strong> All tested modules show performance below the stability threshold, indicating widespread quality concerns</li>
-                            <li><strong>Risk Level:</strong> High - The overall test execution results suggest significant quality issues that need immediate attention</li>
-                            <li><strong>Recommendation:</strong> Focus on identifying and addressing root causes of failures before proceeding with release</li>
-                        {% endif %}
-                    </ul>
-                    
-                    <h3>Risky Areas</h3>
-                    <ul>
-                        {% if pass_rate < 95 %}
-                        <li><strong>Overall Quality Risk:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% is below conditional threshold (95%)</li>
-                        {% endif %}
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <li><strong>Critical Defects:</strong> {{ defects.critical.open }} critical defects require immediate attention</li>
-                        {% endif %}
-                        {% if (defects.major.open or 0) > 2 %}
-                        <li><strong>Major Defect Volume:</strong> {{ defects.major.open }} major defects exceed acceptable limit (2)</li>
-                        {% endif %}
-                        {% if modules_covered %}
-                            {% for module, data in modules_covered.items() %}
-                                {% if (data.passed or 0) / (data.total or 1) * 100 < 75 %}
-                                <li><strong>{{ module }} module</strong> needs attention with {{ "%.1f"|format((data.passed or 0) / (data.total or 1) * 100) }}% pass rate</li>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                        {% if density %}
-                            {% for module, data in density.items() %}
-                                {% if data.get('density_percentage', 0) > 50 %}
-                                <li><strong>{{ module }} module</strong> shows high defect density ({{ "%.1f"|format(data.get('density_percentage', 0)) }}%)</li>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Lessons Learned -->
-            <div class="table-container">
-                <h2>Lessons Learned</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>What Went Well</h3>
-                    <ul>
-                        {% if lessons_learned and lessons_learned.get('successes') %}
-                            {% for item in lessons_learned.get('successes', []) %}
-                            <li>{{ item }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Excellent test execution rate of {{ "%.1f"|format((executed_tests/total_tests*100) if total_tests > 0 else 0) }}% ({{ executed_tests }}/{{ total_tests }} tests)</li>
-                            <li>No blocked tests - test environment was stable</li>
-                            <li>No flaky tests identified - test reliability is good</li>
-                        {% endif %}
-                    </ul>
-                    
-                    <h3>Areas for Improvement</h3>
-                    <ul>
-                        <li>Low pass rate of {{ "%.1f"|format(pass_rate) }}% indicates quality concerns</li>
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <li>{{ defects.critical.open }} critical defect(s) require immediate attention</li>
-                        {% endif %}
-                        {% if (defects.major.open or 0) > 0 %}
-                        <li>High number of major defects ({{ defects.major.open }}) indicates quality issues</li>
-                        {% endif %}
-                        {% if modules_covered %}
-                            {% set high_defect_modules = [] %}
-                            {% for module, data in modules_covered.items() %}
-                                {% if (data.passed or 0) / (data.total or 1) * 100 < 50 %}
-                                    {% set _ = high_defect_modules.append(module) %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if high_defect_modules %}
-                            <li>Low pass rates in modules: {{ high_defect_modules | join(', ') }}</li>
-                            {% endif %}
-                        {% endif %}
-                        {% if density %}
-                            {% set high_density_modules = [] %}
-                            {% for module, data in density.items() %}
-                                {% if data.get('density_percentage', 0) > 50 %}
-                                    {% set _ = high_density_modules.append(module) %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if high_density_modules %}
-                            <li>High defect density in modules: {{ high_density_modules | join(', ') }}</li>
-                            {% endif %}
-                        {% endif %}
-                    </ul>
-                    
-                    <h3>Recommendations for Next Cycle</h3>
-                    <ul>
-                        {% if lessons_learned and lessons_learned.get('recommendations') %}
-                            {% for item in lessons_learned.get('recommendations', []) %}
-                            <li>{{ item }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Implement stricter quality gates and code review processes</li>
-                            <li>Focus on root cause analysis for failing test cases</li>
-                            <li>Establish critical defect resolution process with immediate escalation</li>
-                            <li>Implement automated testing for critical paths to prevent regression</li>
-                            <li>Increase test coverage for major functionality areas</li>
-                            <li>Implement continuous integration with automated testing</li>
-                            <li>Prioritize high-defect modules for additional testing and development focus</li>
-                            <li>Review and improve test cases for low-performing modules</li>
-                            <li>Establish regular test execution schedules and monitoring</li>
-                            <li>Implement comprehensive test data management processes</li>
-                            <li>Create robust defect tracking and resolution workflows</li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Variances/Deviations -->
-            <div class="table-container">
-                <h2>Variances/Deviations</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Test Execution Variances</h3>
-                    <ul>
-                        {% if pass_rate < 75 %}
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
-                            <strong>Pass Rate Deviation:</strong> Pass rate of {{ "%.1f"|format(pass_rate) }}% is significantly below expected threshold. Quality concerns may indicate widespread issues. Conduct root cause analysis and implement quality gates.
-                        </li>
-                        {% endif %}
-                        
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 4px;">
-                            <strong>Critical Defect Deviation:</strong> {{ defects.critical.open }} critical defect(s) found - release blocker. Critical functionality is compromised, release should be delayed. Immediate defect resolution and re-testing required.
-                        </li>
-                        {% endif %}
-                        
-                        {% if (defects.major.open or 0) > 2 %}
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                            <strong>Major Defect Deviation:</strong> {{ defects.major.open }} major defect(s) exceed acceptable threshold. Significant functionality issues may impact user experience. Prioritize major defect resolution before release.
-                        </li>
-                        {% endif %}
-                        
-                        {% if modules_covered %}
-                            {% set high_defect_modules = [] %}
-                            {% for module, data in modules_covered.items() %}
-                                {% if (data.passed or 0) / (data.total or 1) * 100 < 50 %}
-                                    {% set _ = high_defect_modules.append(module) %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if high_defect_modules %}
-                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                                <strong>Module Pass Rate Deviation:</strong> Low pass rates in modules: {{ high_defect_modules | join(', ') }}. Specific modules show poor quality indicators. Review and improve test cases for low-performing modules.
-                            </li>
-                            {% endif %}
-                        {% endif %}
-                        
-                        {% if density %}
-                            {% set high_density_modules = [] %}
-                            {% for module, data in density.items() %}
-                                {% if data.get('density_percentage', 0) > 50 %}
-                                    {% set _ = high_density_modules.append(module) %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if high_density_modules %}
-                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                                <strong>Module Defect Density Deviation (High):</strong> High defect density in modules: {{ high_density_modules | join(', ') }}. Specific modules show excessive defect rates. Focus additional testing and development effort on high-defect modules.
-                            </li>
-                            {% endif %}
-                        {% endif %}
-                        
-                        {% if not variances %}
-                        <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px;">
-                            <strong>No Significant Variances:</strong> Test execution proceeded as planned with no major deviations from expected outcomes.
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Defect Density Analysis -->
-            {% if density %}
-            <div class="table-container">
-                <h2>Defect Density per Module</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Module</th>
-                            <th>Total Defects</th>
-                            <th>Total Tests</th>
-                            <th>Density %</th>
-                            <th>Critical</th>
-                            <th>Major</th>
-                            <th>Medium</th>
-                            <th>Minor</th>
-                            <th>Risk Level</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for module, data in density.items() %}
-                        <tr>
-                            <td><strong>{{ module }}</strong></td>
-                            <td>{{ data.get('total', 0) }}</td>
-                            <td>{{ data.get('total_tests', 0) }}</td>
-                            <td>{{ "%.1f"|format(data.get('density_percentage', 0)) }}%</td>
-                            <td>{{ data.get('critical', 0) }}</td>
-                            <td>{{ data.get('major', 0) }}</td>
-                            <td>{{ data.get('medium', 0) }}</td>
-                            <td>{{ data.get('minor', 0) }}</td>
-                            <td>
-                                {% set risk_level = data.get('risk_level', 'Low') %}
-                                <span class="status-badge status-{{ risk_level.lower() }}">{{ risk_level }}</span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endif %}
-
-            <!-- Exit Criteria -->
-            <div class="table-container">
-                <h2>Exit Criteria</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Criteria Met</h3>
-                    <div style="margin: 1rem 0;">
-                        <p>✅ All planned test cases executed ({{ executed_tests or (total_tests - skipped_tests) }}/{{ total_tests }})</p>
-                    </div>
-                    
-                    <h3>Criteria Not Met</h3>
-                    <div style="margin: 1rem 0;">
-                        {% if pass_rate < 95 %}
-                        <p>❌ Pass rate below conditional threshold ({{ "%.1f"|format(pass_rate) }}% < 95%)</p>
-                        {% endif %}
-                        {% if (defects.critical.open or 0) > 0 %}
-                        <p>❌ Critical defects exceed conditional limit ({{ defects.critical.open }} > 0)</p>
-                        {% endif %}
-                        {% if (defects.major.open or 0) > 1 %}
-                        <p>❌ Major defects exceed conditional limit ({{ defects.major.open }} > 1)</p>
-                        {% endif %}
+            <!-- Defect Analysis Charts (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-charts')">
+                    <span class="section-title">📊 Defect Analysis Charts</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-charts">
+                    <div class="content-wrapper">
+                        <div class="charts-section" style="margin-bottom: 2rem;">
+                            <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                                    <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                                    <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-            <!-- Recommendations -->
-            <div class="table-container">
-                <h2>Recommendations</h2>
-                <div style="padding: 1.5rem;">
-                    <ol style="line-height: 1.8;">
-                        <li>Implement stricter quality gates and code review processes</li>
-                        <li>Focus on root cause analysis for failing test cases</li>
-                        <li>Establish critical defect resolution process with immediate escalation</li>
-                        <li>Implement automated testing for critical paths to prevent regression</li>
-                        <li>Increase test coverage for major functionality areas</li>
-                        <li>Implement continuous integration with automated testing</li>
-                        <li>Prioritize high-defect modules for additional testing and development focus</li>
-                        <li>Review and improve test cases for low-performing modules</li>
-                        <li>Establish regular test execution schedules and monitoring</li>
-                        <li>Implement comprehensive test data management processes</li>
-                        <li>Create robust defect tracking and resolution workflows</li>
-                    </ol>
+            <!-- Key Bugs Identified (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('key-bugs')">
+                    <span class="section-title">🐛 Key Bugs Identified</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="key-bugs">
+                    <div class="content-wrapper">
+                        <div class="table-container">
+                            <h2>Key Bugs Identified</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bug ID</th>
+                                        <th>Severity</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Description</th>
+                                        <th>Module</th>
+                                        <th>Assigned To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if key_bugs and key_bugs|length > 0 %}
+                                        {% for bug in key_bugs %}
+                                            {% if bug and bug.id and bug.id != 'NaN' and bug.id != 'nan' %}
+                                            <tr>
+                                                <td><strong>{{ bug.id }}</strong></td>
+                                                <td><span class="status-badge status-{{ (bug.severity or 'unknown').lower() }}">{{ bug.severity or 'Unknown' }}</span></td>
+                                                <td>{{ bug.priority or 'N/A' }}</td>
+                                                <td><span class="status-badge status-{{ (bug.status or 'unknown').lower() }}">{{ bug.status or 'Unknown' }}</span></td>
+                                                <td>{{ bug.description or 'N/A' }}</td>
+                                                <td>{{ bug.module or 'N/A' }}</td>
+                                                <td>{{ bug.assigned_to or 'N/A' }}</td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7" style="text-align: center; color: #64748b; padding: 2rem;">No key bugs identified</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="environment" class="tab-content">
-            <!-- Test Environment -->
-            <div class="table-container">
-                <h2>Test Environment</h2>
-                <div style="padding: 1.5rem;">
-                    <h3>Environment Details</h3>
-                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Environment Name:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.environment_name or environment }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Version:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.software_version or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Software Details:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.software_details or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Browsers:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.browsers or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.database_type or 'N/A' }} {{ test_environment.database_version or '' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Database Details:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.database_details or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Deployment:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.deployment_type or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Load Balancer:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.load_balancer or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Monitoring:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.monitoring or 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 0.5rem; border: 1px solid #e2e8f0;">Logging:</td>
-                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;">{{ test_environment.logging or 'N/A' }}</td>
-                        </tr>
-                    </table>
+            <!-- Defect Trends (Collapsible) -->
+            <div class="collapsible-section">
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-trends')">
+                    <span class="section-title">📈 Defect Trends & Analysis</span>
+                    <span class="toggle-icon">▶</span>
+                </button>
+                <div class="collapsible-content" id="defect-trends">
+                    <div class="content-wrapper">
+                        <!-- Defect Distribution by Module -->
+                        <div class="table-container">
+                            <h2>Defect Distribution by Module</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Total Defects</th>
+                                        <th>Critical</th>
+                                        <th>Major</th>
+                                        <th>Medium</th>
+                                        <th>Minor</th>
+                                        <th>Defect Rate</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for module, data in density.items() %}
+                                    <tr>
+                                        <td><strong>{{ module }}</strong></td>
+                                        <td>{{ data.get('total', 0) }}</td>
+                                        <td>
+                                            <span class="status-badge status-critical">{{ data.get('critical', 0) }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-failed">{{ data.get('major', 0) }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-blocked">{{ data.get('medium', 0) }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge status-passed">{{ data.get('minor', 0) }}</span>
+                                        </td>
+                                        <td>{{ "%.1f"|format(data.get('density_percentage', 0)) }}%</td>
+                                        <td>
+                                            {% set risk_level = data.get('risk_level', 'Low') %}
+                                            {% if risk_level == 'High' %}
+                                                <span class="status-badge status-critical" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca;">{{ risk_level }}</span>
+                                            {% elif risk_level == 'Medium' %}
+                                                <span class="status-badge status-failed" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">{{ risk_level }}</span>
+                                            {% else %}
+                                                <span class="status-badge status-passed" style="background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">{{ risk_level }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Severity Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Severity Analysis</h2>
+                            <div style="padding: 1.5rem;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                                    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #dc2626;">{{ defects_by_severity.get('Critical', 0) }}</div>
+                                        <div style="color: #64748b;">Critical Defects</div>
+                                        <div style="font-size: 0.8rem; color: #dc2626; margin-top: 0.5rem;">Immediate Action Required</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">{{ defects_by_severity.get('Major', 0) }}</div>
+                                        <div style="color: #64748b;">Major Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">High Priority</div>
+                                    </div>
+                                    <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706;">{{ defects_by_severity.get('Medium', 0) }}</div>
+                                        <div style="color: #64748b;">Medium Defects</div>
+                                        <div style="font-size: 0.8rem; color: #d97706; margin-top: 0.5rem;">Medium Priority</div>
+                                    </div>
+                                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; text-align: center;">
+                                        <div style="font-size: 1.5rem; font-weight: bold; color: #166534;">{{ defects_by_severity.get('Minor', 0) }}</div>
+                                        <div style="color: #64748b;">Minor Defects</div>
+                                        <div style="font-size: 0.8rem; color: #166534; margin-top: 0.5rem;">Low Priority</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Defect Priority Analysis -->
+                        <div class="table-container">
+                            <h2>Defect Priority Distribution</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Priority Level</th>
+                                        <th>Count</th>
+                                        <th>Percentage</th>
+                                        <th>Action Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for priority, count in defects_by_priority.items() %}
+                                    <tr>
+                                        <td><strong>{{ priority }}</strong></td>
+                                        <td>{{ count }}</td>
+                                        <td>{{ "%.1f"|format((count / (defects_by_priority.values() | sum)) * 100) }}%</td>
+                                        <td>
+                                            {% if priority == 'Highest' %}
+                                                <span class="status-badge status-critical">Immediate</span>
+                                            {% elif priority == 'High' %}
+                                                <span class="status-badge status-failed">Within 24h</span>
+                                            {% elif priority == 'Medium' %}
+                                                <span class="status-badge status-blocked">Within 3 days</span>
+                                            {% else %}
+                                                <span class="status-badge status-passed">Next Sprint</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Defect Trend Summary -->
+                        <div class="table-container">
+                            <h2>Defect Trend Summary</h2>
+                            <div style="padding: 1.5rem;">
+                                <h3>Key Insights</h3>
+                                <ul>
+                                    <li><strong>Total Defects:</strong> {{ defects_by_severity.values() | sum }} defects identified across {{ fail_by_module.keys() | list | length }} modules</li>
+                                    <li><strong>Critical Issues:</strong> {{ defects_by_severity.get('Critical', 0) }} critical defects require immediate attention</li>
+                                    <li><strong>Most Affected Module:</strong> {{ fail_by_module.items() | max(attribute=1) | first }} with {{ fail_by_module.items() | max(attribute=1) | last }} defects</li>
+                                    <li><strong>Defect Density:</strong> {{ "%.1f"|format((defects_by_severity.values() | sum) / (total_tests) * 100) }}% of test cases resulted in defects</li>
+                                </ul>
+                                
+                                <div style="margin: 2rem 0;"></div>
+                                
+                                <h3>Recommendations</h3>
+                                <ul>
+                                    {% if defects_by_severity.get('Critical', 0) > 0 %}
+                                    <li>🔴 <strong>Critical Priority:</strong> Address {{ defects_by_severity.get('Critical', 0) }} critical defects before release</li>
+                                    {% endif %}
+                                    {% if fail_by_module.items() | max(attribute=1) | last > 3 %}
+                                    <li>🟡 <strong>Module Focus:</strong> {{ fail_by_module.items() | max(attribute=1) | first }} module needs additional testing and debugging</li>
+                                    {% endif %}
+                                    <li>🟢 <strong>Quality Improvement:</strong> Implement additional test coverage for high-defect areas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <div id="signoff" class="tab-content">
-            <!-- Sign-off -->
+            <!-- Release Decision -->
+            <div class="table-container">
+                <h2>Release Decision</h2>
+                <div style="padding: 1.5rem;">
+                    <h3>Release Recommendation</h3>
+                    <p><strong>Release Recommendation:</strong> 
+                        <span class="status-badge status-{{ quality_gate_evaluation.release_recommendation.lower() }}" style="display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; background: {% if quality_gate_evaluation.release_recommendation == 'REJECTED' %}#fef2f2; color: #dc2626;{% elif quality_gate_evaluation.release_recommendation == 'CONDITIONAL' %}#fef3c7; color: #d97706;{% else %}#dcfce7; color: #166534;{% endif %}">
+                            {{ quality_gate_evaluation.release_recommendation }}
+                        </span>
+                    </p>
+                    <p><strong>Comments:</strong> Based on test execution results and exit criteria evaluation</p>
+                </div>
+            </div>
+
+            <!-- Sign-off Information -->
             <div class="table-container">
                 <h2>Sign-Off</h2>
                 <div style="padding: 1.5rem;">
@@ -1044,6 +1508,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -1072,8 +1537,14 @@
             // Show selected tab content
             document.getElementById(tabName).classList.add('active');
             
-            // Add active class to clicked button
-            event.target.classList.add('active');
+            // Add active class to clicked button (find the button element, not just the target)
+            var clickedButton = event.target;
+            while (clickedButton && !clickedButton.classList.contains('tab-button')) {
+                clickedButton = clickedButton.parentElement;
+            }
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
         }
         
         function openModal(title, imageSrc) {
@@ -1093,6 +1564,31 @@
                 modal.style.display = 'none';
             }
         }
+        
+        // Collapsible sections functionality
+        function toggleCollapsible(sectionId) {
+            var content = document.getElementById(sectionId);
+            var icon = event.target.querySelector('.toggle-icon');
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('collapsed');
+                icon.textContent = '▶';
+            }
+        }
+        
+        // Initialize collapsible sections (all open by default)
+        document.addEventListener('DOMContentLoaded', function() {
+            var collapsibleHeaders = document.querySelectorAll('.collapsible-header');
+            collapsibleHeaders.forEach(function(header) {
+                var icon = header.querySelector('.toggle-icon');
+                if (icon) {
+                    icon.textContent = '▼';
+                }
+            });
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', function(event) {
