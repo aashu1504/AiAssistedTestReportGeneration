@@ -280,6 +280,47 @@
             color: #1e40af;
         }
         
+        /* Bug Status Colors */
+        .status-open {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-closed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-fixed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-verified {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-reopened {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-in-progress {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
         /* Charts */
         .chart-container {
             text-align: center;
@@ -434,14 +475,6 @@
                 <span class="icon">📊</span>
                 <span>Overview</span>
             </button>
-            <button class="tab-button" onclick="showTab('analysis')">
-                <span class="icon">📈</span>
-                <span>Analysis</span>
-            </button>
-            <button class="tab-button" onclick="showTab('modules')">
-                <span class="icon">🏗️</span>
-                <span>Modules</span>
-            </button>
             <button class="tab-button" onclick="showTab('testdetails')">
                 <span class="icon">🔍</span>
                 <span>Test Details</span>
@@ -449,6 +482,14 @@
             <button class="tab-button" onclick="showTab('defects')">
                 <span class="icon">🐛</span>
                 <span>Defects</span>
+            </button>
+            <button class="tab-button" onclick="showTab('modules')">
+                <span class="icon">🏗️</span>
+                <span>Modules</span>
+            </button>
+            <button class="tab-button" onclick="showTab('analysis')">
+                <span class="icon">📈</span>
+                <span>Analysis</span>
             </button>
             <button class="tab-button" onclick="showTab('signoff')">
                 <span class="icon">✍️</span>
@@ -613,6 +654,8 @@
                                         <li>No flaky tests identified - test reliability is good</li>
                                     {% endif %}
                                 </ul>
+                                
+                                <div style="margin: 2rem 0;"></div>
                                 
                                 <h3>Areas for Improvement</h3>
                                 <ul>
@@ -1181,78 +1224,81 @@
         </div>
 
         <div id="defects" class="tab-content">
-            <!-- Defect Summary (Always Visible) -->
+            <!-- Defect Analysis Charts (Always Visible) -->
             <div class="table-container">
-                <h2>Defect Summary</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Severity</th>
-                            <th>Open</th>
-                            <th>Closed</th>
-                            <th>Deferred</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
-                            <td>{{ defects.critical.open or 0 }}</td>
-                            <td>{{ defects.critical.closed or 0 }}</td>
-                            <td>{{ defects.critical.deferred or 0 }}</td>
-                            <td>{{ (defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
-                            <td>{{ defects.major.open or 0 }}</td>
-                            <td>{{ defects.major.closed or 0 }}</td>
-                            <td>{{ defects.major.deferred or 0 }}</td>
-                            <td>{{ (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
-                            <td>{{ defects.medium.open or 0 }}</td>
-                            <td>{{ defects.medium.closed or 0 }}</td>
-                            <td>{{ defects.medium.deferred or 0 }}</td>
-                            <td>{{ (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) }}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
-                            <td>{{ defects.minor.open or 0 }}</td>
-                            <td>{{ defects.minor.closed or 0 }}</td>
-                            <td>{{ defects.minor.deferred or 0 }}</td>
-                            <td>{{ (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0) }}</td>
-                        </tr>
-                        <tr style="font-weight: bold; background-color: #f8f9fa;">
-                            <td><strong>Total</strong></td>
-                            <td>{{ (defects.critical.open or 0) + (defects.major.open or 0) + (defects.medium.open or 0) + (defects.minor.open or 0) }}</td>
-                            <td>{{ (defects.critical.closed or 0) + (defects.major.closed or 0) + (defects.medium.closed or 0) + (defects.minor.closed or 0) }}</td>
-                            <td>{{ (defects.critical.deferred or 0) + (defects.major.deferred or 0) + (defects.medium.deferred or 0) + (defects.minor.deferred or 0) }}</td>
-                            <td>{{ (defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) + (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) + (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) + (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h2>Defect Analysis Charts</h2>
+                <div class="charts-section" style="margin-bottom: 2rem;">
+                    <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                            <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                        </div>
+                        <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                            <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Defect Analysis Charts (Collapsible) -->
+            <!-- Defect Summary (Collapsible) -->
             <div class="collapsible-section">
-                <button class="collapsible-header" onclick="toggleCollapsible('defect-charts')">
-                    <span class="section-title">📊 Defect Analysis Charts</span>
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-summary')">
+                    <span class="section-title">📋 Defect Summary</span>
                     <span class="toggle-icon">▶</span>
                 </button>
-                <div class="collapsible-content" id="defect-charts">
+                <div class="collapsible-content" id="defect-summary">
                     <div class="content-wrapper">
-                        <div class="charts-section" style="margin-bottom: 2rem;">
-                            <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
-                                    <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                                </div>
-                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
-                                    <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                                </div>
-                            </div>
+                        <div class="table-container">
+                            <h2>Defect Summary</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Severity</th>
+                                        <th>Open</th>
+                                        <th>Closed</th>
+                                        <th>Deferred</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
+                                        <td>{{ defects.critical.open or 0 }}</td>
+                                        <td>{{ defects.critical.closed or 0 }}</td>
+                                        <td>{{ defects.critical.deferred or 0 }}</td>
+                                        <td>{{ (defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
+                                        <td>{{ defects.major.open or 0 }}</td>
+                                        <td>{{ defects.major.closed or 0 }}</td>
+                                        <td>{{ defects.major.deferred or 0 }}</td>
+                                        <td>{{ (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
+                                        <td>{{ defects.medium.open or 0 }}</td>
+                                        <td>{{ defects.medium.closed or 0 }}</td>
+                                        <td>{{ defects.medium.deferred or 0 }}</td>
+                                        <td>{{ (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
+                                        <td>{{ defects.minor.open or 0 }}</td>
+                                        <td>{{ defects.minor.closed or 0 }}</td>
+                                        <td>{{ defects.minor.deferred or 0 }}</td>
+                                        <td>{{ (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0) }}</td>
+                                    </tr>
+                                    <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                        <td><strong>Total</strong></td>
+                                        <td>{{ (defects.critical.open or 0) + (defects.major.open or 0) + (defects.medium.open or 0) + (defects.minor.open or 0) }}</td>
+                                        <td>{{ (defects.critical.closed or 0) + (defects.major.closed or 0) + (defects.medium.closed or 0) + (defects.minor.closed or 0) }}</td>
+                                        <td>{{ (defects.critical.deferred or 0) + (defects.major.deferred or 0) + (defects.medium.deferred or 0) + (defects.minor.deferred or 0) }}</td>
+                                        <td>{{ (defects.critical.open or 0) + (defects.critical.closed or 0) + (defects.critical.deferred or 0) + (defects.major.open or 0) + (defects.major.closed or 0) + (defects.major.deferred or 0) + (defects.medium.open or 0) + (defects.medium.closed or 0) + (defects.medium.deferred or 0) + (defects.minor.open or 0) + (defects.minor.closed or 0) + (defects.minor.deferred or 0) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1288,7 +1334,28 @@
                                                 <td><strong>{{ bug.id }}</strong></td>
                                                 <td><span class="status-badge status-{{ (bug.severity or 'unknown').lower() }}">{{ bug.severity or 'Unknown' }}</span></td>
                                                 <td>{{ bug.priority or 'N/A' }}</td>
-                                                <td><span class="status-badge status-{{ (bug.status or 'unknown').lower() }}">{{ bug.status or 'Unknown' }}</span></td>
+                                                <td>
+                                                    {% set status = (bug.status or 'unknown').lower() %}
+                                                    {% if status == 'open' %}
+                                                        <span class="status-badge status-open">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'closed' %}
+                                                        <span class="status-badge status-closed">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'fixed' %}
+                                                        <span class="status-badge status-fixed">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'resolved' %}
+                                                        <span class="status-badge status-resolved">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'verified' %}
+                                                        <span class="status-badge status-verified">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'reopened' %}
+                                                        <span class="status-badge status-reopened">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'in-progress' or status == 'in_progress' %}
+                                                        <span class="status-badge status-in-progress">{{ bug.status or 'Unknown' }}</span>
+                                                    {% elif status == 'pending' %}
+                                                        <span class="status-badge status-pending">{{ bug.status or 'Unknown' }}</span>
+                                                    {% else %}
+                                                        <span class="status-badge status-blocked">{{ bug.status or 'Unknown' }}</span>
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{ bug.description or 'N/A' }}</td>
                                                 <td>{{ bug.module or 'N/A' }}</td>
                                                 <td>{{ bug.assigned_to or 'N/A' }}</td>
@@ -1394,7 +1461,8 @@
                             </div>
                         </div>
 
-                        <!-- Defect Priority Analysis -->
+                        <!-- Defect Priority Analysis - HIDDEN -->
+                        <!--
                         <div class="table-container">
                             <h2>Defect Priority Distribution</h2>
                             <table>
@@ -1428,6 +1496,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        -->
 
                         <!-- Defect Trend Summary -->
                         <div class="table-container">

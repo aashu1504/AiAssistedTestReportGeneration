@@ -280,6 +280,47 @@
             color: #1e40af;
         }
         
+        /* Bug Status Colors */
+        .status-open {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-closed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-fixed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-verified {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-reopened {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-in-progress {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
         /* Charts */
         .chart-container {
             text-align: center;
@@ -434,14 +475,6 @@
                 <span class="icon">📊</span>
                 <span>Overview</span>
             </button>
-            <button class="tab-button" onclick="showTab('analysis')">
-                <span class="icon">📈</span>
-                <span>Analysis</span>
-            </button>
-            <button class="tab-button" onclick="showTab('modules')">
-                <span class="icon">🏗️</span>
-                <span>Modules</span>
-            </button>
             <button class="tab-button" onclick="showTab('testdetails')">
                 <span class="icon">🔍</span>
                 <span>Test Details</span>
@@ -449,6 +482,14 @@
             <button class="tab-button" onclick="showTab('defects')">
                 <span class="icon">🐛</span>
                 <span>Defects</span>
+            </button>
+            <button class="tab-button" onclick="showTab('modules')">
+                <span class="icon">🏗️</span>
+                <span>Modules</span>
+            </button>
+            <button class="tab-button" onclick="showTab('analysis')">
+                <span class="icon">📈</span>
+                <span>Analysis</span>
             </button>
             <button class="tab-button" onclick="showTab('signoff')">
                 <span class="icon">✍️</span>
@@ -513,7 +554,7 @@
                         <div class="quality-gate rejected">
                             <h3>Quality Gate Evaluation</h3>
                             <p><strong>Recommendation:</strong> REJECTED</p>
-                            <p><strong>Gate Used:</strong> Strict Quality Gate</p>
+                            <p><strong>Gate Used:</strong> Lenient Quality Gate</p>
                             
                         </div>
                     </div>
@@ -638,6 +679,8 @@
                                         <li>No flaky tests identified - test reliability is good</li>
                                     
                                 </ul>
+                                
+                                <div style="margin: 2rem 0;"></div>
                                 
                                 <h3>Areas for Improvement</h3>
                                 <ul>
@@ -1343,7 +1386,7 @@
                                 <tbody>
                                     
                                     <tr>
-                                        <td><strong>TC_LOGIN_001</strong></td>
+                                        <td><strong>validUserLogin</strong></td>
                                         <td>Valid User Login</td>
                                         <td>Authentication</td>
                                         <td>
@@ -1375,19 +1418,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_LOGIN_002</strong></td>
+                                        <td><strong>invalidPasswordLogin</strong></td>
                                         <td>Invalid Password Login</td>
                                         <td>Authentication</td>
                                         <td>
@@ -1419,19 +1462,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_LOGIN_003</strong></td>
+                                        <td><strong>emptyUsernameLogin</strong></td>
                                         <td>Empty Username Login</td>
                                         <td>Authentication</td>
                                         <td>
@@ -1463,19 +1506,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_LOGIN_004</strong></td>
+                                        <td><strong>emptyPasswordLogin</strong></td>
                                         <td>Empty Password Login</td>
                                         <td>Authentication</td>
                                         <td>
@@ -1507,19 +1550,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_LOGIN_005</strong></td>
+                                        <td><strong>sqlInjectionLogin</strong></td>
                                         <td>SQL Injection Login</td>
                                         <td>Authentication</td>
                                         <td>
@@ -1551,19 +1594,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_DASHBOARD_001</strong></td>
+                                        <td><strong>loadDashboard</strong></td>
                                         <td>Load Dashboard</td>
                                         <td>Dashboard</td>
                                         <td>
@@ -1595,19 +1638,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_DASHBOARD_002</strong></td>
+                                        <td><strong>widgetDisplay</strong></td>
                                         <td>Widget Display</td>
                                         <td>Dashboard</td>
                                         <td>
@@ -1639,19 +1682,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_DASHBOARD_003</strong></td>
+                                        <td><strong>dataRefresh</strong></td>
                                         <td>Data Refresh</td>
                                         <td>Dashboard</td>
                                         <td>
@@ -1683,19 +1726,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_DASHBOARD_004</strong></td>
+                                        <td><strong>responsiveLayout</strong></td>
                                         <td>Responsive Layout</td>
                                         <td>Dashboard</td>
                                         <td>
@@ -1727,19 +1770,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_DASHBOARD_005</strong></td>
+                                        <td><strong>performanceMetrics</strong></td>
                                         <td>Performance Metrics</td>
                                         <td>Dashboard</td>
                                         <td>
@@ -1771,19 +1814,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_ORDER_001</strong></td>
+                                        <td><strong>createNewOrder</strong></td>
                                         <td>Create New Order</td>
                                         <td>Order Management</td>
                                         <td>
@@ -1815,19 +1858,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Firefox 119
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_ORDER_002</strong></td>
+                                        <td><strong>editExistingOrder</strong></td>
                                         <td>Edit Existing Order</td>
                                         <td>Order Management</td>
                                         <td>
@@ -1859,19 +1902,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Firefox 119
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_ORDER_003</strong></td>
+                                        <td><strong>deleteOrder</strong></td>
                                         <td>Delete Order</td>
                                         <td>Order Management</td>
                                         <td>
@@ -1903,19 +1946,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Firefox 119
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_ORDER_004</strong></td>
+                                        <td><strong>orderValidation</strong></td>
                                         <td>Order Validation</td>
                                         <td>Order Management</td>
                                         <td>
@@ -1947,19 +1990,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Firefox 119
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_ORDER_005</strong></td>
+                                        <td><strong>bulkOrderImport</strong></td>
                                         <td>Bulk Order Import</td>
                                         <td>Order Management</td>
                                         <td>
@@ -1991,19 +2034,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Firefox 119
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PAYMENT_001</strong></td>
+                                        <td><strong>creditCardPayment</strong></td>
                                         <td>Credit Card Payment</td>
                                         <td>Payment</td>
                                         <td>
@@ -2035,19 +2078,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Edge 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PAYMENT_002</strong></td>
+                                        <td><strong>paypalPayment</strong></td>
                                         <td>PayPal Payment</td>
                                         <td>Payment</td>
                                         <td>
@@ -2079,19 +2122,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Edge 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PAYMENT_003</strong></td>
+                                        <td><strong>invalidCardPayment</strong></td>
                                         <td>Invalid Card Payment</td>
                                         <td>Payment</td>
                                         <td>
@@ -2123,19 +2166,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Edge 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PAYMENT_004</strong></td>
+                                        <td><strong>refundProcess</strong></td>
                                         <td>Refund Process</td>
                                         <td>Payment</td>
                                         <td>
@@ -2167,19 +2210,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Edge 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PAYMENT_005</strong></td>
+                                        <td><strong>paymentHistory</strong></td>
                                         <td>Payment History</td>
                                         <td>Payment</td>
                                         <td>
@@ -2211,19 +2254,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Edge 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_REPORT_001</strong></td>
+                                        <td><strong>generateSalesReport</strong></td>
                                         <td>Generate Sales Report</td>
                                         <td>Reports</td>
                                         <td>
@@ -2255,19 +2298,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Safari 17
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_REPORT_002</strong></td>
+                                        <td><strong>exportPdfReport</strong></td>
                                         <td>Export PDF Report</td>
                                         <td>Reports</td>
                                         <td>
@@ -2299,19 +2342,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Safari 17
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_REPORT_003</strong></td>
+                                        <td><strong>emailReport</strong></td>
                                         <td>Email Report</td>
                                         <td>Reports</td>
                                         <td>
@@ -2343,19 +2386,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Safari 17
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_REPORT_004</strong></td>
+                                        <td><strong>reportFiltering</strong></td>
                                         <td>Report Filtering</td>
                                         <td>Reports</td>
                                         <td>
@@ -2387,19 +2430,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Safari 17
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_REPORT_005</strong></td>
+                                        <td><strong>dataVisualization</strong></td>
                                         <td>Data Visualization</td>
                                         <td>Reports</td>
                                         <td>
@@ -2431,19 +2474,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Safari 17
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_USER_001</strong></td>
+                                        <td><strong>createUserAccount</strong></td>
                                         <td>Create User Account</td>
                                         <td>User Management</td>
                                         <td>
@@ -2475,19 +2518,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_USER_002</strong></td>
+                                        <td><strong>updateUserProfile</strong></td>
                                         <td>Update User Profile</td>
                                         <td>User Management</td>
                                         <td>
@@ -2519,19 +2562,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_USER_003</strong></td>
+                                        <td><strong>deleteUserAccount</strong></td>
                                         <td>Delete User Account</td>
                                         <td>User Management</td>
                                         <td>
@@ -2563,19 +2606,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_USER_004</strong></td>
+                                        <td><strong>roleAssignment</strong></td>
                                         <td>Role Assignment</td>
                                         <td>User Management</td>
                                         <td>
@@ -2607,19 +2650,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_USER_005</strong></td>
+                                        <td><strong>passwordReset</strong></td>
                                         <td>Password Reset</td>
                                         <td>User Management</td>
                                         <td>
@@ -2651,19 +2694,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_API_001</strong></td>
+                                        <td><strong>loginApiEndpoint</strong></td>
                                         <td>Login API Endpoint</td>
                                         <td>API Testing</td>
                                         <td>
@@ -2695,19 +2738,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Postman
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_API_002</strong></td>
+                                        <td><strong>getUserDataApi</strong></td>
                                         <td>Get User Data API</td>
                                         <td>API Testing</td>
                                         <td>
@@ -2739,19 +2782,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Postman
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_API_003</strong></td>
+                                        <td><strong>createOrderApi</strong></td>
                                         <td>Create Order API</td>
                                         <td>API Testing</td>
                                         <td>
@@ -2783,19 +2826,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Postman
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_API_004</strong></td>
+                                        <td><strong>updateOrderApi</strong></td>
                                         <td>Update Order API</td>
                                         <td>API Testing</td>
                                         <td>
@@ -2827,19 +2870,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Postman
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_API_005</strong></td>
+                                        <td><strong>deleteOrderApi</strong></td>
                                         <td>Delete Order API</td>
                                         <td>API Testing</td>
                                         <td>
@@ -2871,19 +2914,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Postman
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PERF_001</strong></td>
+                                        <td><strong>pageLoadPerformance</strong></td>
                                         <td>Page Load Performance</td>
                                         <td>Performance</td>
                                         <td>
@@ -2915,19 +2958,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PERF_002</strong></td>
+                                        <td><strong>databaseQueryPerformance</strong></td>
                                         <td>Database Query Performance</td>
                                         <td>Performance</td>
                                         <td>
@@ -2959,19 +3002,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PERF_003</strong></td>
+                                        <td><strong>concurrentUserLoad</strong></td>
                                         <td>Concurrent User Load</td>
                                         <td>Performance</td>
                                         <td>
@@ -3003,19 +3046,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PERF_004</strong></td>
+                                        <td><strong>memoryUsage</strong></td>
                                         <td>Memory Usage</td>
                                         <td>Performance</td>
                                         <td>
@@ -3047,19 +3090,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_PERF_005</strong></td>
+                                        <td><strong>responseTimeUnderLoad</strong></td>
                                         <td>Response Time Under Load</td>
                                         <td>Performance</td>
                                         <td>
@@ -3091,19 +3134,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_SEC_001</strong></td>
+                                        <td><strong>sqlInjectionTest</strong></td>
                                         <td>SQL Injection Test</td>
                                         <td>Security</td>
                                         <td>
@@ -3135,19 +3178,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_SEC_002</strong></td>
+                                        <td><strong>xssVulnerabilityTest</strong></td>
                                         <td>XSS Vulnerability Test</td>
                                         <td>Security</td>
                                         <td>
@@ -3179,19 +3222,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_SEC_003</strong></td>
+                                        <td><strong>authenticationBypass</strong></td>
                                         <td>Authentication Bypass</td>
                                         <td>Security</td>
                                         <td>
@@ -3223,19 +3266,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_SEC_004</strong></td>
+                                        <td><strong>sessionManagement</strong></td>
                                         <td>Session Management</td>
                                         <td>Security</td>
                                         <td>
@@ -3267,19 +3310,19 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
                                     
                                     <tr>
-                                        <td><strong>TC_SEC_005</strong></td>
+                                        <td><strong>dataEncryption</strong></td>
                                         <td>Data Encryption</td>
                                         <td>Security</td>
                                         <td>
@@ -3311,13 +3354,13 @@
                                         <td>
                                             
                                             
-                                                QA
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                         <td>
                                             
                                             
-                                                Chrome 120
+                                                <span style="color: #64748b; font-style: italic;">N/A</span>
                                             
                                         </td>
                                     </tr>
@@ -3358,7 +3401,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_LOGIN_002</strong></td>
+                                            <td><strong>invalidPasswordLogin</strong></td>
                                             <td>Invalid Password Login</td>
                                             <td>Authentication</td>
                                             <td>
@@ -3369,7 +3412,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Invalid credentials provided</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3393,7 +3436,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_LOGIN_003</strong></td>
+                                            <td><strong>emptyUsernameLogin</strong></td>
                                             <td>Empty Username Login</td>
                                             <td>Authentication</td>
                                             <td>
@@ -3404,7 +3447,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Username field is required</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3428,7 +3471,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_LOGIN_004</strong></td>
+                                            <td><strong>emptyPasswordLogin</strong></td>
                                             <td>Empty Password Login</td>
                                             <td>Authentication</td>
                                             <td>
@@ -3439,7 +3482,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Password field is required</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3463,7 +3506,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_LOGIN_005</strong></td>
+                                            <td><strong>sqlInjectionLogin</strong></td>
                                             <td>SQL Injection Login</td>
                                             <td>Authentication</td>
                                             <td>
@@ -3474,7 +3517,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Security vulnerability detected</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3504,7 +3547,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_DASHBOARD_004</strong></td>
+                                            <td><strong>responsiveLayout</strong></td>
                                             <td>Responsive Layout</td>
                                             <td>Dashboard</td>
                                             <td>
@@ -3515,7 +3558,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Layout breaks on mobile view</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3545,7 +3588,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_ORDER_003</strong></td>
+                                            <td><strong>deleteOrder</strong></td>
                                             <td>Delete Order</td>
                                             <td>Order Management</td>
                                             <td>
@@ -3556,7 +3599,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Delete confirmation not working</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3582,7 +3625,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_ORDER_005</strong></td>
+                                            <td><strong>bulkOrderImport</strong></td>
                                             <td>Bulk Order Import</td>
                                             <td>Order Management</td>
                                             <td>
@@ -3593,7 +3636,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">File upload timeout</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3621,7 +3664,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_PAYMENT_003</strong></td>
+                                            <td><strong>invalidCardPayment</strong></td>
                                             <td>Invalid Card Payment</td>
                                             <td>Payment</td>
                                             <td>
@@ -3632,7 +3675,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Payment gateway error</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3664,7 +3707,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_REPORT_003</strong></td>
+                                            <td><strong>emailReport</strong></td>
                                             <td>Email Report</td>
                                             <td>Reports</td>
                                             <td>
@@ -3675,7 +3718,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Email service unavailable</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3707,7 +3750,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_USER_003</strong></td>
+                                            <td><strong>deleteUserAccount</strong></td>
                                             <td>Delete User Account</td>
                                             <td>User Management</td>
                                             <td>
@@ -3718,7 +3761,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">User deletion failed</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3744,7 +3787,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_USER_005</strong></td>
+                                            <td><strong>passwordReset</strong></td>
                                             <td>Password Reset</td>
                                             <td>User Management</td>
                                             <td>
@@ -3755,7 +3798,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Reset email not sent</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3783,7 +3826,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_API_003</strong></td>
+                                            <td><strong>createOrderApi</strong></td>
                                             <td>Create Order API</td>
                                             <td>API Testing</td>
                                             <td>
@@ -3794,7 +3837,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">500 Internal Server Error</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3820,7 +3863,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_API_005</strong></td>
+                                            <td><strong>deleteOrderApi</strong></td>
                                             <td>Delete Order API</td>
                                             <td>API Testing</td>
                                             <td>
@@ -3831,7 +3874,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">404 Not Found</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3863,7 +3906,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_PERF_005</strong></td>
+                                            <td><strong>responseTimeUnderLoad</strong></td>
                                             <td>Response Time Under Load</td>
                                             <td>Performance</td>
                                             <td>
@@ -3874,7 +3917,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Response time exceeds threshold</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -3902,7 +3945,7 @@
                                     
                                         
                                         <tr>
-                                            <td><strong>TC_SEC_003</strong></td>
+                                            <td><strong>authenticationBypass</strong></td>
                                             <td>Authentication Bypass</td>
                                             <td>Security</td>
                                             <td>
@@ -3913,7 +3956,7 @@
                                                     
                                                 
                                             </td>
-                                            <td style="max-width: 200px; word-wrap: break-word;">Security vulnerability found</td>
+                                            <td style="max-width: 200px; word-wrap: break-word;">N/A</td>
                                             <td>
                                                 
                                                 
@@ -4448,78 +4491,81 @@
         </div>
 
         <div id="defects" class="tab-content">
-            <!-- Defect Summary (Always Visible) -->
+            <!-- Defect Analysis Charts (Always Visible) -->
             <div class="table-container">
-                <h2>Defect Summary</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Severity</th>
-                            <th>Open</th>
-                            <th>Closed</th>
-                            <th>Deferred</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
-                            <td>3</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1</td>
-                        </tr>
-                        <tr style="font-weight: bold; background-color: #f8f9fa;">
-                            <td><strong>Total</strong></td>
-                            <td>15</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>15</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h2>Defect Analysis Charts</h2>
+                <div class="charts-section" style="margin-bottom: 2rem;">
+                    <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                        <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
+                            <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                        </div>
+                        <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
+                            <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Defect Analysis Charts (Collapsible) -->
+            <!-- Defect Summary (Collapsible) -->
             <div class="collapsible-section">
-                <button class="collapsible-header" onclick="toggleCollapsible('defect-charts')">
-                    <span class="section-title">📊 Defect Analysis Charts</span>
+                <button class="collapsible-header" onclick="toggleCollapsible('defect-summary')">
+                    <span class="section-title">📋 Defect Summary</span>
                     <span class="toggle-icon">▶</span>
                 </button>
-                <div class="collapsible-content" id="defect-charts">
+                <div class="collapsible-content" id="defect-summary">
                     <div class="content-wrapper">
-                        <div class="charts-section" style="margin-bottom: 2rem;">
-                            <div class="charts-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Severity</h3>
-                                    <img src="assets/defects_by_severity.png" alt="Defect Severity Chart" onclick="openModal('Defects by Severity', 'assets/defects_by_severity.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                                </div>
-                                <div class="chart-card" style="background: white; border-radius: 8px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Defects by Priority</h3>
-                                    <img src="assets/defects_by_priority.png" alt="Defect Priority Chart" onclick="openModal('Defects by Priority', 'assets/defects_by_priority.png')" style="width: 100%; height: auto; border-radius: 4px; cursor: pointer;" />
-                                </div>
-                            </div>
+                        <div class="table-container">
+                            <h2>Defect Summary</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Severity</th>
+                                        <th>Open</th>
+                                        <th>Closed</th>
+                                        <th>Deferred</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="status-badge status-critical"><strong>Critical</strong></span></td>
+                                        <td>3</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-critical"><strong>Major</strong></span></td>
+                                        <td>6</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-blocked"><strong>Medium</strong></span></td>
+                                        <td>5</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="status-badge status-passed"><strong>Minor</strong></span></td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr style="font-weight: bold; background-color: #f8f9fa;">
+                                        <td><strong>Total</strong></td>
+                                        <td>15</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>15</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -4551,13 +4597,16 @@
                                     
                                         
                                             
-                                        
-                                            
                                             <tr>
                                                 <td><strong>BUG-001</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Authentication</td>
                                                 <td>John Smith</td>
@@ -4569,7 +4618,12 @@
                                                 <td><strong>BUG-002</strong></td>
                                                 <td><span class="status-badge status-medium">Medium</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Authentication</td>
                                                 <td>John Smith</td>
@@ -4581,7 +4635,12 @@
                                                 <td><strong>BUG-003</strong></td>
                                                 <td><span class="status-badge status-medium">Medium</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Authentication</td>
                                                 <td>John Smith</td>
@@ -4593,7 +4652,12 @@
                                                 <td><strong>BUG-004</strong></td>
                                                 <td><span class="status-badge status-critical">Critical</span></td>
                                                 <td>Critical</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Authentication</td>
                                                 <td>John Smith</td>
@@ -4605,7 +4669,12 @@
                                                 <td><strong>BUG-005</strong></td>
                                                 <td><span class="status-badge status-medium">Medium</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Dashboard</td>
                                                 <td>Mike Johnson</td>
@@ -4617,7 +4686,12 @@
                                                 <td><strong>BUG-006</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Order Management</td>
                                                 <td>Sarah Wilson</td>
@@ -4629,7 +4703,12 @@
                                                 <td><strong>BUG-007</strong></td>
                                                 <td><span class="status-badge status-medium">Medium</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Order Management</td>
                                                 <td>Sarah Wilson</td>
@@ -4641,7 +4720,12 @@
                                                 <td><strong>BUG-008</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Payment</td>
                                                 <td>David Brown</td>
@@ -4653,7 +4737,12 @@
                                                 <td><strong>BUG-009</strong></td>
                                                 <td><span class="status-badge status-minor">Minor</span></td>
                                                 <td>Low</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Reports</td>
                                                 <td>Lisa Chen</td>
@@ -4665,7 +4754,12 @@
                                                 <td><strong>BUG-010</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>User Management</td>
                                                 <td>Alex Kumar</td>
@@ -4677,7 +4771,12 @@
                                                 <td><strong>BUG-011</strong></td>
                                                 <td><span class="status-badge status-medium">Medium</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>User Management</td>
                                                 <td>Alex Kumar</td>
@@ -4689,7 +4788,12 @@
                                                 <td><strong>BUG-012</strong></td>
                                                 <td><span class="status-badge status-critical">Critical</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>API Testing</td>
                                                 <td>API Tester</td>
@@ -4701,7 +4805,12 @@
                                                 <td><strong>BUG-013</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>Medium</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>API Testing</td>
                                                 <td>API Tester</td>
@@ -4713,7 +4822,12 @@
                                                 <td><strong>BUG-014</strong></td>
                                                 <td><span class="status-badge status-major">Major</span></td>
                                                 <td>High</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Performance</td>
                                                 <td>Perf Tester</td>
@@ -4725,7 +4839,12 @@
                                                 <td><strong>BUG-015</strong></td>
                                                 <td><span class="status-badge status-critical">Critical</span></td>
                                                 <td>Critical</td>
-                                                <td><span class="status-badge status-open">Open</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                        <span class="status-badge status-open">Open</span>
+                                                    
+                                                </td>
                                                 <td>N/A</td>
                                                 <td>Security</td>
                                                 <td>Security Tester</td>
@@ -5015,7 +5134,8 @@
                             </div>
                         </div>
 
-                        <!-- Defect Priority Analysis -->
+                        <!-- Defect Priority Analysis - HIDDEN -->
+                        <!--
                         <div class="table-container">
                             <h2>Defect Priority Distribution</h2>
                             <table>
@@ -5031,8 +5151,8 @@
                                     
                                     <tr>
                                         <td><strong>High</strong></td>
-                                        <td>21</td>
-                                        <td>46.7%</td>
+                                        <td>6</td>
+                                        <td>40.0%</td>
                                         <td>
                                             
                                                 <span class="status-badge status-failed">Within 24h</span>
@@ -5042,8 +5162,8 @@
                                     
                                     <tr>
                                         <td><strong>Medium</strong></td>
-                                        <td>16</td>
-                                        <td>35.6%</td>
+                                        <td>6</td>
+                                        <td>40.0%</td>
                                         <td>
                                             
                                                 <span class="status-badge status-blocked">Within 3 days</span>
@@ -5053,8 +5173,8 @@
                                     
                                     <tr>
                                         <td><strong>Critical</strong></td>
-                                        <td>4</td>
-                                        <td>8.9%</td>
+                                        <td>2</td>
+                                        <td>13.3%</td>
                                         <td>
                                             
                                                 <span class="status-badge status-passed">Next Sprint</span>
@@ -5064,8 +5184,8 @@
                                     
                                     <tr>
                                         <td><strong>Low</strong></td>
-                                        <td>4</td>
-                                        <td>8.9%</td>
+                                        <td>1</td>
+                                        <td>6.7%</td>
                                         <td>
                                             
                                                 <span class="status-badge status-passed">Next Sprint</span>
@@ -5087,6 +5207,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        -->
 
                         <!-- Defect Trend Summary -->
                         <div class="table-container">
